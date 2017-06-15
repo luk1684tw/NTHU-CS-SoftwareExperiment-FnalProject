@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {View, Text, Image, Platform} from 'react-native'
 
-import {Container, Content, Thumbnail, Icon, Badge, Button, Text as NbText} from 'native-base';
+import {Container, Content, Thumbnail, Icon, Badge, Button, Text as NbText, List, ListItem} from 'native-base';
 import appColors from '../styles/colors';
 
 export default class DrawerSideBar extends React.Component {
@@ -14,20 +14,25 @@ export default class DrawerSideBar extends React.Component {
       const {navigate} = this.props;
       return (
         <Container style={styles.drawer}>
-            <Image source={require('../images/account-bg.jpg')} style={styles.header}>
-                <Thumbnail large source={require('../images/account.jpg')} />
-            </Image>
-            <Button block transparent style={styles.item} onPress={() => navigate('Today')}>
-                <Icon name='rocket' style={styles.icon} />
-                <Text style={styles.text}>Today</Text>
-                <Badge primary style={styles.badge}>
-                    <NbText style={styles.badgeText}>2</NbText>
-                </Badge>
-            </Button>
-            <Button block transparent style={styles.item} onPress={() => navigate('Forecast')}>
-                <Icon name='tag-multiple' style={styles.icon} />
-                <Text style={styles.text}>Forecast</Text>
-            </Button>
+            <Content>
+                <List>
+                    <ListItem button onPress={() => navigate('Today')}>
+                        <Text style={styles.text}>Today</Text>
+                    </ListItem>
+                    <ListItem button onPress={() => navigate('Upcoming')}>
+                        <Text style={styles.text}>Upcoming</Text>
+                    </ListItem>
+                    <ListItem button onPress={() => navigate('SomeDay')}>
+                        <Text style={styles.text}>SomeDay</Text>
+                    </ListItem>
+                    <ListItem button onPress={() => navigate('Group')}>
+                        <Text style={styles.text}>Group</Text>
+                    </ListItem>
+                    <ListItem button onPress={() => navigate('Setting')}>
+                        <Text style={styles.text}>Settings</Text>
+                    </ListItem>
+                </List>
+            </Content>
         </Container>
     );
     }

@@ -15,13 +15,18 @@ import {post, postForm, postItem} from './states/post-reducers';
 
 import {StackNavigator, NavigationActions, addNavigationHelpers} from 'react-navigation';
 import TodayScreen from './components/TodayScreen';
-import PostFormScreen from './components/PostFormScreen';
-import ForecastScreen from './components/ForecastScreen';
+import UpcomingScreen from './components/UpcomingScreen.js';
+import SomeDayScreen from './components/SomeDayScreen.js';
+import GroupScreen from './components/GroupScreen.js';
+import SettingScreen from './components/SettingScreen.js';
+
 
 const AppNavigator = StackNavigator({
     Today: {screen: TodayScreen},
-    Forecast: {screen: ForecastScreen},
-    PostForm: {screen: PostFormScreen}
+    Upcoming: {screen: UpcomingScreen},
+    SomeDay: {screen: SomeDayScreen},
+    Group: {screen: GroupScreen},
+    Setting: {screen: SettingScreen},
 }, {
     headerMode: 'none'
 });
