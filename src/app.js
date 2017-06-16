@@ -19,8 +19,10 @@ import UpcomingScreen from './components/UpcomingScreen.js';
 import SomeDayScreen from './components/SomeDayScreen.js';
 import GroupScreen from './components/GroupScreen.js';
 import SettingScreen from './components/SettingScreen.js';
+
 import CreateGroupScreen from './components/CreateGroupScreen.js';
 import AddEventScreen from './components/AddEventScreen.js';
+
 
 const AppNavigator = StackNavigator({
     Today: {screen: TodayScreen},
@@ -29,6 +31,7 @@ const AppNavigator = StackNavigator({
     Group: {screen: GroupScreen},
     Setting: {screen: SettingScreen},
     CreateGroup: {screen: CreateGroupScreen},
+
     AddEvent: {screen: AddEventScreen}
 }, {
     headerMode: 'none'

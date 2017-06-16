@@ -8,7 +8,6 @@ export default class GroupScreen extends React.Component{
           <NavigationContainer navigate={navigate} title='Group'>
               <Text style={styles}>This is Screen for Group</Text>
           </NavigationContainer>
-
         );
     };
 }

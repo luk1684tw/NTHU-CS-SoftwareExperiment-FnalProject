@@ -7,7 +7,9 @@
 // Production server URL
 const postBaseUrl = 'http://weathermood-production.us-west-2.elasticbeanstalk.com/api';
 import {AsyncStorage} from 'react-native';
+
 const uuid = require('uuid/v4');
+
 
 export function listPosts(searchText = '', start, group = '') {
     return new Promise((resolve,reject) => {
@@ -50,6 +52,7 @@ export function createPost(StartDate, EndDate, Group, Title, Description) {
     }).catch(error => {
         console.log(eror);
     });
+
 }
 
 export function listGroup() {
