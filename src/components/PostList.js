@@ -5,6 +5,8 @@ import {
     ListView, RefreshControl
 } from 'react-native';
 import InfiniteScrollView from 'react-native-infinite-scroll-view';
+import {Left,Right,Body} from 'native-base';
+
 
 import PostItem from './PostItem';
 
@@ -48,7 +50,12 @@ class PostList extends React.Component {
     render() {
         const {listingPosts, hasMorePosts, posts} = this.props;
         return (
-            <PostItem/>
+
+            <View>
+                <PostItem/>
+                <PostItem/>
+            </View>
+
         )
     }
 

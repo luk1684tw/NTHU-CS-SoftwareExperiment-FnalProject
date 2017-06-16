@@ -36,8 +36,6 @@ export default class NavigationContainer extends React.Component {
                         <Left><Button transparent onPress={this.openDrawer}>
                             <Icon name='menu' />
                         </Button></Left>
-                        <Body><Title>{title}</Title></Body>
-                        <Right><SearchButtonWithModal /></Right>
                     </Header>
                     {this.props.children}
                 </Container>

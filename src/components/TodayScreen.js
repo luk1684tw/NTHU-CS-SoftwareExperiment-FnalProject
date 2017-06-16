@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {View, TouchableWithoutFeedback} from 'react-native';
+import {View, Text, TouchableWithoutFeedback} from 'react-native';
 import InfiniteScrollView from 'react-native-infinite-scroll-view';
 
-import {Icon, Fab, Button, Toast} from 'native-base';
+import {Icon, Fab, Button, Toast, Left, Body, Right, ListItem, Container, Content} from 'native-base';
 import appColors from '../styles/colors';
 import appMetrics from '../styles/metrics';
 import {getMoodIcon} from '../utilities/weather.js';
@@ -31,7 +31,6 @@ class TodayScreen extends React.Component {
         };
 
         this.handleFabClose = this.handleFabClose.bind(this);
-        this.handleCreatePost = this.handleCreatePost.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -49,7 +48,18 @@ class TodayScreen extends React.Component {
         const {navigate} = this.props.navigation;
         return (
             <NavigationContainer navigate={navigate} title='Today'>
-                <PostList />
+                {/* <PostList /> 原本的code*/}
+                <View style={{height:30}}/>
+
+                <View style={{flex:3,flexDirection:'row', justifyContent:'center'}}>
+
+                        <Icon name='star' size={30} style={{color:'rgb(226, 217, 10)' ,marginRight:10}} />
+
+
+                        <Text style={{fontSize:22}}>今天</Text>
+
+                </View>
+
                 {this.state.fabActive &&
                     <TouchableWithoutFeedback onPress={this.handleFabClose}>
                         <View style={styles.fabMask}/>
@@ -62,41 +72,6 @@ class TodayScreen extends React.Component {
                     position="bottomRight"
                     onPress={this.handleFabClose}>
                     <Icon name='pencil' />
-                    <Button
-                        onPress={() => this.handleCreatePost('Windy')}
-                        style={styles.mood}>
-                        {getMoodIcon({group: 'Windy', style: styles.moodIcon})}
-                    </Button>
-                    <Button
-                        onPress={() => this.handleCreatePost('Snow')}
-                        style={styles.mood}>
-                        {getMoodIcon({group: 'Snow', style: styles.moodIcon})}
-                    </Button>
-                    <Button
-                        onPress={() => this.handleCreatePost('Thunder')}
-                        style={styles.mood}>
-                        {getMoodIcon({group: 'Thunder', style: styles.moodIcon})}
-                    </Button>
-                    <Button
-                        onPress={() => this.handleCreatePost('Rain')}
-                        style={styles.mood}>
-                        {getMoodIcon({group: 'Rain', style: styles.moodIcon})}
-                    </Button>
-                    <Button
-                        onPress={() => this.handleCreatePost('Drizzle')}
-                        style={styles.mood}>
-                        {getMoodIcon({group: 'Drizzle', style: styles.moodIcon})}
-                    </Button>
-                    <Button
-                        onPress={() => this.handleCreatePost('Clouds')}
-                        style={styles.mood}>
-                        {getMoodIcon({group: 'Clouds', style: styles.moodIcon})}
-                    </Button>
-                    <Button
-                        onPress={() => this.handleCreatePost('Clear')}
-                        style={styles.mood}>
-                        {getMoodIcon({group: 'Clear', style: styles.moodIcon})}
-                    </Button>
                 </Fab>
             </NavigationContainer>
         );
@@ -104,13 +79,9 @@ class TodayScreen extends React.Component {
 
     handleFabClose() {
         this.setState({fabActive: !this.state.fabActive});
+        this.props.navigation.navigate('AddEvent');
     }
 
-    handleCreatePost(mood) {
-        this.handleFabClose();
-        this.props.dispatch(selectMood(mood));
-        this.props.navigation.navigate('PostForm');
-    }
 }
 
 const styles = {
