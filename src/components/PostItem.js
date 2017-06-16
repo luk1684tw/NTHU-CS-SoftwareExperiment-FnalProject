@@ -5,57 +5,37 @@ import {View, StyleSheet, Text, Platform} from 'react-native';
 import {connect} from 'react-redux';
 import {createVote, setTooltipToggle, toggleTooltip} from '../states/post-actions';
 import {setToast} from '../states/toast';
-
 import moment from 'moment';
-import {ListItem, Icon} from 'native-base';
+import {ListItem, Icon, CheckBox} from 'native-base';
 import appColors from '../styles/colors';
 import appMetrics from '../styles/metrics';
-import {getMoodIcon} from '../utilities/weather';
 
 class PostItem extends React.Component {
     static propTypes = {
         id: PropTypes.number.isRequired,
-        mood: PropTypes.string.isRequired,
-        text: PropTypes.string.isRequired,
-        clearVotes: PropTypes.number.isRequired,
-        cloudsVotes: PropTypes.number.isRequired,
-        drizzleVotes: PropTypes.number.isRequired,
-        rainVotes: PropTypes.number.isRequired,
-        thunderVotes: PropTypes.number.isRequired,
-        snowVotes: PropTypes.number.isRequired,
-        windyVotes: PropTypes.number.isRequired,
-        tooltipOpen: PropTypes.bool.isRequired,
+        StartDate: PropTypes.string.isRequired,
+        EndDate: PropTypes.string.isRequired,
+        Group: PropTypes.string.isRequired,
+        Title: PropTypes.string.isRequired,
+        Description: PropTypes.string.isRequired,
         dispatch: PropTypes.func.isRequired
     };
 
     constructor(props) {
         super(props);
-
-
-        this.handleTooltipToggle = this.handleTooltipToggle.bind(this);
-        this.handleVote = this.handleVote.bind(this);
     }
 
     render() {
-        const {id, mood, text, ts, clearVotes, cloudsVotes, drizzleVotes, rainVotes, thunderVotes, snowVotes, windyVotes, tooltipOpen} = this.props;
-
+        const {id, StartDate, EndDate, Group, Title, Description} = this.props;
+        console.log('ID= ',id);
         return (
-            <ListItem>
-                <Text>Fuck you</Text>
+            <ListItem >
+                <Text>{StartDate}-{EndDate}</Text>
+                <Text>{Title} {' Group: '+Group}</Text>
+                <CheckBox checked={false} />
+                <Text>{Description}</Text>
             </ListItem>
         );
-    }
-
-    handleTooltipToggle() {
-        this.props.dispatch(toggleTooltip(this.props.id));
-    }
-
-    handleVote(vote) {
-        const {dispatch, id} = this.props;
-        dispatch(createVote(id, vote)).then(() => {
-            dispatch(setToast('Voted.'));
-        });
-        dispatch(setTooltipToggle(id, false));
     }
 }
 
@@ -141,5 +121,5 @@ const styles = StyleSheet.create({
 });
 
 export default connect((state, ownProps) => ({
-    tooltipOpen: state.postItem.tooltipOpen[ownProps.id] ? true : false
+  events: state.post.events
 }))(PostItem);
