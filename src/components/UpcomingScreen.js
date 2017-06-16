@@ -4,7 +4,7 @@ import {Text} from 'react-native';
 export default class UpcomingScreen extends React.Component{
     render () {
         return (
-            <Text style={styles}>Test</Text>
+            <Text style={styles}>Upcoming</Text>
         );
     };
 }

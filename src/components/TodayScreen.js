@@ -31,7 +31,6 @@ class TodayScreen extends React.Component {
         };
 
         this.handleFabClose = this.handleFabClose.bind(this);
-        this.handleCreatePost = this.handleCreatePost.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -50,11 +49,6 @@ class TodayScreen extends React.Component {
         return (
             <NavigationContainer navigate={navigate} title='Today'>
                 <PostList />
-                {this.state.fabActive &&
-                    <TouchableWithoutFeedback onPress={this.handleFabClose}>
-                        <View style={styles.fabMask}/>
-                    </TouchableWithoutFeedback>
-                }
                 <Fab
                     active={this.state.fabActive}
                     containerStyle={styles.fabContainer}
@@ -62,41 +56,6 @@ class TodayScreen extends React.Component {
                     position="bottomRight"
                     onPress={this.handleFabClose}>
                     <Icon name='pencil' />
-                    <Button
-                        onPress={() => this.handleCreatePost('Windy')}
-                        style={styles.mood}>
-                        {getMoodIcon({group: 'Windy', style: styles.moodIcon})}
-                    </Button>
-                    <Button
-                        onPress={() => this.handleCreatePost('Snow')}
-                        style={styles.mood}>
-                        {getMoodIcon({group: 'Snow', style: styles.moodIcon})}
-                    </Button>
-                    <Button
-                        onPress={() => this.handleCreatePost('Thunder')}
-                        style={styles.mood}>
-                        {getMoodIcon({group: 'Thunder', style: styles.moodIcon})}
-                    </Button>
-                    <Button
-                        onPress={() => this.handleCreatePost('Rain')}
-                        style={styles.mood}>
-                        {getMoodIcon({group: 'Rain', style: styles.moodIcon})}
-                    </Button>
-                    <Button
-                        onPress={() => this.handleCreatePost('Drizzle')}
-                        style={styles.mood}>
-                        {getMoodIcon({group: 'Drizzle', style: styles.moodIcon})}
-                    </Button>
-                    <Button
-                        onPress={() => this.handleCreatePost('Clouds')}
-                        style={styles.mood}>
-                        {getMoodIcon({group: 'Clouds', style: styles.moodIcon})}
-                    </Button>
-                    <Button
-                        onPress={() => this.handleCreatePost('Clear')}
-                        style={styles.mood}>
-                        {getMoodIcon({group: 'Clear', style: styles.moodIcon})}
-                    </Button>
                 </Fab>
             </NavigationContainer>
         );
@@ -104,13 +63,9 @@ class TodayScreen extends React.Component {
 
     handleFabClose() {
         this.setState({fabActive: !this.state.fabActive});
+        this.props.navigation.navigate('AddEvent');
     }
 
-    handleCreatePost(mood) {
-        this.handleFabClose();
-        this.props.dispatch(selectMood(mood));
-        this.props.navigation.navigate('PostForm');
-    }
 }
 
 const styles = {
