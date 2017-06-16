@@ -28,7 +28,7 @@ const AppNavigator = StackNavigator({
     SomeDay: {screen: SomeDayScreen},
     Group: {screen: GroupScreen},
     Setting: {screen: SettingScreen},
-    CreateGroup: {screen: CreateGroupScreen}
+    CreateGroup: {screen: CreateGroupScreen},
     AddEvent: {screen: AddEventScreen}
 }, {
     headerMode: 'none'

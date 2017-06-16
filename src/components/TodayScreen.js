@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {View, Text, TouchableWithoutFeedback} from 'react-native';
 import InfiniteScrollView from 'react-native-infinite-scroll-view';
 
-import {Icon, Fab, Button, Toast, Left, Body, Right, ListItem} from 'native-base';
+import {Icon, Fab, Button, Toast, Left, Body, Right, ListItem, Container, Content} from 'native-base';
 import appColors from '../styles/colors';
 import appMetrics from '../styles/metrics';
 import {getMoodIcon} from '../utilities/weather.js';
@@ -49,11 +49,17 @@ class TodayScreen extends React.Component {
         return (
             <NavigationContainer navigate={navigate} title='Today'>
                 {/* <PostList /> 原本的code*/}
-                <ListItem>
-                <Left>
-                <Icon name='starr' size={30}/>
-                <Text style={styles.text}>今天</Text>
-              </Left></ListItem>
+                <View style={{height:30}}/>
+
+                <View style={{flex:3,flexDirection:'row', justifyContent:'center'}}>
+
+                        <Icon name='star' size={30} style={{color:'rgb(226, 217, 10)' ,marginRight:10}} />
+
+
+                        <Text style={{fontSize:22}}>今天</Text>
+
+                </View>
+
                 {this.state.fabActive &&
                     <TouchableWithoutFeedback onPress={this.handleFabClose}>
                         <View style={styles.fabMask}/>

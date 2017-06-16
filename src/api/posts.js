@@ -9,7 +9,7 @@ const postBaseUrl = 'http://weathermood-production.us-west-2.elasticbeanstalk.co
 import {AsyncStorage} from 'react-native';
 const uuid = require('uuid/v4');
 
-export function listEvents(searchText = '', start, group = '') {
+export function listPosts(searchText = '', start, group = '') {
     return new Promise((resolve,reject) => {
         AsyncStorage.getItem('user').then(events => {
             if (searchText) {
@@ -31,10 +31,10 @@ export function listEvents(searchText = '', start, group = '') {
     });
 }
 
-export function createEvent(StartDate, EndDate, Group, Title, Description) {
+export function createPost(StartDate, EndDate, Group, Title, Description) {
     AsyncStorage.getItem('user').then(result => {
         let Newevent = {
-            Id: uuid();
+            Id: uuid(),
             StartDate: StartDate,
             EndDate: EndDate,
             Group: Group,
