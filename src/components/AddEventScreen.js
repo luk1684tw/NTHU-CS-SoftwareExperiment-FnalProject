@@ -7,7 +7,7 @@ import {Calendar,CalendarList} from 'react-native-calendars';
 
 
 
-export default class AddEventScreen extends React.Component{
+class AddEventScreen extends React.Component{
     constructor(props) {
         super(props);
           this.state = {
@@ -54,6 +54,8 @@ export default class AddEventScreen extends React.Component{
     }
 }
 
+export default connect((state) => ({
+}))(AddEventScreen);
 
 const styles = StyleSheet.create({
   calendar: {
