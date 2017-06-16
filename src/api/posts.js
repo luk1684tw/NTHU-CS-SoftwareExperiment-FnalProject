@@ -6,6 +6,7 @@
 
 // Production server URL
 const postBaseUrl = 'http://weathermood-production.us-west-2.elasticbeanstalk.com/api';
+import {AsyncStorage} from 'react-native';
 
 export function listPosts(searchText = '', start) {
     let url = `${postBaseUrl}/posts`;
@@ -31,27 +32,15 @@ export function listPosts(searchText = '', start) {
     });
 }
 
-export function createPost(mood, text) {
-    let url = `${postBaseUrl}/posts`;
-
-    console.log(`Making POST request to: ${url}`);
-
-    return fetch(url, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            mood,
-            text
-        })
-    }).then(function(res) {
-        if (res.status !== 200)
-            throw new Error(`Unexpected response code: ${res.status}`);
-
-        return res.json();
-    });
+export function createPost(StartDate, EndDate, Group, Title, Description) {
+    let event = {
+        StartDate: StartDate,
+        EndDate: EndDate,
+        Group: Group,
+        Title: Title,
+        Description: Description
+    };
+    AsyncStorage.setItem('user',JSON.stringify(event));
 }
 
 export function createVote(id, mood) {
