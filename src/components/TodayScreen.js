@@ -48,7 +48,7 @@ class TodayScreen extends React.Component {
         const {navigate} = this.props.navigation;
         return (
             <NavigationContainer navigate={navigate} title='Today'>
-                {/* <PostList /> 原本的code*/}
+                <PostList /> 
                 <View style={{height:30}}/>
 
                 <View style={{flex:3,flexDirection:'row', justifyContent:'center'}}>

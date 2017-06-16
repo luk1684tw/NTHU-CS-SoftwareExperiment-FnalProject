@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     View,
-    ListView, RefreshControl
+    ListView, RefreshControl, Text
 } from 'react-native';
 import InfiniteScrollView from 'react-native-infinite-scroll-view';
-import {Left,Right,Body} from 'native-base';
+import {Left,Right,Body, List, ListItem, CheckBox} from 'native-base';
 
 
 import PostItem from './PostItem';
@@ -21,7 +21,7 @@ class PostList extends React.Component {
             PropTypes.string,
             PropTypes.number
         ]),
-        posts: PropTypes.array.isRequired,
+        events: PropTypes.array.isRequired,
         hasMorePosts: PropTypes.bool.isRequired,
         dispatch: PropTypes.func.isRequired
     };
@@ -48,14 +48,19 @@ class PostList extends React.Component {
     }
 
     render() {
-        const {listingPosts, hasMorePosts, posts} = this.props;
+        const {listingPosts, hasMorePosts, events} = this.props;
         return (
+          <List dataArray={events}
+                        renderRow={(event) =>
+                            <ListItem>
+                                <Text>{event.StartDate}-{event.EndDate}{' '}</Text>
+                                <Text>{event.Title} {' Group: '+event.Group}</Text>
+                                <CheckBox checked={false} />
+                                <Text>{event.Description}</Text>
 
-            <View>
-                <PostItem/>
-                <PostItem/>
-            </View>
-
+                            </ListItem>
+                        }>
+          </List>
         )
     }
 
@@ -65,8 +70,8 @@ class PostList extends React.Component {
     }
 
     handleLoadMore() {
-        const {listingMorePosts, dispatch, posts, searchText} = this.props;
-        const start = posts[posts.length - 1].id;
+        const {listingMorePosts, dispatch, events, searchText} = this.props;
+        const start = events[events.length - 1].id;
         if (listingMorePosts !== start)
             dispatch(listMorePosts(searchText, start));
     }
@@ -76,6 +81,6 @@ export default connect((state, ownProps) => ({
     searchText: state.search.searchText,
     listingPosts: state.post.listingPosts,
     listingMorePosts: state.post.listingMorePosts,
-    posts: state.post.posts,
+    events: state.post.events,
     hasMorePosts: state.post.hasMore
 }))(PostList);

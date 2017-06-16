@@ -4,6 +4,7 @@ const initPostState = {
     listingPosts: false,
     listingMorePosts: undefined, // id of post from which to start
     posts: [],
+    events: [{id: '94879487',StartDate: '2017/6/16', EndDate: '2017/6/16', Group: '測試用', Title:'和女朋友吃飯', Description:'好吃'}],
     hasMore: true,
     creatingPost: false,
     creatingVote: false
