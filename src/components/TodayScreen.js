@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {View, TouchableWithoutFeedback} from 'react-native';
+import {View, Text, TouchableWithoutFeedback} from 'react-native';
 import InfiniteScrollView from 'react-native-infinite-scroll-view';
 
-import {Icon, Fab, Button, Toast} from 'native-base';
+import {Icon, Fab, Button, Toast, Left, Body, Right, ListItem} from 'native-base';
 import appColors from '../styles/colors';
 import appMetrics from '../styles/metrics';
 import {getMoodIcon} from '../utilities/weather.js';
@@ -48,7 +48,17 @@ class TodayScreen extends React.Component {
         const {navigate} = this.props.navigation;
         return (
             <NavigationContainer navigate={navigate} title='Today'>
-                <PostList />
+                {/* <PostList /> 原本的code*/}
+                <ListItem>
+                <Left>
+                <Icon name='starr' size={30}/>
+                <Text style={styles.text}>今天</Text>
+              </Left></ListItem>
+                {this.state.fabActive &&
+                    <TouchableWithoutFeedback onPress={this.handleFabClose}>
+                        <View style={styles.fabMask}/>
+                    </TouchableWithoutFeedback>
+                }
                 <Fab
                     active={this.state.fabActive}
                     containerStyle={styles.fabContainer}
