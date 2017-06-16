@@ -10,22 +10,29 @@ import {AsyncStorage} from 'react-native';
 const uuid = require('uuid/v4');
 
 export function listEvents(searchText = '', start, group = '') {
-    let events = await AsyncStorage.getItem('user');
-    if (searchText) {
-        events.filter((e) => {
-            return ((e.Description.toLowerCase().indexOf(searchText.toLowerCase()) !== -1)
-            || (e.Title.toLowerCase().indexOf(searchText.toLowerCase()) !== -1));
+    return new Promise((resolve,reject) => {
+        AsyncStorage.getItem('user').then(events => {
+            if (searchText) {
+                events.filter((e) => {
+                    return ((e.Description.toLowerCase().indexOf(searchText.toLowerCase()) !== -1)
+                    || (e.Title.toLowerCase().indexOf(searchText.toLowerCase()) !== -1));
+                });
+            }
+            if (group) {
+                events.filter((e) => {
+                    return (e.Group.toLowerCase().indexOf(group.toLowerCase()) !== -1);
+                });
+            }
+            resolve(events);
+        }).catch((err) => {
+            console.log('read file failed');
+            reject(err);
         });
-    }
-    if (group) {
-        events.filter((e) => {
-            return (e.Group.toLowerCase().indexOf(group.toLowerCase()) !== -1);
-        });
-    }
+    });
 }
 
 export function createEvent(StartDate, EndDate, Group, Title, Description) {
-    AsyncStorage.getItem('user',(err,result) => {
+    AsyncStorage.getItem('user').then(result => {
         let Newevent = {
             Id: uuid();
             StartDate: StartDate,
@@ -39,16 +46,21 @@ export function createEvent(StartDate, EndDate, Group, Title, Description) {
             Newevent
         ];
         AsyncStorage.setItem('user',JSON.stringify(result));
+        return Newevent;
+    }).catch(error => {
+        console.log(eror);
     });
 }
 
 export function listGroup() {
-    let group = await AsyncStorage.getItem('group');
-    if (group != null) {
-        return group;
-    } else {
-        console.log('no group exist!');
-    };
+    return new Promise((resolve,reject) => {
+        AsyncStorage.getItem('group').then(groups => {
+            resolve(groups);
+        }).catch((err) => {
+            console.log('load group names failed');
+            reject(err);
+        });
+    });
 }
 
 export function createGroup(name = '') {
