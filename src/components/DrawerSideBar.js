@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {View, Text, Image, Platform} from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Container, Content, Thumbnail, Badge, Button, Text as NbText, List, ListItem, Separator} from 'native-base';
+import {Container, Content, Thumbnail, Badge, Button, Text as NbText, List, ListItem, Separator, Left, Body, Right} from 'native-base';
 import appColors from '../styles/colors';
-
 export default class DrawerSideBar extends React.Component {
     static propTypes = {
         navigate: PropTypes.func.isRequired
@@ -12,13 +11,34 @@ export default class DrawerSideBar extends React.Component {
 
     render() {
       const {navigate} = this.props;
+      //-----------------Group List Setting-----------------------
+        var items=['和學妹出去玩', '和妹妹野餐', '和女友約會'];
+        let children=(
+          <ListItem>
+              <Icon name='tag-multiple' size={30}/>
+              <Text style={styles.text}>新增群組</Text>
+          </ListItem>
+        );
+        if(items.length){
+          children=(
+              <List dataArray={items}
+              renderRow={(item) =>
+                  <ListItem>
+                      <Icon name='tag-multiple' size={30}/>
+                      <Text style={styles.text}>{item}</Text>
+                  </ListItem>
+              }>
+              </List>
+          );
+        }
+      //----------------------------------------------------
+
       return (
         <Container style={styles.drawer}>
             <Content>
                 <List>
-                    <Separator bordered>
-                        <Text>待辦事項</Text>
-                    </Separator>
+                    {/* 代辦事項 */}
+                    <ListItem itemDivider><Left><Text>待辦事項</Text></Left><Body></Body><Right></Right></ListItem>
                     <ListItem button onPress={() => navigate('Today')}>
                         <Icon name='bomb' size={30}/>
                         <Text style={styles.text}>今天</Text>
@@ -31,24 +51,15 @@ export default class DrawerSideBar extends React.Component {
                         <Icon name='timetable' size={30}/>
                         <Text style={styles.text}>選擇一天</Text>
                     </ListItem>
-                    <Separator bordered>
-                        <Text>群組</Text>
-                    </Separator>
-                    <ListItem button onPress={() => navigate('Group')}>
-                        <Icon name='tag-multiple' size={30}/>
-                        <Text style={styles.text}>群組1</Text>
+                    {/* 群組 */}
+                    <ListItem itemDivider>
+                        <Left><Text>群組</Text></Left>
+                        <Body></Body>
+                        <Right><Icon button name='tag-plus' size={24} onPress={() => navigate('CreateGroup')}/></Right>
                     </ListItem>
-                    <ListItem button onPress={() => navigate('Group')}>
-                        <Icon name='tag-multiple' size={30}/>
-                        <Text style={styles.text}>群組2</Text>
-                    </ListItem>
-                    <ListItem button onPress={() => navigate('Group')}>
-                        <Icon name='tag-multiple' size={30}/>
-                        <Text style={styles.text}>群組3</Text>
-                    </ListItem>
-                    <Separator bordered>
-                        <Text>設定</Text>
-                    </Separator>
+                    {children}
+                    {/* 設定 */}
+                    <ListItem itemDivider><Left><Text>設定</Text></Left><Body></Body><Right></Right></ListItem>
                     <ListItem button onPress={() => navigate('Setting')}>
                         <Icon name='settings-box' size={30}/>
                         <Text style={styles.text}>個人設定</Text>
@@ -85,5 +96,9 @@ const styles = {
         fontWeight: 'bold',
         flex: 1,
         marginHorizontal: 12
+    },
+    title:{
+        backgroundColor: 'rgb(255, 219, 251)',
+        fontSize: (Platform.OS === 'ios')?17:19
     }
 };
