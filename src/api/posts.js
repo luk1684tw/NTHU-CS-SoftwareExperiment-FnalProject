@@ -7,56 +7,68 @@
 // Production server URL
 const postBaseUrl = 'http://weathermood-production.us-west-2.elasticbeanstalk.com/api';
 import {AsyncStorage} from 'react-native';
+const uuid = require('uuid/v4');
 
-export function listPosts(searchText = '', start) {
-    let url = `${postBaseUrl}/posts`;
-    let query = [];
-    if (searchText)
-        query.push(`searchText=${searchText}`);
-    if (start)
-        query.push(`start=${start}`);
-    if (query.length)
-        url += '?' + query.join('&');
-
-    console.log(`Making GET request to: ${url}`);
-
-    return fetch(url, {
-        headers: {
-            'Accept': 'application/json'
-        }
-    }).then(res => {
-        if (res.status !== 200)
-            throw new Error(`Unexpected response code: ${res.status}`);
-
-        return res.json();
+export function listEvents(searchText = '', start, group = '') {
+    return new Promise((resolve,reject) => {
+        AsyncStorage.getItem('user').then(events => {
+            if (searchText) {
+                events.filter((e) => {
+                    return ((e.Description.toLowerCase().indexOf(searchText.toLowerCase()) !== -1)
+                    || (e.Title.toLowerCase().indexOf(searchText.toLowerCase()) !== -1));
+                });
+            }
+            if (group) {
+                events.filter((e) => {
+                    return (e.Group.toLowerCase().indexOf(group.toLowerCase()) !== -1);
+                });
+            }
+            resolve(events);
+        }).catch((err) => {
+            console.log('read file failed');
+            reject(err);
+        });
     });
 }
 
-export function createPost(StartDate, EndDate, Group, Title, Description) {
-    let event = {
-        StartDate: StartDate,
-        EndDate: EndDate,
-        Group: Group,
-        Title: Title,
-        Description: Description
-    };
-    AsyncStorage.setItem('user',JSON.stringify(event));
+export function createEvent(StartDate, EndDate, Group, Title, Description) {
+    AsyncStorage.getItem('user').then(result => {
+        let Newevent = {
+            Id: uuid();
+            StartDate: StartDate,
+            EndDate: EndDate,
+            Group: Group,
+            Title: Title,
+            Description: Description
+        };
+        result = [
+            ...result,
+            Newevent
+        ];
+        AsyncStorage.setItem('user',JSON.stringify(result));
+        return Newevent;
+    }).catch(error => {
+        console.log(eror);
+    });
 }
 
-export function createVote(id, mood) {
-    let url = `${postBaseUrl}/posts/${id}/${mood.toLowerCase()}Votes`;
+export function listGroup() {
+    return new Promise((resolve,reject) => {
+        AsyncStorage.getItem('group').then(groups => {
+            resolve(groups);
+        }).catch((err) => {
+            console.log('load group names failed');
+            reject(err);
+        });
+    });
+}
 
-    console.log(`Making POST request to: ${url}`);
-
-    return fetch(url, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json'
-        }
-    }).then(function(res) {
-        if (res.status !== 200)
-            throw new Error(`Unexpected response code: ${res.status}`);
-
-        return res.json();
+export function createGroup(name = '') {
+    AsyncStorage.getItem('group',(err,result) => {
+        result = [
+            ...result,
+            name
+        ];
+        AsyncStorage.setItem('group',JSON.stringify(result));
     });
 }
