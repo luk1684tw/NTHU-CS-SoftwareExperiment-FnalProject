@@ -7,56 +7,56 @@
 // Production server URL
 const postBaseUrl = 'http://weathermood-production.us-west-2.elasticbeanstalk.com/api';
 import {AsyncStorage} from 'react-native';
+const uuid = require('uuid/v4');
 
-export function listPosts(searchText = '', start) {
-    let url = `${postBaseUrl}/posts`;
-    let query = [];
-    if (searchText)
-        query.push(`searchText=${searchText}`);
-    if (start)
-        query.push(`start=${start}`);
-    if (query.length)
-        url += '?' + query.join('&');
+export function listEvents(searchText = '', start, group = '') {
+    let events = await AsyncStorage.getItem('user');
+    if (searchText) {
+        events.filter((e) => {
+            return ((e.Description.toLowerCase().indexOf(searchText.toLowerCase()) !== -1)
+            || (e.Title.toLowerCase().indexOf(searchText.toLowerCase()) !== -1));
+        });
+    }
+    if (group) {
+        events.filter((e) => {
+            return (e.Group.toLowerCase().indexOf(group.toLowerCase()) !== -1);
+        });
+    }
+}
 
-    console.log(`Making GET request to: ${url}`);
-
-    return fetch(url, {
-        headers: {
-            'Accept': 'application/json'
-        }
-    }).then(res => {
-        if (res.status !== 200)
-            throw new Error(`Unexpected response code: ${res.status}`);
-
-        return res.json();
+export function createEvent(StartDate, EndDate, Group, Title, Description) {
+    AsyncStorage.getItem('user',(err,result) => {
+        let Newevent = {
+            Id: uuid();
+            StartDate: StartDate,
+            EndDate: EndDate,
+            Group: Group,
+            Title: Title,
+            Description: Description
+        };
+        result = [
+            ...result,
+            Newevent
+        ];
+        AsyncStorage.setItem('user',JSON.stringify(result));
     });
 }
 
-export function createPost(StartDate, EndDate, Group, Title, Description) {
-    let event = {
-        StartDate: StartDate,
-        EndDate: EndDate,
-        Group: Group,
-        Title: Title,
-        Description: Description
+export function listGroup() {
+    let group = await AsyncStorage.getItem('group');
+    if (group != null) {
+        return group;
+    } else {
+        console.log('no group exist!');
     };
-    AsyncStorage.setItem('user',JSON.stringify(event));
 }
 
-export function createVote(id, mood) {
-    let url = `${postBaseUrl}/posts/${id}/${mood.toLowerCase()}Votes`;
-
-    console.log(`Making POST request to: ${url}`);
-
-    return fetch(url, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json'
-        }
-    }).then(function(res) {
-        if (res.status !== 200)
-            throw new Error(`Unexpected response code: ${res.status}`);
-
-        return res.json();
+export function createGroup(name = '') {
+    AsyncStorage.getItem('group',(err,result) => {
+        result = [
+            ...result,
+            name
+        ];
+        AsyncStorage.setItem('group',JSON.stringify(result));
     });
 }
