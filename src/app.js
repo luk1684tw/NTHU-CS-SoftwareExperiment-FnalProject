@@ -31,7 +31,6 @@ const AppNavigator = StackNavigator({
     Group: {screen: GroupScreen},
     Setting: {screen: SettingScreen},
     CreateGroup: {screen: CreateGroupScreen},
-
     AddEvent: {screen: AddEventScreen}
 }, {
     headerMode: 'none'
