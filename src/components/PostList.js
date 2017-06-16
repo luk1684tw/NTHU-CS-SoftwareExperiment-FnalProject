@@ -42,39 +42,14 @@ class PostList extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const {searchText, dispatch, posts} = this.props;
-        if (searchText !== nextProps.searchText) {
-            dispatch(listPosts(nextProps.searchText));
-        }
-        if (posts !== nextProps.posts) {
-            this.setState({
-                dataSource: this.state.dataSource.cloneWithRows(nextProps.posts)
-            });
-        }
+
     }
 
     render() {
         const {listingPosts, hasMorePosts, posts} = this.props;
         return (
-            <ListView
-                refreshControl={
-                    <RefreshControl refreshing={listingPosts} onRefresh={this.handleRefresh} />
-                }
-                distanceToLoadMore={300}
-                renderScrollComponent={props => <InfiniteScrollView {...props} />}
-                dataSource={this.state.dataSource}
-                renderRow={(p) => {
-                    return <PostItem {...p} />;
-                }}
-                canLoadMore={() => {
-                    if (listingPosts || !posts.length)
-                        return false;
-                    return hasMorePosts;
-                }}
-                onLoadMoreAsync={this.handleLoadMore}
-                style={{backgroundColor: '#fff'}}
-            />
-        );
+            <PostItem/>
+        )
     }
 
     handleRefresh() {
