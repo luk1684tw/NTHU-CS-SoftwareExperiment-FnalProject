@@ -4,13 +4,28 @@ import {View, Text, Image, Platform} from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Container, Content, Thumbnail, Badge, Button, Text as NbText, List, ListItem, Separator, Left, Body, Right} from 'native-base';
 import appColors from '../styles/colors';
-export default class DrawerSideBar extends React.Component {
+import {setGroupScreenName} from '../states/event-actions';
+import {connect} from 'react-redux';
+
+class DrawerSideBar extends React.Component {
     static propTypes = {
-        navigate: PropTypes.func.isRequired
+        navigate: PropTypes.func.isRequired,
+        dispatch: PropTypes.func.isRequired
     };
+    constructor(props){
+        super(props);
+        this.handleOnClick=this.handleOnClick.bind(this);
+    }
+    handleOnClick(item){
+        console.log(this.props);
+        this.props.dispatch(setGroupScreenName(item));
+        console.log(setGroupScreenName);
+        this.props.navigate('Group');
+        // this.props.dispatch(setGroupScreenName(item));
+    }
 
     render() {
-      const {navigate} = this.props;
+      const {navigate, dispatch} = this.props;
       //-----------------Group List Setting-----------------------
         var items=['和學妹出去玩', '和妹妹野餐', '和女友約會'];
         let children=(
@@ -23,7 +38,7 @@ export default class DrawerSideBar extends React.Component {
           children=(
               <List dataArray={items}
               renderRow={(item) =>
-                  <ListItem>
+                  <ListItem button onPress={() =>  {this.handleOnClick(item)}}>
                       <Icon name='tag-multiple' size={30}/>
                       <Text style={styles.text}>{item}</Text>
                   </ListItem>
@@ -69,6 +84,9 @@ export default class DrawerSideBar extends React.Component {
         </Container>
     );
     }
+    foo(item){
+        console.log(item);
+    }
 }
 
 const styles = {
@@ -102,3 +120,6 @@ const styles = {
         fontSize: (Platform.OS === 'ios')?17:19
     }
 };
+export default connect((state, ownProps) => ({
+    groupScreenName: state.group.groupScreenName
+}))(DrawerSideBar);

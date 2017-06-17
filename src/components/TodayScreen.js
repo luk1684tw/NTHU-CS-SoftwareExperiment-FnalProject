@@ -61,6 +61,7 @@ class TodayScreen extends React.Component {
         const {navigate} = this.props.navigation;
         return (
             <NavigationContainer navigate={navigate} title='Today'>
+
                 <View style={styles.header_title}>
                   <View style={styles.date}>
                     <Text style={{fontSize:15,color: 'white',fontWeight:'bold'}}>  {this.state.day}</Text>
@@ -77,6 +78,7 @@ class TodayScreen extends React.Component {
                    onPress={this.handleFabClose}>
                   <Icon name='plus'/>
                </Fab>
+
             </NavigationContainer>
         );
     }
@@ -112,7 +114,7 @@ const styles = {
       marginLeft:60,
     },
     today:{
-      
+
       marginLeft: 40,
       color:'white',
       fontSize:35

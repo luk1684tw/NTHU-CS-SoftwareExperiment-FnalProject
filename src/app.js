@@ -12,7 +12,7 @@ import {Provider, connect} from 'react-redux';
 import {search} from './states/search';
 import {toast} from './states/toast';
 import {post, postForm, postItem} from './states/post-reducers';
-
+import {group, event} from './states/event-reducers';
 import {StackNavigator, NavigationActions, addNavigationHelpers} from 'react-navigation';
 import TodayScreen from './components/TodayScreen';
 import UpcomingScreen from './components/UpcomingScreen.js';
@@ -22,6 +22,7 @@ import SettingScreen from './components/SettingScreen.js';
 import ChooseColor from './components/ChooseColor.js';
 import CreateGroupScreen from './components/CreateGroupScreen.js';
 import AddEventScreen from './components/AddEventScreen.js';
+import TypeEventScreen from './components/TypeEventScreen.js';
 
 const AppNavigator = StackNavigator({
     Today: {screen: TodayScreen},
@@ -31,7 +32,8 @@ const AppNavigator = StackNavigator({
     Setting: {screen: SettingScreen},
     CreateGroup: {screen: CreateGroupScreen},
     AddEvent: {screen: AddEventScreen},
-    ChooseColor: {screen: ChooseColor}
+    ChooseColor: {screen: ChooseColor},
+    TypeEvent: {screen: TypeEventScreen}
 }, {
     headerMode: 'none'
 });
@@ -77,7 +79,8 @@ const nav = (state = initialState, action) => {
 // Create Redux store
 const store = createStore(combineReducers({
     nav, search, toast,
-    post, postForm, postItem
+    post, postForm, postItem,
+    event, group
 }), compose(applyMiddleware(thunkMiddleware, loggerMiddleware)));
 
 export default class App extends React.Component {
