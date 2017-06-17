@@ -14,7 +14,8 @@ class AddEventScreen extends React.Component{
             items:{},
           };
           this.onDayPress = this.onDayPress.bind(this);
-
+          this.handleGoBack = this.handleGoBack.bind(this);
+          console.log('props:',this.props);
         }
 
     render () {
@@ -22,7 +23,7 @@ class AddEventScreen extends React.Component{
             <Container>
                 <Header>
                     <Left>
-                        <Button transparent>
+                        <Button transparent onPress={this.handleGoBack}>
                             <Icon name='keyboard-return' size={30 }/>
                         </Button>
                     </Left>
@@ -51,6 +52,10 @@ class AddEventScreen extends React.Component{
           selected: day.dateString
         });
         console.log(this.state.selected);
+    }
+
+    handleGoBack() {
+        this.props.navigation.goBack();
     }
 }
 

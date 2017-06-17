@@ -60,11 +60,7 @@ class TodayScreen extends React.Component {
 
                 </View>
 
-                {this.state.fabActive &&
-                    <TouchableWithoutFeedback onPress={this.handleFabClose}>
-                        <View style={styles.fabMask}/>
-                    </TouchableWithoutFeedback>
-                }
+                
                 <Fab
                     active={this.state.fabActive}
                     containerStyle={styles.fabContainer}
