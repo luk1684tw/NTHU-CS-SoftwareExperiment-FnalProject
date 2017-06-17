@@ -8,6 +8,11 @@ export default class DrawerSideBar extends React.Component {
     static propTypes = {
         navigate: PropTypes.func.isRequired
     };
+    constructor(){
+        super();
+
+        this.foo = this.foo.bind(this);
+    }
 
     render() {
       const {navigate} = this.props;
@@ -68,6 +73,9 @@ export default class DrawerSideBar extends React.Component {
             </Content>
         </Container>
     );
+    }
+    foo(item){
+        console.log(item);
     }
 }
 
