@@ -11,12 +11,17 @@ const moment = require('moment');
 const uuid = require('uuid/v4');
 
 
-export function listPosts(searchText = '', start, group = '', date) {
+export function listPosts(searchText = '', start, group = '', startDate='', endDate='') {
     return new Promise((resolve,reject) => {
         AsyncStorage.getItem('user').then(events => {
-            if (date) {
+            if (startDate) {
                 events.filter((item) => {
-                    return (moment(date,'YYYY-MM-DD HH:mm').unix() >= moment(item,'YYYY-MM-DD HH:mm').unix());
+                    return (moment(startDate,'YYYY-MM-DD HH:mm').unix() >= moment(item,'YYYY-MM-DD HH:mm').unix());
+                });
+            }
+            if (endDate) {
+                events.filter((item) => {
+                    return (moment(endDate,'YYYY-MM-DD HH:mm').unix() >= moment(item,'YYYY-MM-DD HH:mm').unix());
                 });
             }
             if (searchText) {
