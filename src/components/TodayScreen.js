@@ -21,16 +21,19 @@ class TodayScreen extends React.Component {
         creatingPost: PropTypes.bool.isRequired,
         creatingVote: PropTypes.bool.isRequired,
         toast: PropTypes.string.isRequired,
-        dispatch: PropTypes.func.isRequired
+        dispatch: PropTypes.func.isRequired,
     };
+
+
 
     constructor(props) {
         super(props);
 
         this.state = {
-            fabActive: false
+            fabActive: false,
+            day:"MON"
         };
-
+        this.componentDidMount = this.componentDidMount.bind(this);
         this.handleFabClose = this.handleFabClose.bind(this);
     }
 
@@ -45,14 +48,25 @@ class TodayScreen extends React.Component {
         }
     }
 
+     componentDidMount(){
+        if(new Date().getDay()===1){
+          this.setState({day: "MON"});
+        }
+        else if(new Date().getDay()===6){
+          this.setState({day: "SAT"});
+        }
+    }
+
     render() {
         const {navigate} = this.props.navigation;
         return (
             <NavigationContainer navigate={navigate} title='Today'>
-                <View style={styles.header}/>
                 <View style={styles.header_title}>
-                    <Icon name='star' size={30} style={styles.header_icon} />
-                    <Text style={{fontSize:22}}>今天</Text>
+                  <View style={styles.date}>
+                    <Text style={{fontSize:15,color: 'white',fontWeight:'bold'}}>  {this.state.day}</Text>
+                    <Text style={{fontSize:20,color: 'white'}}>  {new Date().getDate()}</Text>
+                  </View>
+                  <Text style={styles.today}>TODAY</Text>
                </View>
                <PostList/>
                <Fab
@@ -72,6 +86,8 @@ class TodayScreen extends React.Component {
         this.props.navigation.navigate('AddEvent');
     }
 
+
+
 }
 
 const styles = {
@@ -89,18 +105,25 @@ const styles = {
     fab: {
         backgroundColor: appColors.primary
     },
-    header: {
-        height:30
+    date:{
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginLeft:60,
+    },
+    today:{
+      
+      marginLeft: 40,
+      color:'white',
+      fontSize:35
     },
     header_title: {
-        height:30,
-        flexDirection:'row',
-        justifyContent:'center'
+        height:150,
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: 'cornflowerblue',
     },
-    header_icon: {
-        color:'rgb(226, 217, 10)' ,
-        marginRight:10
-    },
+
 };
 
 export default connect((state, ownProps) => ({
