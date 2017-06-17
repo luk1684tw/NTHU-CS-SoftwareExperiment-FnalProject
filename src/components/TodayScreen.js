@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import {View, Text, TouchableWithoutFeedback} from 'react-native';
 import InfiniteScrollView from 'react-native-infinite-scroll-view';
 
-import {Icon, Fab, Button, Toast, Left, Body, Right, ListItem, Container, Content} from 'native-base';
+import {Fab, Button, Toast, Left, Body, Right, ListItem, Container, Content} from 'native-base';
 import appColors from '../styles/colors';
 import appMetrics from '../styles/metrics';
 import {getMoodIcon} from '../utilities/weather.js';
 import NavigationContainer from './NavigationContainer';
 import PostList from './PostList';
 import PostItem from './PostItem';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {connect} from 'react-redux';
 import {selectMood} from '../states/post-actions';
@@ -60,7 +61,7 @@ class TodayScreen extends React.Component {
                    style={styles.fab}
                    position="bottomRight"
                    onPress={this.handleFabClose}>
-                  <Icon name='add' />
+                  <Icon name='plus'/>
                </Fab>
             </NavigationContainer>
         );
