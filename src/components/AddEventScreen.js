@@ -39,13 +39,12 @@ class AddEventScreen extends React.Component{
                         <Calendar
                             onDayPress={(day)=> this.onDayPress(day)}
                             style={styles.calendar}
-                            hideExtraDays
                             markedDates={
                             {
-                                [this.state.start]: [{selected: true},{startingDay: true},{color:'green'}],
-                                [this.state.end]: [{selected: true},{endingDay: true},{color:'green'}]
+                                [this.state.start]: [{startingDay: true},{color:'green'},{marked:true}],
+                                [this.state.end]: [{endingDay: true},{color:'green'},{marked:true},{textColor: 'green'}]
                             }}
-                            markingType={'interactive'}
+                            
                         />
                     </ScrollView>
                 </Content>
