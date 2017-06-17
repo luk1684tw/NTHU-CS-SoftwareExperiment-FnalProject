@@ -1,7 +1,8 @@
 import {
     listPosts as listPostsFromApi,
     createPost as createPostFromApi,
-    createVote as createVoteFromApi
+    listGroup as listGroupFromApi,
+    createGroup as createGroupFromApi
 } from '../api/posts.js';
 
 /*  Posts */
@@ -15,20 +16,6 @@ function startListEvents() {
 function endListEvents(events) {
     return {
         type: '@EVENT/END_LIST_EVENTS',
-        events
-    };
-}
-
-function startListMoreEvents(start) {
-    return {
-        type: '@EVENT/START_LIST_MORE_EVENTS',
-        start
-    };
-}
-
-function endListMoreEvents(events) {
-    return {
-        type: '@EVENT/END_LIST_MORE_EVENTS',
         events
     };
 }
@@ -47,39 +34,75 @@ function endCreateEvent(event) {
 }
 
 
-export function listEvents(searchText) {
+export function listEvents(searchText, group, date) {
     return (dispatch, getState) => {
-        dispatch(startListPosts());
-        return listPostsFromApi(searchText).then(posts => {
-            dispatch(endListPosts(posts));
+        dispatch(startListEvents());
+        return listPostsFromApi(searchText, '', group, date).then(events => {
+            dispatch(endListEvents(events));
         }).catch(err => {
-            dispatch(endListPosts());
-            console.error('Error listing posts', err);
+            dispatch(endListEvents());
+            console.error('Error listing events', err);
         });
     };
 };
 
-export function listMorePosts(searchText, start) {
+
+export function createEvent(StartDate, EndDate, Group, Title, Description) {
     return (dispatch, getState) => {
-        dispatch(startListMorePosts(start));
-        return listPostsFromApi(searchText, start).then(posts => {
-            dispatch(endListMorePosts(posts));
+        dispatch(startCreateEvent());
+
+        return createPostFromApi(StartDate, EndDate, Group, Title, Description).then(event => {
+            dispatch(endCreateEvent(event));
         }).catch(err => {
-            dispatch(endListMorePosts());
-            console.error('Error listing more posts', err);
+            dispatch(endCreateEvent())
+            console.error('Error creating event', err);
         });
     };
 };
 
-export function createPost(mood, text) {
+//Side bar: group list
+function startListGroup(){
+    return {
+        type: '@GROUP/START_LIST_GROUP'
+    };
+}
+function endListGroup(groups){
+    return {
+        type: '@GROUP/END_LIST_GROUP',
+        groups
+    };
+}
+function startCreateGroup(){
+    return {
+        type: '@GROUP/START_CREAT_GROUP'
+    };
+}
+function endCreateGroup(group){
+    return{
+        type: '@GROUP/END_CREATE_GROUP',
+        group
+    };
+}
+export listGroups(){
     return (dispatch, getState) => {
-        dispatch(startCreatePost());
-
-        return createPostFromApi(mood, text).then(post => {
-            dispatch(endCreatePost(post));
+        dispatch(startListEvents());
+        return listGroupFromApi().then(groups => {
+            dispatch(endListEvents(groups));
         }).catch(err => {
-            dispatch(endCreatePost())
-            console.error('Error creating post', err);
+            dispatch(endListEvents());
+            console.error('Error listing group', err);
         });
     };
-};
+}
+export createGroup(name=''){
+    return (dispatch, getState) => {
+        dispatch(startCreateGroup());
+
+        return createGroupFromApi(name).then(group => {
+            dispatch(endCreateGroup(group));
+        }).catch(err => {
+            dispatch(endCreateGroup())
+            console.error('Error creating group', err);
+        });
+    };
+}
