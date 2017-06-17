@@ -15,19 +15,15 @@ class DrawerSideBar extends React.Component {
     constructor(props){
         super(props);
         this.handleOnClick=this.handleOnClick.bind(this);
-        this.foo=this.foo.bind(this);
     }
-    handleOnClick(){
-        //console.log(this.props);
-         //this.props.dispatch(setGroupScreenName(item));
-        //console.log(setGroupScreenName);
-        this.props.navigate('Group');
-        //this.props.dispatch(setGroupScreenName(item));
-    }
-    foo(item){
-        console.log(item);
+    handleOnClick(item){
+        console.log(this.props);
         this.props.dispatch(setGroupScreenName(item));
+        console.log(setGroupScreenName);
+        this.props.navigate('Group');
+        // this.props.dispatch(setGroupScreenName(item));
     }
+
     render() {
       const {navigate, dispatch} = this.props;
       //-----------------Group List Setting-----------------------
@@ -42,8 +38,7 @@ class DrawerSideBar extends React.Component {
           children=(
               <List dataArray={items}
               renderRow={(item) =>
-                  <ListItem button onPress={() =>  {navigate('Group')}}>
-                      {this.foo(item)}
+                  <ListItem button onPress={() =>  {this.handleOnClick(item)}}>
                       <Icon name='tag-multiple' size={30}/>
                       <Text style={styles.text}>{item}</Text>
                   </ListItem>
@@ -88,6 +83,9 @@ class DrawerSideBar extends React.Component {
             </Content>
         </Container>
     );
+    }
+    foo(item){
+        console.log(item);
     }
 }
 

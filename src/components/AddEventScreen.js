@@ -31,13 +31,12 @@ class AddEventScreen extends React.Component{
                             <Icon name='chevron-left' size={30}/>
                         </Button>
                     </Left>
-
                     <Body>
-                        <Title>Choose A Day!</Title>
+                        <Text style={{marginLeft: 59, fontSize: 15}}>Choose a Day!</Text>
                     </Body>
                     <Right style={styles.overlap}>
 
-                      <DatePicker
+                      {/*<DatePicker
                           date={this.state.time}
                           mode="time"
                           format="HH:mm"
@@ -55,8 +54,10 @@ class AddEventScreen extends React.Component{
                           }
                         }}
                           onDateChange={(time) => {this.setState({time: time});}}
-                        />
-
+                        />*/}
+                        <Button transparent onPress={() => {}}>
+                            <Icon name='chevron-right' size={30}/>
+                        </Button>
                     </Right>
 
                 </Header>
@@ -70,9 +71,15 @@ class AddEventScreen extends React.Component{
                                 [this.state.start]: [{startingDay: true},{color:'green'},{marked:true}],
                                 [this.state.end]: [{endingDay: true},{color:'green'},{marked:true},{textColor: 'green'}]
                             }}
-
                         />
-                  </ScrollView>
+                    </ScrollView>
+                    {(this.state.start!=='')?
+                        <Text style={{fontSize: 20, fontWeight: 'bold'}}>From:{this.state.start}</Text>
+                        : <Text/>}
+                    {/*(this.state.end!=='')?
+                        <Text style={{fontSize: 20, fontWeight: 'bold'}}>To:{this.state.start}</Text>
+                        : <Text/>*/}
+
                 </Content>
             </Container>
         );
