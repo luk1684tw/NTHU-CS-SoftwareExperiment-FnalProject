@@ -12,22 +12,15 @@ class AddEventScreen extends React.Component{
     constructor(props) {
         super(props);
           this.state = {
-<<<<<<< HEAD
+
             start: '',
             end: '',
+            time:"12:50"
           };
           this.onDayPress = this.onDayPress.bind(this);
           this.handleGoBack = this.handleGoBack.bind(this);
           console.log('props:',this.props);
-=======
-            items:{},
-
-          };
-          this.onDayPress = this.onDayPress.bind(this);
-          this.state = {time:"12:50"}
-
->>>>>>> mao2
-        }
+      }
 
     render () {
         return (
