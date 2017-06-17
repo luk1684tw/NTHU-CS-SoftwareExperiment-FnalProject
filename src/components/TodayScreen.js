@@ -48,7 +48,7 @@ class TodayScreen extends React.Component {
         const {navigate} = this.props.navigation;
         return (
             <NavigationContainer navigate={navigate} title='Today'>
-                <PostList /> 
+                {/* <PostList /> 原本的code*/}
                 <View style={{height:30}}/>
 
                 <View style={{flex:3,flexDirection:'row', justifyContent:'center'}}>
@@ -60,7 +60,6 @@ class TodayScreen extends React.Component {
 
                 </View>
 
-                
                 <Fab
                     active={this.state.fabActive}
                     containerStyle={styles.fabContainer}
