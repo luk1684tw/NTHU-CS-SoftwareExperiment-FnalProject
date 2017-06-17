@@ -11,7 +11,8 @@ class AddEventScreen extends React.Component{
     constructor(props) {
         super(props);
           this.state = {
-            items:{},
+            start: '',
+            end: '',
           };
           this.onDayPress = this.onDayPress.bind(this);
           this.handleGoBack = this.handleGoBack.bind(this);
@@ -24,13 +25,14 @@ class AddEventScreen extends React.Component{
                 <Header>
                     <Left>
                         <Button transparent onPress={this.handleGoBack}>
-                            <Icon name='keyboard-return' size={30 }/>
+                            <Icon name='chevron-left' size={30}/>
                         </Button>
                     </Left>
-                    <Body>
-                        <Title>Choose A Day!</Title>
-                    </Body>
-
+                    <Right>
+                        <Button transparent>
+                            <Icon name='chevron-right' size={30}/>
+                        </Button>
+                    </Right>
                 </Header>
                 <Content>
                     <ScrollView style={styles.container}>
@@ -40,10 +42,10 @@ class AddEventScreen extends React.Component{
                             hideExtraDays
                             markedDates={
                             {
-                                [this.state.selected]: [{selected: true},{startingDay: true}
-                                ,{endingDay: true}]
+                                [this.state.start]: [{selected: true},{startingDay: true},{color:'green'}],
+                                [this.state.end]: [{selected: true},{endingDay: true},{color:'green'}]
                             }}
-
+                            markingType={'interactive'}
                         />
                     </ScrollView>
                 </Content>
@@ -53,10 +55,17 @@ class AddEventScreen extends React.Component{
 
     onDayPress(day) {
         console.log('day pressed:',day);
-        this.setState({
-          selected: day.dateString
-        });
-        console.log(this.state.selected);
+        if (this.state.start == this.state.end) {
+            this.setState({
+                end: day.dateString
+            })
+        } else {
+            this.setState({
+              start: day.dateString,
+              end: day.dateString
+            });
+        }
+        console.log(this.state);
     }
 
     handleGoBack() {
