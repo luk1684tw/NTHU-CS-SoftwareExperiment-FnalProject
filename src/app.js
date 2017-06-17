@@ -23,7 +23,6 @@ import ChooseColor from './components/ChooseColor.js';
 import CreateGroupScreen from './components/CreateGroupScreen.js';
 import AddEventScreen from './components/AddEventScreen.js';
 
-
 const AppNavigator = StackNavigator({
     Today: {screen: TodayScreen},
     Upcoming: {screen: UpcomingScreen},

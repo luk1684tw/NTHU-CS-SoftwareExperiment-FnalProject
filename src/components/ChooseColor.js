@@ -7,7 +7,8 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Button
+  Button,
+  Navigator
 } from 'react-native';
 import SettingsList from 'react-native-settings-list';
 
@@ -17,19 +18,20 @@ export default class ChooseColor extends React.Component{
         super(props);
     }
     render () {
+        const {navigate} = this.props.navigation;
         return (
 
               <View style={styles.center}>
-              <TouchableOpacity style={styles.buttonblack} >
+              <TouchableOpacity style={styles.buttonblack} onPress={() => navigate('Setting')}>
 
               </TouchableOpacity>
-              <TouchableOpacity style={styles.buttonpink}>
+              <TouchableOpacity style={styles.buttonpink} onPress={() => navigate('Setting')}>
 
               </TouchableOpacity>
-              <TouchableOpacity style={styles.buttonbrown}>
+              <TouchableOpacity style={styles.buttonbrown} onPress={() => navigate('Setting')}>
 
               </TouchableOpacity>
-              <TouchableOpacity style={styles.buttongrey}>
+              <TouchableOpacity style={styles.buttongrey} onPress={() => navigate('Setting')}>
 
               </TouchableOpacity>
               </View>
