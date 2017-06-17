@@ -1,22 +1,32 @@
 import React from 'react';
-import {Text,StyleSheet,ScrollView,View} from 'react-native';
+import {Text,StyleSheet,ScrollView,View,TouchableOpacity} from 'react-native';
 import {Container, Content, Button, Header, Left, Right, Body, Title} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';
 import {Calendar,CalendarList} from 'react-native-calendars';
-
+import DatePicker from 'react-native-datepicker';
 
 
 class AddEventScreen extends React.Component{
+
     constructor(props) {
         super(props);
           this.state = {
+<<<<<<< HEAD
             start: '',
             end: '',
           };
           this.onDayPress = this.onDayPress.bind(this);
           this.handleGoBack = this.handleGoBack.bind(this);
           console.log('props:',this.props);
+=======
+            items:{},
+
+          };
+          this.onDayPress = this.onDayPress.bind(this);
+          this.state = {time:"12:50"}
+
+>>>>>>> mao2
         }
 
     render () {
@@ -28,11 +38,34 @@ class AddEventScreen extends React.Component{
                             <Icon name='chevron-left' size={30}/>
                         </Button>
                     </Left>
-                    <Right>
-                        <Button transparent>
-                            <Icon name='chevron-right' size={30}/>
-                        </Button>
+
+                    <Body>
+                        <Title>Choose A Day!</Title>
+                    </Body>
+                    <Right style={styles.overlap}>
+
+                      <DatePicker
+                          date={this.state.time}
+                          mode="time"
+                          format="HH:mm"
+                          minuteInterval={10}
+                          iconSource={require('../images/clock.png')}
+                          customStyles={{
+                            dateIcon: {
+                            position: 'absolute',
+                            left: 0,
+                            top: 4,
+                            marginLeft: 110
+                          },
+                          dateInput: {
+                            marginLeft: 300
+                          }
+                        }}
+                          onDateChange={(time) => {this.setState({time: time});}}
+                        />
+
                     </Right>
+
                 </Header>
                 <Content>
                     <ScrollView style={styles.container}>
@@ -46,7 +79,7 @@ class AddEventScreen extends React.Component{
                             }}
 
                         />
-                    </ScrollView>
+                  </ScrollView>
                 </Content>
             </Container>
         );
@@ -91,6 +124,10 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: 'gray'
+    backgroundColor: 'white'
   },
+ overlap:{
+   position: 'absolute'
+ },
+
 });

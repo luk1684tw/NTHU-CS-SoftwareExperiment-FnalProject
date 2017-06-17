@@ -49,6 +49,7 @@ class TodayScreen extends React.Component {
         const {navigate} = this.props.navigation;
         return (
             <NavigationContainer navigate={navigate} title='Today'>
+
                 <View style={styles.header}/>
                 <View style={styles.header_title}>
                     <Icon name='star' size={30} style={styles.header_icon} />
@@ -63,6 +64,7 @@ class TodayScreen extends React.Component {
                    onPress={this.handleFabClose}>
                   <Icon name='plus'/>
                </Fab>
+
             </NavigationContainer>
         );
     }
