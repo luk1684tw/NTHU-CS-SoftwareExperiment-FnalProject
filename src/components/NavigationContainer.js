@@ -16,6 +16,7 @@ export default class NavigationContainer extends React.Component {
 
         this.openDrawer = this.openDrawer.bind(this);
         this.closeDrawer = this.closeDrawer.bind(this);
+
     }
 
     render() {
@@ -36,6 +37,7 @@ export default class NavigationContainer extends React.Component {
                         <Left><Button transparent onPress={this.openDrawer}>
                             <Icon name='menu' />
                         </Button></Left>
+
                     </Header>
                     {this.props.children}
                 </Container>
