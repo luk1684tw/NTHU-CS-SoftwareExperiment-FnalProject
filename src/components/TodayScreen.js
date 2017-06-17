@@ -54,11 +54,6 @@ class TodayScreen extends React.Component {
                     <Text style={{fontSize:22}}>今天</Text>
                </View>
                <PostList/>
-               {this.state.fabActive &&
-               <TouchableWithoutFeedback onPress={this.handleFabClose}>
-                   <View style={styles.fabMask}/>
-               </TouchableWithoutFeedback>
-               }
                <Fab
                    active={this.state.fabActive}
                    containerStyle={styles.fabContainer}

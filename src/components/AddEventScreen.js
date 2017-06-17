@@ -14,7 +14,8 @@ class AddEventScreen extends React.Component{
             items:{},
           };
           this.onDayPress = this.onDayPress.bind(this);
-
+          this.handleGoBack = this.handleGoBack.bind(this);
+          console.log('props:',this.props);
         }
 
     render () {
@@ -22,7 +23,7 @@ class AddEventScreen extends React.Component{
             <Container>
                 <Header>
                     <Left>
-                        <Button transparent>
+                        <Button transparent onPress={this.handleGoBack}>
                             <Icon name='keyboard-return' size={30 }/>
                         </Button>
                     </Left>
@@ -34,10 +35,15 @@ class AddEventScreen extends React.Component{
                 <Content>
                     <ScrollView style={styles.container}>
                         <Calendar
-                          onDayPress={(day)=> this.onDayPress(day)}
-                          style={styles.calendar}
-                          hideExtraDays
-                          markedDates={{[this.state.selected]: {selected: true}}}
+                            onDayPress={(day)=> this.onDayPress(day)}
+                            style={styles.calendar}
+                            hideExtraDays
+                            markedDates={
+                            {
+                                [this.state.selected]: [{selected: true},{startingDay: true}
+                                ,{endingDay: true}]
+                            }}
+
                         />
                     </ScrollView>
                 </Content>
@@ -52,6 +58,10 @@ class AddEventScreen extends React.Component{
         });
         console.log(this.state.selected);
     }
+
+    handleGoBack() {
+        this.props.navigation.goBack();
+    }
 }
 
 export default connect((state) => ({
@@ -63,7 +73,7 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     borderBottomWidth: 1,
     borderColor: '#eee',
-    height: 350
+    height: 365
   },
   text: {
     textAlign: 'center',
