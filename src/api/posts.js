@@ -21,7 +21,7 @@ export function listPosts(searchText = '', start, group = '', startDate='', endD
             }
             if (endDate) {
                 events.filter((item) => {
-                    return (moment(endDate,'YYYY-MM-DD HH:mm').unix() >= moment(item,'YYYY-MM-DD HH:mm').unix());
+                    return (moment(endDate,'YYYY-MM-DD HH:mm').unix() <= moment(item,'YYYY-MM-DD HH:mm').unix());
                 });
             }
             if (searchText) {

@@ -34,10 +34,10 @@ function endCreateEvent(event) {
 }
 
 
-export function listEvents(searchText, group, date) {
+export function listEvents(searchText, group, startDate, endDate) {
     return (dispatch, getState) => {
         dispatch(startListEvents());
-        return listPostsFromApi(searchText, '', group, date).then(events => {
+        return listPostsFromApi(searchText, '', group, startDate, endDate).then(events => {
             dispatch(endListEvents(events));
         }).catch(err => {
             dispatch(endListEvents());
@@ -83,7 +83,7 @@ function endCreateGroup(group){
         group
     };
 }
-export listGroups(){
+export function listGroups(){
     return (dispatch, getState) => {
         dispatch(startListEvents());
         return listGroupFromApi().then(groups => {
@@ -94,7 +94,7 @@ export listGroups(){
         });
     };
 }
-export createGroup(name=''){
+export function createGroup(name=''){
     return (dispatch, getState) => {
         dispatch(startCreateGroup());
 
@@ -104,5 +104,11 @@ export createGroup(name=''){
             dispatch(endCreateGroup())
             console.error('Error creating group', err);
         });
+    };
+}
+export function setGroupScreenName(name){
+    return{
+        type: '@GROUP/SET_GROUP_SCREEN_NAME',
+        name
     };
 }
