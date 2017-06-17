@@ -5,7 +5,7 @@ import {
     ListView, RefreshControl, Text
 } from 'react-native';
 import InfiniteScrollView from 'react-native-infinite-scroll-view';
-import {Left,Right,Body, List, ListItem, CheckBox} from 'native-base';
+import {Left,Right,Body, List, ListItem, CheckBox, Container, Content, Icon} from 'native-base';
 
 
 import PostItem from './PostItem';
@@ -50,17 +50,27 @@ class PostList extends React.Component {
     render() {
         const {listingPosts, hasMorePosts, events} = this.props;
         return (
-          <List dataArray={events}
-                        renderRow={(event) =>
-                            <ListItem>
-                                <Text>{event.StartDate}-{event.EndDate}{' '}</Text>
-                                <Text>{event.Title} {' Group: '+event.Group}</Text>
-                                <CheckBox checked={false} />
+          <Container style={styles.mission}>
+              <Content>
+                <List dataArray={events}
+                    renderRow={(event) =>
+                    <View>
+                        <ListItem itemHeader first>
+                            <Icon name='bell-ring' />
+                            <Text>{event.Group}</Text>
+                        </ListItem>
+                        <ListItem>
+                            <Text>{event.StartDate}-{event.EndDate}{'   '}</Text>
+                            {/* <Text>{event.Title} {' Group: '+event.Group}</Text> */}
+                            {/* <CheckBox checked={false} /> */}
+                            <CheckBox checked={false} />
                                 <Text>{event.Description}</Text>
-
-                            </ListItem>
-                        }>
-          </List>
+                        </ListItem>
+                    </View>
+                    }>
+                </List>
+              </Content>
+          </Container>
         )
     }
 
@@ -76,7 +86,13 @@ class PostList extends React.Component {
             dispatch(listMorePosts(searchText, start));
     }
 }
-
+const styles = {
+    mission: {
+        margin: 30,
+        height: 30,
+        backgroundColor: 'rgb(247, 255, 238)',
+    }
+}
 export default connect((state, ownProps) => ({
     searchText: state.search.searchText,
     listingPosts: state.post.listingPosts,

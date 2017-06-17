@@ -7,13 +7,18 @@
 // Production server URL
 const postBaseUrl = 'http://weathermood-production.us-west-2.elasticbeanstalk.com/api';
 import {AsyncStorage} from 'react-native';
-
+const moment = require('moment');
 const uuid = require('uuid/v4');
 
 
-export function listPosts(searchText = '', start, group = '') {
+export function listPosts(searchText = '', start, group = '', date) {
     return new Promise((resolve,reject) => {
         AsyncStorage.getItem('user').then(events => {
+            if (date) {
+                events.filter((item) => {
+                    return (moment(date,'YYYY-MM-DD HH:mm').unix() >= moment(item,'YYYY-MM-DD HH:mm').unix());
+                });
+            }
             if (searchText) {
                 events.filter((e) => {
                     return ((e.Description.toLowerCase().indexOf(searchText.toLowerCase()) !== -1)

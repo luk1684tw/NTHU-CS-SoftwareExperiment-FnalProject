@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import {View, Text, TouchableWithoutFeedback} from 'react-native';
 import InfiniteScrollView from 'react-native-infinite-scroll-view';
 
-import {Icon, Fab, Button, Toast, Left, Body, Right, ListItem, Container, Content} from 'native-base';
+import {Fab, Button, Toast, Left, Body, Right, ListItem, Container, Content} from 'native-base';
 import appColors from '../styles/colors';
 import appMetrics from '../styles/metrics';
 import {getMoodIcon} from '../utilities/weather.js';
 import NavigationContainer from './NavigationContainer';
 import PostList from './PostList';
 import PostItem from './PostItem';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {connect} from 'react-redux';
 import {selectMood} from '../states/post-actions';
@@ -48,31 +49,20 @@ class TodayScreen extends React.Component {
         const {navigate} = this.props.navigation;
         return (
             <NavigationContainer navigate={navigate} title='Today'>
-                <PostList /> 
-                <View style={{height:30}}/>
-
-                <View style={{flex:3,flexDirection:'row', justifyContent:'center'}}>
-
-                        <Icon name='star' size={30} style={{color:'rgb(226, 217, 10)' ,marginRight:10}} />
-
-
-                        <Text style={{fontSize:22}}>今天</Text>
-
-                </View>
-
-                {this.state.fabActive &&
-                    <TouchableWithoutFeedback onPress={this.handleFabClose}>
-                        <View style={styles.fabMask}/>
-                    </TouchableWithoutFeedback>
-                }
-                <Fab
-                    active={this.state.fabActive}
-                    containerStyle={styles.fabContainer}
-                    style={styles.fab}
-                    position="bottomRight"
-                    onPress={this.handleFabClose}>
-                    <Icon name='pencil' />
-                </Fab>
+                <View style={styles.header}/>
+                <View style={styles.header_title}>
+                    <Icon name='star' size={30} style={styles.header_icon} />
+                    <Text style={{fontSize:22}}>今天</Text>
+               </View>
+               <PostList/>
+               <Fab
+                   active={this.state.fabActive}
+                   containerStyle={styles.fabContainer}
+                   style={styles.fab}
+                   position="bottomRight"
+                   onPress={this.handleFabClose}>
+                  <Icon name='plus'/>
+               </Fab>
             </NavigationContainer>
         );
     }
@@ -99,12 +89,18 @@ const styles = {
     fab: {
         backgroundColor: appColors.primary
     },
-    mood: {
-        backgroundColor: appColors.primaryLightBorder
+    header: {
+        height:30
     },
-    moodIcon: {
-        color: appColors.primaryLightText
-    }
+    header_title: {
+        height:30,
+        flexDirection:'row',
+        justifyContent:'center'
+    },
+    header_icon: {
+        color:'rgb(226, 217, 10)' ,
+        marginRight:10
+    },
 };
 
 export default connect((state, ownProps) => ({

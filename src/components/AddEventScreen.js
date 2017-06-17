@@ -11,10 +11,12 @@ class AddEventScreen extends React.Component{
     constructor(props) {
         super(props);
           this.state = {
-            items:{},
+            start: '',
+            end: '',
           };
           this.onDayPress = this.onDayPress.bind(this);
-
+          this.handleGoBack = this.handleGoBack.bind(this);
+          console.log('props:',this.props);
         }
 
     render () {
@@ -22,22 +24,27 @@ class AddEventScreen extends React.Component{
             <Container>
                 <Header>
                     <Left>
-                        <Button transparent>
-                            <Icon name='keyboard-return' size={30 }/>
+                        <Button transparent onPress={this.handleGoBack}>
+                            <Icon name='chevron-left' size={30}/>
                         </Button>
                     </Left>
-                    <Body>
-                        <Title>Choose A Day!</Title>
-                    </Body>
-
+                    <Right>
+                        <Button transparent>
+                            <Icon name='chevron-right' size={30}/>
+                        </Button>
+                    </Right>
                 </Header>
                 <Content>
                     <ScrollView style={styles.container}>
                         <Calendar
-                          onDayPress={(day)=> this.onDayPress(day)}
-                          style={styles.calendar}
-                          hideExtraDays
-                          markedDates={{[this.state.selected]: {selected: true}}}
+                            onDayPress={(day)=> this.onDayPress(day)}
+                            style={styles.calendar}
+                            markedDates={
+                            {
+                                [this.state.start]: [{startingDay: true},{color:'green'},{marked:true}],
+                                [this.state.end]: [{endingDay: true},{color:'green'},{marked:true},{textColor: 'green'}]
+                            }}
+                            
                         />
                     </ScrollView>
                 </Content>
@@ -47,10 +54,21 @@ class AddEventScreen extends React.Component{
 
     onDayPress(day) {
         console.log('day pressed:',day);
-        this.setState({
-          selected: day.dateString
-        });
-        console.log(this.state.selected);
+        if (this.state.start == this.state.end) {
+            this.setState({
+                end: day.dateString
+            })
+        } else {
+            this.setState({
+              start: day.dateString,
+              end: day.dateString
+            });
+        }
+        console.log(this.state);
+    }
+
+    handleGoBack() {
+        this.props.navigation.goBack();
     }
 }
 
@@ -63,7 +81,7 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     borderBottomWidth: 1,
     borderColor: '#eee',
-    height: 350
+    height: 365
   },
   text: {
     textAlign: 'center',
