@@ -55,7 +55,7 @@ class AddEventScreen extends React.Component{
                         }}
                           onDateChange={(time) => {this.setState({time: time});}}
                         />*/}
-                        <Button transparent onPress={() => {}}>
+                        <Button transparent onPress={() => {this.props.navigate('TypeEvent')}}>
                             <Icon name='chevron-right' size={30}/>
                         </Button>
                     </Right>
