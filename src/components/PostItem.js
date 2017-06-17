@@ -29,12 +29,19 @@ class PostItem extends React.Component {
         const {id, StartDate, EndDate, Group, Title, Description} = this.props;
         console.log('ID= ',id);
         return (
-            <ListItem >
-                <Text>{StartDate}-{EndDate}</Text>
-                <Text>{Title} {' Group: '+Group}</Text>
-                <CheckBox checked={false} />
-                <Text>{Description}</Text>
-            </ListItem>
+          <Container>
+              <Content>
+                  <ListItem itemHeader first>
+                      <Text>{Group}</Text>
+                  </ListItem>
+                  <ListItem >
+                      <Text>{StartDate}-{EndDate}</Text>
+                      <Text>{Title} {' Group: '+Group}</Text>
+                      <CheckBox checked={false} />
+                      <Text>{Description}</Text>
+                  </ListItem>
+              </Content>
+          </Container>
         );
     }
 }
