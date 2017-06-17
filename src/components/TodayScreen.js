@@ -48,15 +48,17 @@ class TodayScreen extends React.Component {
         const {navigate} = this.props.navigation;
         return (
             <NavigationContainer navigate={navigate} title='Today'>
-                <PostList /> 
+                <PostList />
                 <View style={{height:30}}/>
 
                 <View style={{flex:3,flexDirection:'row', justifyContent:'center'}}>
 
                         <Icon name='star' size={30} style={{color:'rgb(226, 217, 10)' ,marginRight:10}} />
 
-
+                        
                         <Text style={{fontSize:22}}>今天</Text>
+
+
 
                 </View>
 
