@@ -35,10 +35,15 @@ class AddEventScreen extends React.Component{
                 <Content>
                     <ScrollView style={styles.container}>
                         <Calendar
-                          onDayPress={(day)=> this.onDayPress(day)}
-                          style={styles.calendar}
-                          hideExtraDays
-                          markedDates={{[this.state.selected]: {selected: true}}}
+                            onDayPress={(day)=> this.onDayPress(day)}
+                            style={styles.calendar}
+                            hideExtraDays
+                            markedDates={
+                            {
+                                [this.state.selected]: [{selected: true},{startingDay: true}
+                                ,{endingDay: true}]
+                            }}
+
                         />
                     </ScrollView>
                 </Content>
@@ -68,7 +73,7 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     borderBottomWidth: 1,
     borderColor: '#eee',
-    height: 350
+    height: 365
   },
   text: {
     textAlign: 'center',

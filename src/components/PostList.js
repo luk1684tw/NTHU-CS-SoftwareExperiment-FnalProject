@@ -53,22 +53,21 @@ class PostList extends React.Component {
           <Container style={styles.mission}>
               <Content>
                 <List dataArray={events}
-                              renderRow={(event) =>
-                                      <View>
-                                          <ListItem itemHeader first>
-                                              <Icon name='bell-ring' />
-                                              <Text>{event.Group}</Text>
-                                          </ListItem>
-                                          <ListItem>
-
-                                              <Text>{event.StartDate}-{event.EndDate}{'   '}</Text>
-                                              {/* <Text>{event.Title} {' Group: '+event.Group}</Text> */}
-                                              {/* <CheckBox checked={false} /> */}
-                                              <CheckBox checked={false} />
-                                              <Text>{event.Description}</Text>
-                                          </ListItem>
-                                      </View>
-                              }>
+                    renderRow={(event) =>
+                    <View>
+                        <ListItem itemHeader first>
+                            <Icon name='bell-ring' />
+                            <Text>{event.Group}</Text>
+                        </ListItem>
+                        <ListItem>
+                            <Text>{event.StartDate}-{event.EndDate}{'   '}</Text>
+                            {/* <Text>{event.Title} {' Group: '+event.Group}</Text> */}
+                            {/* <CheckBox checked={false} /> */}
+                            <CheckBox checked={false} />
+                                <Text>{event.Description}</Text>
+                        </ListItem>
+                    </View>
+                    }>
                 </List>
               </Content>
           </Container>
