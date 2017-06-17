@@ -44,7 +44,7 @@ class AddEventScreen extends React.Component{
                                 [this.state.start]: [{startingDay: true},{color:'green'},{marked:true}],
                                 [this.state.end]: [{endingDay: true},{color:'green'},{marked:true},{textColor: 'green'}]
                             }}
-                            
+
                         />
                     </ScrollView>
                 </Content>
