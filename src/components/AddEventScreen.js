@@ -6,22 +6,22 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';
 import {Calendar,CalendarList} from 'react-native-calendars';
 import DatePicker from 'react-native-datepicker';
-
+import {inputStart, inputEnd, inputTitle, inputGroup, createEvent} from '../states/event-actions.js'
 
 class AddEventScreen extends React.Component{
 
     constructor(props) {
         super(props);
-          this.state = {
-
+        this.state = {
             start: '',
             end: '',
             time:"12:50"
-          };
-          this.onDayPress = this.onDayPress.bind(this);
-          this.handleGoBack = this.handleGoBack.bind(this);
+        };
+        this.onDayPress = this.onDayPress.bind(this);
+        this.handleGoBack = this.handleGoBack.bind(this);
+        this.handleCreateEvent = this.handleCreateEvent.bind(this);
 
-          console.log('props:',this.props);
+        console.log('props:',this.props);
       }
 
     render () {
@@ -59,7 +59,7 @@ class AddEventScreen extends React.Component{
                         }}
                           onDateChange={(time) => {this.setState({time: time});}}
                         />*/}
-                        <Button transparent onPress={() => {}}>
+                        <Button transparent onPress={this.handleCreateEvent}>
                             <Icon name='chevron-right' size={30}/>
                         </Button>
                     </Right>
@@ -118,6 +118,14 @@ class AddEventScreen extends React.Component{
         this.props.navigation.goBack();
     }
 
+    handleCreateEvent() {
+        // this.props.dispatch(inputStart('2017-6-23'));
+        // this.props.dispatch(inputEnd('2017-6-24'));
+        // this.props.dispatch(inputTitle('teeeeeeeeeeeeeeeeeest'));
+        // this.props.dispatch(inputGroup('Handsome'));
+        console.log('in handleCreateEvent');
+        this.props.dispatch(createEvent('2017-06-22', '2017-06-24', '', 'test', ''));
+    }
 
 }
 

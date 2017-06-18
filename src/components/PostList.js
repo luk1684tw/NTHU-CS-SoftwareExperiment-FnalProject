@@ -29,14 +29,9 @@ class PostList extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            dataSource: new ListView.DataSource({
-                rowHasChanged: (r1, r2) => JSON.stringify(r1) !== JSON.stringify(r2)
-            })
-        };
 
-        this.handleRefresh = this.handleRefresh.bind(this);
-        this.handleLoadMore = this.handleLoadMore.bind(this);
+
+
     }
 
     componentDidMount() {
@@ -81,17 +76,7 @@ class PostList extends React.Component {
         )
     }
 
-    handleRefresh() {
-        const {dispatch, searchText} = this.props;
-        dispatch(listPosts(searchText));
-    }
 
-    handleLoadMore() {
-        const {listingMorePosts, dispatch, events, searchText} = this.props;
-        const start = events[events.length - 1].id;
-        if (listingMorePosts !== start)
-            dispatch(listMorePosts(searchText, start));
-    }
 }
 const styles = {
     mission: {

@@ -1,9 +1,9 @@
-const initEventState = {
+const initEventsState = {
     listingEvents: false,
     events: [{id: '94879487',StartDate: '2017/6/16', EndDate: '2017/6/16', Group: '測試用', Title:'和女朋友吃飯', Description:'好吃'}, {id: '94539453',StartDate: '2017/6/17', EndDate: '2017/6/18', Group: '測試用', Title:'和老婆約會', Description:'和老婆約會'}],
     creatingEvent: false,
 };
-export function event(state = initEventState, action) {
+export function event(state = initEventsState, action) {
     switch (action.type) {
         case '@EVENT/START_LIST_EVENTS':
             return {
@@ -93,5 +93,38 @@ export function group(state = initGroupState, action) {
             };
         default:
             return state;
+    }
+}
+
+
+const initEventForm = {
+    id: '',
+    startDate: '',
+    endDate: '',
+    title: '',
+    group: '',
+    inputDanger: false
+};
+
+export function eventform(state = initEventForm, action) {
+    switch (action.type) {
+        case '@EVENTFORM/STARTDATE' :
+            return {
+                ...state,
+                startDate: action.date
+            };
+        case '@EVENTFORM/ENDDATE' :
+            return {
+                ...state,
+                endDate: action.date
+            };
+        case '@EVENTFORM/TITLE' :
+            return {
+                ...state,
+                title: action.title
+            };
+        default: return {
+            ...state
+        };
     }
 }

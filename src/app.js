@@ -12,7 +12,7 @@ import {Provider, connect} from 'react-redux';
 import {search} from './states/search';
 import {toast} from './states/toast';
 import {post, postForm, postItem} from './states/post-reducers';
-import {group, event} from './states/event-reducers';
+import {group, event, eventform} from './states/event-reducers';
 import {StackNavigator, NavigationActions, addNavigationHelpers} from 'react-navigation';
 import TodayScreen from './components/TodayScreen';
 import UpcomingScreen from './components/UpcomingScreen.js';
@@ -81,7 +81,7 @@ const nav = (state = initialState, action) => {
 const store = createStore(combineReducers({
     nav, search, toast,
     post, postForm, postItem,
-    event, group
+    event, group, eventform
 }), compose(applyMiddleware(thunkMiddleware, loggerMiddleware)));
 
 export default class App extends React.Component {

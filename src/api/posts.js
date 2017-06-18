@@ -7,6 +7,7 @@
 // Production server URL
 const postBaseUrl = 'http://weathermood-production.us-west-2.elasticbeanstalk.com/api';
 import {AsyncStorage} from 'react-native';
+import FileSystem from 'react-native-filesystem';
 const moment = require('moment');
 const uuid = require('uuid/v4');
 
@@ -43,25 +44,24 @@ export function listPosts(searchText = '', start, group = '', startDate='', endD
     });
 }
 
-export function createPost(StartDate, EndDate, Group, Title, Description) {
-    AsyncStorage.getItem('user').then(result => {
-        let Newevent = {
-            Id: uuid(),
-            StartDate: StartDate,
-            EndDate: EndDate,
-            Group: Group,
-            Title: Title,
-            Description: Description
-        };
-        result = [
-            ...result,
-            Newevent
+export async function createPost(StartDate, EndDate, Group, Title) {
+    console.log('go in api');
+    let value = await AsyncStorage.getItem('user');
+    let NewEvent = {
+        StartDate: StartDate,
+        EndDate: EndDate,
+        Group: Group,
+        Title: Title
+    };
+    if (value == null) {
+        AsyncStorage.setItem('user',JSON.stringify(NewEvent));
+    } else {
+        value = [
+            ...value,
+            NewEvent
         ];
-        AsyncStorage.setItem('user',JSON.stringify(result));
-        return Newevent;
-    }).catch(error => {
-        console.log(eror);
-    });
+        AsyncStorage.setItem('user',JSON.stringify(value));
+    }
 
 }
 
@@ -76,12 +76,14 @@ export function listGroup() {
     });
 }
 
-export function createGroup(name = '') {
-    AsyncStorage.getItem('group',(err,result) => {
-        result = [
-            ...result,
-            name
-        ];
-        AsyncStorage.setItem('group',JSON.stringify(result));
-    });
+export async function createGroup(name = '') {
+    let value = await AsyncStorage.getItem('group');
+    if (value == null) {
+        AsyncStorage.setItem('group',JSON.stringify(' '));
+    }
+    value = [
+        ...value,
+        name
+    ];
+    AsyncStorage.setItem('group');
 }
