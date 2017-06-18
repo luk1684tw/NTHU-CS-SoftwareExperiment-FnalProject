@@ -182,6 +182,7 @@ export function resetForm(){
     return{
         type:'@EVENT_FORM/RESET_FORM'
     }
+}
 export function Animated(pictureNum) {
     return {
         type: '@PICTURE/Animated',
