@@ -94,19 +94,31 @@ export function listGroups(){
         });
     };
 }
-export function createGroup(name=''){
-    return (dispatch, getState) => {
-        dispatch(startCreateGroup());
-
-        return createGroupFromApi(name).then(group => {
-            dispatch(endCreateGroup(group));
-        }).catch(err => {
-            dispatch(endCreateGroup())
-            console.error('Error creating group', err);
-        });
-    };
+function updateGroup(groupName){
+    return{
+        type: '@GROUP/UPDATE_GROUP',
+        groupName
+    }
 }
-export function setGroupScreenName(name){
+export function createGroup(groupName=''){
+    // return (dispatch, getState) => {
+    //     dispatch(startCreateGroup());
+    //
+    //     return createGroupFromApi(name).then(group => {
+    //         dispatch(endCreateGroup(group));
+    //     }).catch(err => {
+    //         dispatch(endCreateGroup())
+    //         console.error('Error creating group', err);
+    //     });
+    // };
+    return{
+        type: '@GROUP/UPDATE_GROUP',
+        groupName
+    }
+    //dispatch(updateGroup(name));
+}
+export function setGroupScreenName(group){
+    var name=group.name
     return{
         type: '@GROUP/SET_GROUP_SCREEN_NAME',
         name

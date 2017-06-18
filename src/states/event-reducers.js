@@ -46,7 +46,7 @@ export function event(state = initEventState, action) {
 //SideBar Group List
 const initGroupState = {
     listingGroups: false,
-    groups: [{name: '女朋友'}, {name: '老婆'}],
+    groups: [{name: '暑期計畫'}, {name: '女友度假'}],
     groupScreenName: '',
     creatingGroup: false
 };
@@ -90,6 +90,13 @@ export function group(state = initGroupState, action) {
             return{
                 ...state,
                 groupScreenName: action.name
+            };
+        case '@GROUP/UPDATE_GROUP':
+            var tempGroupNames=state.groups;
+            tempGroupNames.push({name: action.groupName});
+            return{
+                ...state,
+                groups: tempGroupNames
             };
         default:
             return state;
