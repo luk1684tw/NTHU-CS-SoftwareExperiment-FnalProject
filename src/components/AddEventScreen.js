@@ -123,6 +123,7 @@ class AddEventScreen extends React.Component{
         // this.props.dispatch(inputEnd('2017-6-24'));
         // this.props.dispatch(inputTitle('teeeeeeeeeeeeeeeeeest'));
         // this.props.dispatch(inputGroup('Handsome'));
+        console.log('in handleCreateEvent');
         this.props.dispatch(createEvent('2017-06-22', '2017-06-24', '', 'test', ''));
     }
 

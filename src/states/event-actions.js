@@ -72,8 +72,11 @@ export function inputGroup(group) {
     };
 }
 
-export function createEvent(StartDate, EndDate, Group, Title, Description) {
+export function createEvent(StartDate, EndDate, Group = '', Title = '', Description = '') {
     console.log('redux received:',StartDate,EndDate,Group.Title,Description);
+    console.log('group:',Group);
+    console.log('title:',Title);
+    console.log('Description:',Description);
     return (dispatch, getState) => {
         dispatch(startCreateEvent());
 
