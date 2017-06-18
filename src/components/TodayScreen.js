@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {View, Text, TouchableWithoutFeedback} from 'react-native';
 import InfiniteScrollView from 'react-native-infinite-scroll-view';
 
-import {Fab, Button, Toast, Left, Body, Right, ListItem, Container, Content} from 'native-base';
+import {Fab, Button, Toast, Left, Body, Right, ListItem, Container, Content,Image} from 'native-base';
 import appColors from '../styles/colors';
 import appMetrics from '../styles/metrics';
 import {getMoodIcon} from '../utilities/weather.js';
@@ -60,6 +60,7 @@ class TodayScreen extends React.Component {
     render() {
         const {navigate} = this.props.navigation;
         return (
+
             <NavigationContainer navigate={navigate} title='Today'>
 
                 <View style={styles.header_title}>
@@ -80,6 +81,7 @@ class TodayScreen extends React.Component {
                </Fab>
 
             </NavigationContainer>
+
         );
     }
 
