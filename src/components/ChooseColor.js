@@ -20,19 +20,14 @@ export default class ChooseColor extends React.Component{
     render () {
         const {navigate} = this.props.navigation;
         return (
-
               <View style={styles.center}>
               <TouchableOpacity style={styles.buttonblack} onPress={() => navigate('Setting')}>
-
               </TouchableOpacity>
               <TouchableOpacity style={styles.buttonpink} onPress={() => navigate('Setting')}>
-
               </TouchableOpacity>
               <TouchableOpacity style={styles.buttonbrown} onPress={() => navigate('Setting')}>
-
               </TouchableOpacity>
               <TouchableOpacity style={styles.buttongrey} onPress={() => navigate('Setting')}>
-
               </TouchableOpacity>
               </View>
 
