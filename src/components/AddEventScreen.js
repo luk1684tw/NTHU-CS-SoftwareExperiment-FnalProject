@@ -1,17 +1,22 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import {Text,StyleSheet,ScrollView,View,TouchableOpacity,Image} from 'react-native';
 import {Container, Content, Button, Header, Left, Right, Body, Title, Form, Item, Label, Input} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';
 import {Calendar,CalendarList} from 'react-native-calendars';
 import DatePicker from 'react-native-datepicker';
-
+import {inputEventTitle, inputDanger, selectStartDate, selectGroup, selectEndDate} from '../states/event-actions';
 
 class AddEventScreen extends React.Component{
     static propTypes={
         navigation: PropTypes.object,
         groupScreenName: PropTypes.string,
+        eventTitle: PropTypes.string,
+        eventGroup: PropTypes.string,
+        eventStartDate: PropTypes.string,
+        eventEndDate: PropTypes.string,
+        inputDanger: PropTypes.bool
     }
     constructor(props) {
         super(props);
@@ -24,14 +29,13 @@ class AddEventScreen extends React.Component{
           this.handleGoBack = this.handleGoBack.bind(this);
           this.handleTitleChange = this.handleTitleChange.bind(this);
           this.handleCreateEvent = this.handleCreateEvent.bind(this);
-          console.log('props:',this.props);
       }
      handleTitleChange(){
          const {inputDanger: danger, dispatch} = this.props;
-         const inputValue = e.nativeEvent.text;
+         const title = e.nativeEvent.text;
          if (danger)
              dispatch(inputDanger(false));
-         dispatch(input(inputValue));
+         dispatch(inputEventTitle(title));
      }
      handleCreateEvent(){
 
@@ -92,7 +96,7 @@ class AddEventScreen extends React.Component{
     };
 
     onDayPress(day) {
-        console.log('day pressed:',day);
+        const {eventStartDate, eventEndDate, dispatch} = this.props;
         if (this.state.start == this.state.end) {
             this.setState({
                 end: day.dateString
@@ -102,6 +106,27 @@ class AddEventScreen extends React.Component{
               start: day.dateString,
               end: day.dateString
             });
+        }
+        if(eventStartDate==='' && eventEndDate===''){
+            dispatch(selectStartDate(day.dateString));
+        }else if(eventStartDate){
+            if(day.string<eventStartDate){
+                var temp=eventStartDate;
+                dispatch(selectStartDate(day.dateString));
+                dispatch(selectEndDate(temp));
+            }else{
+                dispatch(selectEndDate(day.dateString));
+            }
+        }else if(this.props.eventEndDate){
+            if(day.string>eventEndDate){
+                var temp=eventEndDate;
+                dispatch(selectEndDate(day.dateString));
+                dispatch(selectStartDate(temp));
+            }else{
+                dispatch(selectStartDate(day.dateString));
+            }
+        }else{
+
         }
         console.log(this.state);
     }
@@ -118,7 +143,8 @@ export default connect((state) => ({
     eventGroup: state.eventForm.eventGroup,
     eventStartDate: state.eventForm.eventStartDate,
     eventEndDate: state.eventForm.eventEndDate,
-    groupScreenName: state.group.groupScreenName
+    groupScreenName: state.group.groupScreenName,
+    inputDanger: state.eventForm.inputDanger
 }))(AddEventScreen);
 
 const styles = StyleSheet.create({

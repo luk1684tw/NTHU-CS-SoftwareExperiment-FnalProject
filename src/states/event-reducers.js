@@ -102,7 +102,7 @@ export function group(state = initGroupState, action) {
             return state;
     }
 }
-const initPostFormState = {
+const initEventFormState = {
     inputDanger: false,
     eventStartDate: '',
     eventEndDate: '',
@@ -111,7 +111,7 @@ const initPostFormState = {
 };
 
 //Event Form Reducer
-export function eventForm(state = initeventFormState, action) {
+export function eventForm(state = initEventFormState, action) {
     switch (action.type) {
         case '@EVENT_FORM/INPUT_EVENT_TITLE':
             return {
