@@ -29,15 +29,15 @@ class AddEventScreen extends React.Component{
 
           <Image source={require('../images/spring.png')} style = {styles.background}>
               <Container>
-                <Header>
+                <Header style={styles.header}>
                     <Left>
                         <Button transparent onPress={this.handleGoBack}>
                             <Icon name='chevron-left' size={30}/>
                         </Button>
                     </Left>
-                    <Body>
+                    {/*<Body>
                         <Text style={{marginLeft: 59, fontSize: 15}}>Choose a Day!</Text>
-                    </Body>
+                    </Body>*/}
                     <Right>
 
                       {/*<DatePicker
@@ -152,6 +152,7 @@ const styles = StyleSheet.create({
  overlap:{
    position: 'absolute'
  },
-
-
+ header:{
+   backgroundColor: 'green'
+ }
 });

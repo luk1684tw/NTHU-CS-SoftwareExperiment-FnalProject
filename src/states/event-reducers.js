@@ -95,3 +95,18 @@ export function group(state = initGroupState, action) {
             return state;
     }
 }
+
+const initCorgiState = {
+      pictureNum: 0,
+};
+
+export function corgi(state = initCorgiState, action) {
+        switch (action.type) {
+          case '@PICTURE/Animated':
+                return {
+                    pictureNum: (state.pictureNum<21) ?　state.pictureNum+1 : 0
+                }
+          default:
+              return state;
+        }
+}

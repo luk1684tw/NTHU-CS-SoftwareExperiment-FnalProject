@@ -112,3 +112,10 @@ export function setGroupScreenName(name){
         name
     };
 }
+
+export function Animated(pictureNum) {
+    return {
+        type: '@PICTURE/Animated',
+        pictureNum
+    };
+}
