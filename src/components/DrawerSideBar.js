@@ -4,7 +4,7 @@ import {View, Text, Image, Platform, Modal} from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Header, Container, Item, Input, Content, Thumbnail,Label, Badge, Button, Text as NbText, List, ListItem, Separator, Left, Body, Right} from 'native-base';
 import appColors from '../styles/colors';
-import {setGroupScreenName, createGroup} from '../states/event-actions';
+import {setGroupScreenName, createGroup,Animated} from '../states/event-actions';
 import {toggleGroupNameModal, setGroupNameText} from '../states/groupName';
 import {connect} from 'react-redux';
 class DrawerSideBar extends React.Component {
@@ -14,7 +14,8 @@ class DrawerSideBar extends React.Component {
         groupScreenName: PropTypes.string.isRequired,
         groupNameText: PropTypes.string.isRequired,
         modalToggle: PropTypes.bool.isRequired,
-        dispatch: PropTypes.func.isRequired
+        dispatch: PropTypes.func.isRequired,
+        pictureNum: PropTypes.number.isRequired
     };
     constructor(props){
         super(props);
@@ -23,12 +24,14 @@ class DrawerSideBar extends React.Component {
         this.handleCloseGroupName=this.handleCloseGroupName.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
     }
+
     handleOnClick(item){
         this.props.dispatch(setGroupScreenName(item));
         // console.log(item, this.props.groupScreenName);
         this.props.navigate('Group');
         // this.props.dispatch(setGroupScreenName(item));
     }
+
     handleOpenGroupName(){
         // Todo: dynamic add group name
         this.props.dispatch(setGroupNameText(''));
@@ -45,8 +48,20 @@ class DrawerSideBar extends React.Component {
             this.props.dispatch(toggleGroupNameModal());
         }
     }
+
+    handleOnClickCorgi(){
+      clearInterval(this.interval);
+      this.interval = setInterval(()=>{this.props.dispatch(Animated(24))}, 60);
+    }
+
+    componentWillReceiveProps(){
+      if(this.props.pictureNum == 44 ){
+            clearInterval(this.interval);
+          }
+    }
+
     render() {
-      const {navigate, dispatch, modalToggle, groupNameText, groups} = this.props;
+      const {navigate, dispatch, modalToggle, groupNameText, groups , pictureNum} = this.props;
       //-----------------Group List Setting-----------------------
         //var items=['和學妹出去玩', '和妹妹野餐', '和女友約會'];
         let children=(
@@ -72,10 +87,13 @@ class DrawerSideBar extends React.Component {
       return (
         <Container style={styles.drawer}>
 
+          <Image source={require('../images/corgi-24.png')} style={styles.corgi}  onPress={()=>{this.handleOnClickCorgi()}}>
+          </Image>
+
             <Content>
                 <List>
                     {/* 代辦事項 */}
-                    <ListItem itemDivider><Left><Text style={styles.text}>待辦事項</Text></Left><Body></Body><Right></Right></ListItem>
+                    <ListItem itemDivider style={styles.itemheight}><Left><Text style={styles.text}>待辦事項</Text></Left><Body></Body><Right></Right></ListItem>
                     <ListItem button onPress={() => navigate('Today')}>
                         <Icon name='bomb' size={20}/>
                         <Text style={styles.text}>今天</Text>
@@ -155,20 +173,32 @@ const styles = {
         fontSize: (Platform.OS === 'ios') ? 10 : 12,
         fontWeight: 'bold',
         flex: 1,
-        marginHorizontal: 12
+        marginHorizontal: 12,
+
     },
     title:{
         backgroundColor: 'rgb(255, 219, 251)',
         fontSize: (Platform.OS === 'ios')? 10: 12
     },
     itemheight:{
-
       flex:1
+    },
+    corgi:{
+      width:200,
+      height:150,
+      marginLeft:30
+    },
+    background:{
+      resizeMode: 'cover',
+      width:null,
+      height:null,
+      flex: 1
     }
 };
 export default connect((state, ownProps) => ({
     groupScreenName: state.group.groupScreenName,
     groupNameText: state.groupName.groupNameText,
     groups: state.group.groups,
-    modalToggle: state.groupName.modalToggle
+    modalToggle: state.groupName.modalToggle,
+    pictureNum: state.corgi.pictureNum
 }))(DrawerSideBar);

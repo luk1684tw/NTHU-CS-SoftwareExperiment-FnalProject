@@ -45,15 +45,17 @@ class AddEventScreen extends React.Component{
 
           <Image source={require('../images/spring.png')} style = {styles.background}>
               <Container>
-                <Header>
+                <Header style={styles.header}>
                     <Left>
                         <Button transparent onPress={this.handleGoBack}>
                             <Icon name='chevron-left' size={30} style = {{color: 'white'}}/>
                         </Button>
                     </Left>
+
                     <Body>
                         <Text style={{marginLeft: 59, fontSize: 15, color:'white'}}>Choose a Day!</Text>
                     </Body>
+
                     <Right>
                         <Button transparent onPress={() => {}}>
                             <Icon name='chevron-right' size={30} style = {{color: 'white'}}/>
@@ -172,6 +174,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white'
   },
+
   overlap:{
     position: 'absolute'
   },
@@ -180,6 +183,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF'
-  },
+  }
 
 });

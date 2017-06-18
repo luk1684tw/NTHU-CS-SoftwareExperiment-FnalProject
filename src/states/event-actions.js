@@ -124,6 +124,7 @@ export function setGroupScreenName(group){
         name
     };
 }
+
 export function inputEventTitle(eventTitle){
     return{
         type:'@EVENT_FORM/INPUT_EVENT_TITLE',
@@ -153,4 +154,12 @@ export function selectGroup(eventGroup){
         type:'@EVENT_FORM/SELECT_GROUP',
         eventGroup
     }
+}
+
+export function Animated(pictureNum) {
+    return {
+        type: '@PICTURE/Animated',
+        pictureNum
+    };
+
 }
