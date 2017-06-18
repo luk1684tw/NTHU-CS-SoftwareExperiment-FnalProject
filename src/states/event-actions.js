@@ -35,29 +35,40 @@ function endCreateEvent(event) {
 
 
 export function listEvents(searchText, group, startDate, endDate) {
-    return (dispatch, getState) => {
-        dispatch(startListEvents());
-        return listPostsFromApi(searchText, '', group, startDate, endDate).then(events => {
-            dispatch(endListEvents(events));
-        }).catch(err => {
-            dispatch(endListEvents());
-            console.error('Error listing events', err);
-        });
-    };
+    // return (dispatch, getState) => {
+    //     dispatch(startListEvents());
+    //     return listPostsFromApi(searchText, '', group, startDate, endDate).then(events => {
+    //         dispatch(endListEvents(events));
+    //     }).catch(err => {
+    //         dispatch(endListEvents());
+    //         console.error('Error listing events', err);
+    //     });
+    // };
 };
 
 
-export function createEvent(StartDate, EndDate, Group, Title, Description) {
-    return (dispatch, getState) => {
-        dispatch(startCreateEvent());
-
-        return createPostFromApi(StartDate, EndDate, Group, Title, Description).then(event => {
-            dispatch(endCreateEvent(event));
-        }).catch(err => {
-            dispatch(endCreateEvent())
-            console.error('Error creating event', err);
-        });
+export function createEvent(StartDate, EndDate, Group, Title) {
+    // return (dispatch, getState) => {
+    //     dispatch(startCreateEvent());
+    //
+    //     return createPostFromApi(StartDate, EndDate, Group, Title).then(event => {
+    //         dispatch(endCreateEvent(event));
+    //     }).catch(err => {
+    //         dispatch(endCreateEvent())
+    //         console.error('Error creating event', err);
+    //     });
+    // };
+    var newEvent={
+        id: '666666666',
+        StartDate: StartDate,
+        EndDate: EndDate,
+        Group: Group,
+        Title: Title
     };
+    return{
+        type: '@EVENT/UPDATE_EVENT',
+        event: newEvent
+    }
 };
 
 //Side bar: group list
@@ -152,5 +163,22 @@ export function selectGroup(eventGroup){
     return{
         type:'@EVENT_FORM/SELECT_GROUP',
         eventGroup
+    }
+}
+export function changeFirstDate(firstClickDate){
+    return{
+        type:'@EVENT_FORM/CHANGE_FIRST_DATE',
+        firstClickDate
+    }
+}
+export function changeSecondDate(secondClickDate){
+    return{
+        type:'@EVENT_FORM/CHANGE_SECOND_DATE',
+        secondClickDate
+    }
+}
+export function resetForm(){
+    return{
+        type:'@EVENT_FORM/RESET_FORM'
     }
 }

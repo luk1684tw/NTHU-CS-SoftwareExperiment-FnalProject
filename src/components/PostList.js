@@ -49,6 +49,7 @@ class PostList extends React.Component {
 
     render() {
         const {listingPosts, hasMorePosts, events} = this.props;
+        console.log('Fucking Event', events);
         return (
 
           <Container style={styles.mission}>
@@ -71,7 +72,7 @@ class PostList extends React.Component {
                             <Text>{event.StartDate}-{event.EndDate}{'   '}</Text>
                             {/* <Text>{event.Title} {' Group: '+event.Group}</Text> */}
                             {/* <CheckBox checked={false} /> */}
-                            <Text>{event.Description}</Text>
+                            <Text>{event.Title}</Text>
                         </ListItem>
                     </View>
                     }>
@@ -104,6 +105,6 @@ export default connect((state, ownProps) => ({
     searchText: state.search.searchText,
     listingPosts: state.post.listingPosts,
     listingMorePosts: state.post.listingMorePosts,
-    events: state.post.events,
+    events: state.event.events,
     hasMorePosts: state.post.hasMore
 }))(PostList);

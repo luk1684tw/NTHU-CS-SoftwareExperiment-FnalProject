@@ -1,6 +1,6 @@
 const initEventState = {
     listingEvents: false,
-    events: [{id: '94879487',StartDate: '2017/6/16', EndDate: '2017/6/16', Group: '測試用', Title:'和女朋友吃飯', Description:'好吃'}, {id: '94539453',StartDate: '2017/6/17', EndDate: '2017/6/18', Group: '測試用', Title:'和老婆約會', Description:'和老婆約會'}],
+    events: [{id: '94879487',StartDate: '2017/6/16', EndDate: '2017/6/16', Group: '測試用', Title:'和女朋友吃飯'}, {id: '94539453',StartDate: '2017/6/17', EndDate: '2017/6/18', Group: '測試用', Title:'和老婆約會'}],
     creatingEvent: false,
 };
 export function event(state = initEventState, action) {
@@ -37,7 +37,14 @@ export function event(state = initEventState, action) {
             return {
                 ...state,
                 creatingEvent: false,
-                evnets: newEvents
+                events: newEvents
+            };
+        case '@EVENT/UPDATE_EVENT':
+            var newEvents = state.events;
+            newEvents.push(action.event);
+            return{
+                ...state,
+                events: newEvents
             };
         default:
             return state;
@@ -108,6 +115,8 @@ const initEventFormState = {
     eventEndDate: '',
     eventTitle: '',
     eventGroup: '',
+    firstClickDate: '',
+    secondClickDate: ''
 };
 
 //Event Form Reducer
@@ -137,6 +146,26 @@ export function eventForm(state = initEventFormState, action) {
             return{
                 ...state,
                 eventGroup: action.eventGroup
+            }
+        case '@EVENT_FORM/CHANGE_FIRST_DATE':
+            return{
+                ...state,
+                firstClickDate: action.firstClickDate
+            };
+        case '@EVENT_FORM/CHANGE_SECOND_DATE':
+            return{
+                ...state,
+                secondClickDate: action.secondClickDate
+            };
+        case '@EVENT_FORM/RESET_FORM':
+            return{
+                ...state,
+                inputDanger: false,
+                eventStartDate: '',
+                eventEndDate: '',
+                eventTitle: '',
+                firstClickDate: '',
+                secondClickDate: ''
             }
         default:
             return state;

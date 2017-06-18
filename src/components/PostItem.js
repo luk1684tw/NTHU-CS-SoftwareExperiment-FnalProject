@@ -17,7 +17,6 @@ class PostItem extends React.Component {
         EndDate: PropTypes.string.isRequired,
         Group: PropTypes.string.isRequired,
         Title: PropTypes.string.isRequired,
-        Description: PropTypes.string.isRequired,
         dispatch: PropTypes.func.isRequired
     };
 
@@ -26,7 +25,7 @@ class PostItem extends React.Component {
     }
 
     render() {
-        const {id, StartDate, EndDate, Group, Title, Description} = this.props;
+        const {id, StartDate, EndDate, Group, Title} = this.props;
         console.log('ID= ',id);
         return (
           <Container>
@@ -38,7 +37,7 @@ class PostItem extends React.Component {
                       <Text>{StartDate}-{EndDate}</Text>
                       <Text>{Title} {' Group: '+Group}</Text>
                       <CheckBox checked={false} />
-                      <Text>{Description}</Text>
+                      <Text>{Title}</Text>
                   </ListItem>
               </Content>
           </Container>
