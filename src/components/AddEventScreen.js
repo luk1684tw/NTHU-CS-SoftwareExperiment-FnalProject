@@ -1,6 +1,7 @@
 import React from 'react';
-import {Text,StyleSheet,ScrollView,View,TouchableOpacity} from 'react-native';
-import {Container, Content, Button, Header, Left, Right, Body, Title} from 'native-base';
+
+import {Text,StyleSheet,ScrollView,View,TouchableOpacity,Image} from 'react-native';
+import {Container, Content, Button, Header, Left, Right, Body, Title, Form, Item, Label, Input} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';
 import {Calendar,CalendarList} from 'react-native-calendars';
@@ -19,12 +20,15 @@ class AddEventScreen extends React.Component{
           };
           this.onDayPress = this.onDayPress.bind(this);
           this.handleGoBack = this.handleGoBack.bind(this);
+
           console.log('props:',this.props);
       }
 
     render () {
         return (
-            <Container>
+
+          <Image source={require('../images/spring.png')} style = {styles.background}>
+              <Container>
                 <Header>
                     <Left>
                         <Button transparent onPress={this.handleGoBack}>
@@ -34,7 +38,7 @@ class AddEventScreen extends React.Component{
                     <Body>
                         <Text style={{marginLeft: 59, fontSize: 15}}>Choose a Day!</Text>
                     </Body>
-                    <Right style={styles.overlap}>
+                    <Right>
 
                       {/*<DatePicker
                           date={this.state.time}
@@ -55,14 +59,15 @@ class AddEventScreen extends React.Component{
                         }}
                           onDateChange={(time) => {this.setState({time: time});}}
                         />*/}
-                        <Button transparent onPress={() => {this.props.navigate('TypeEvent')}}>
+                        <Button transparent onPress={() => {}}>
                             <Icon name='chevron-right' size={30}/>
                         </Button>
                     </Right>
 
                 </Header>
                 <Content>
-                    <ScrollView style={styles.container}>
+
+                    <ScrollView>
                         <Calendar
                             onDayPress={(day)=> this.onDayPress(day)}
                             style={styles.calendar}
@@ -73,15 +78,24 @@ class AddEventScreen extends React.Component{
                             }}
                         />
                     </ScrollView>
-                    {(this.state.start!=='')?
+
+                    {/*(this.state.start!=='')?
                         <Text style={{fontSize: 20, fontWeight: 'bold'}}>From:{this.state.start}</Text>
-                        : <Text/>}
+                        : <Text/>*/}
                     {/*(this.state.end!=='')?
                         <Text style={{fontSize: 20, fontWeight: 'bold'}}>To:{this.state.start}</Text>
                         : <Text/>*/}
+                    <Form>
+                        <Item floatingLabel>
+                            <Label>輸入提醒名稱</Label>
+                            <Input onChangeText={(text) => {console.log(text);}}/>
+                        </Item>
+                    </Form>
 
                 </Content>
-            </Container>
+              </Container>
+            </Image>
+
         );
     };
 
@@ -103,18 +117,27 @@ class AddEventScreen extends React.Component{
     handleGoBack() {
         this.props.navigation.goBack();
     }
+
+
 }
 
 export default connect((state) => ({
 }))(AddEventScreen);
 
 const styles = StyleSheet.create({
+  background:{
+    resizeMode: 'cover',
+    width:null,
+    height:null,
+    flex: 1,
+    opacity:0.9
+  },
   calendar: {
     borderTopWidth: 1,
     paddingTop: 5,
     borderBottomWidth: 1,
     borderColor: '#eee',
-    height: 365
+    height: 320
   },
   text: {
     textAlign: 'center',
@@ -129,5 +152,6 @@ const styles = StyleSheet.create({
  overlap:{
    position: 'absolute'
  },
+
 
 });

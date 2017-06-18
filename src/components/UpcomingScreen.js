@@ -1,19 +1,31 @@
 import React from 'react';
-import {Text} from 'react-native';
+import {Text,Image} from 'react-native';
 import NavigationContainer from './NavigationContainer';
+import CalendarStrip from 'react-native-calendar-strip';
+import moment from 'moment';
+
 export default class UpcomingScreen extends React.Component{
+
+
+
     render () {
         const {navigate} = this.props.navigation;
         return (
-
+          <Image source={require('../images/fall.png')} style = {styles.background}>
             <NavigationContainer navigate={navigate} title='Upcoming'>
-                <Text style={styles}>即將來到測試頁</Text>
+                <CalendarStrip
+                />
             </NavigationContainer>
+            </Image>
 
         );
     };
 }
 const styles = {
-    fontSize: 16,
-    alignItems: 'center'
+  background:{
+    resizeMode: 'cover',
+    width:null,
+    height:null,
+    flex: 1
+  }
 };
