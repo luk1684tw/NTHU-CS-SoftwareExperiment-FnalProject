@@ -46,7 +46,7 @@ export function event(state = initEventState, action) {
 //SideBar Group List
 const initGroupState = {
     listingGroups: false,
-    groups: [{name: '女朋友'}, {name: '老婆'}],
+    groups: [{name: '暑期計畫'}, {name: '女友度假'}],
     groupScreenName: '',
     creatingGroup: false
 };
@@ -91,6 +91,53 @@ export function group(state = initGroupState, action) {
                 ...state,
                 groupScreenName: action.name
             };
+        case '@GROUP/UPDATE_GROUP':
+            var tempGroupNames=state.groups;
+            tempGroupNames.push({name: action.groupName});
+            return{
+                ...state,
+                groups: tempGroupNames
+            };
+        default:
+            return state;
+    }
+}
+const initEventFormState = {
+    inputDanger: false,
+    eventStartDate: '',
+    eventEndDate: '',
+    eventTitle: '',
+    eventGroup: '',
+};
+
+//Event Form Reducer
+export function eventForm(state = initEventFormState, action) {
+    switch (action.type) {
+        case '@EVENT_FORM/INPUT_EVENT_TITLE':
+            return {
+                ...state,
+                eventTitle: action.eventTitle
+            };
+        case '@EVENT_FORM/INPUT_DANGER':
+            return {
+                ...state,
+                inputDanger: action.danger
+            };
+        case '@EVENT_FORM/SELECT_START_DATE':
+            return {
+                ...state,
+                eventStartDate: action.eventStartDate
+            };
+        case '@EVENT_FORM/SELECT_END_DATE':
+            return{
+                ...state,
+                eventEndDate: action.eventEndDate
+            };
+        case '@EVENT_FORM/SELECT_GROUP':
+            return{
+                ...state,
+                eventGroup: action.eventGroup
+            }
         default:
             return state;
     }

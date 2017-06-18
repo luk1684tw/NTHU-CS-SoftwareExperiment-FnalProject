@@ -94,21 +94,63 @@ export function listGroups(){
         });
     };
 }
-export function createGroup(name=''){
-    return (dispatch, getState) => {
-        dispatch(startCreateGroup());
-
-        return createGroupFromApi(name).then(group => {
-            dispatch(endCreateGroup(group));
-        }).catch(err => {
-            dispatch(endCreateGroup())
-            console.error('Error creating group', err);
-        });
-    };
+function updateGroup(groupName){
+    return{
+        type: '@GROUP/UPDATE_GROUP',
+        groupName
+    }
 }
-export function setGroupScreenName(name){
+export function createGroup(groupName=''){
+    // return (dispatch, getState) => {
+    //     dispatch(startCreateGroup());
+    //
+    //     return createGroupFromApi(name).then(group => {
+    //         dispatch(endCreateGroup(group));
+    //     }).catch(err => {
+    //         dispatch(endCreateGroup())
+    //         console.error('Error creating group', err);
+    //     });
+    // };
+    return{
+        type: '@GROUP/UPDATE_GROUP',
+        groupName
+    }
+    //dispatch(updateGroup(name));
+}
+export function setGroupScreenName(group){
+    var name=group.name
     return{
         type: '@GROUP/SET_GROUP_SCREEN_NAME',
         name
     };
+}
+export function inputEventTitle(eventTitle){
+    return{
+        type:'@EVENT_FORM/INPUT_EVENT_TITLE',
+        eventTitle
+    }
+}
+export function inputDanger(danger){
+    return{
+        type:'@EVENT_FORM/INPUT_DANGER',
+        danger
+    }
+}
+export function selectStartDate(eventStartDate){
+    return{
+        type:'@EVENT_FORM/SELECT_START_DATE',
+        eventStartDate
+    }
+}
+export function selectEndDate(eventEndDate){
+    return{
+        type:'@EVENT_FORM/SELECT_END_DATE',
+        eventEndDate
+    }
+}
+export function selectGroup(eventGroup){
+    return{
+        type:'@EVENT_FORM/SELECT_GROUP',
+        eventGroup
+    }
 }
