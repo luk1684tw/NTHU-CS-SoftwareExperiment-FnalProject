@@ -31,7 +31,7 @@ class TodayScreen extends React.Component {
 
         this.state = {
             fabActive: false,
-            day:"MON"
+            day:'THU'
         };
         this.componentDidMount = this.componentDidMount.bind(this);
         this.handleFabClose = this.handleFabClose.bind(this);
@@ -52,8 +52,23 @@ class TodayScreen extends React.Component {
         if(new Date().getDay()===1){
           this.setState({day: "MON"});
         }
+        else if(new Date().getDay()===2){
+          this.setState({day: "TUE"});
+        }
+        else if(new Date().getDay()===3){
+          this.setState({day: "WED"});
+        }
+        else if(new Date().getDay()===4){
+          this.setState({day: "THU"});
+        }
+        else if(new Date().getDay()===5){
+          this.setState({day: "FRI"});
+        }
         else if(new Date().getDay()===6){
           this.setState({day: "SAT"});
+        }
+        else if(new Date().getDay()===0){
+          this.setState({day: "SUN"});
         }
     }
 
@@ -61,7 +76,6 @@ class TodayScreen extends React.Component {
         const {navigate} = this.props.navigation;
         return (
             <NavigationContainer navigate={navigate} title='Today'>
-
                 <View style={styles.header_title}>
                   <View style={styles.date}>
                     <Text style={{fontSize:15,color: 'white',fontWeight:'bold'}}>  {this.state.day}</Text>
@@ -78,7 +92,6 @@ class TodayScreen extends React.Component {
                    onPress={this.handleFabClose}>
                   <Icon name='plus'/>
                </Fab>
-
             </NavigationContainer>
         );
     }
@@ -87,9 +100,6 @@ class TodayScreen extends React.Component {
         this.setState({fabActive: !this.state.fabActive});
         this.props.navigation.navigate('AddEvent');
     }
-
-
-
 }
 
 const styles = {
@@ -114,18 +124,18 @@ const styles = {
       marginLeft:60,
     },
     today:{
-
       marginLeft: 40,
       color:'white',
-      fontSize:35
+      fontSize:35,
     },
     header_title: {
-        height:150,
+        height:120,
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: 'cornflowerblue',
+        opacity:0.5,
+        top:0,
     },
-
 };
 
 export default connect((state, ownProps) => ({

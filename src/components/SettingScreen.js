@@ -90,7 +90,7 @@ export default class SettingScreen extends React.Component{
               itemWidth={70}
               titleStyle={{color:'black', fontSize: 16, fontFamily: 'Roboto'}}
               hasNavArrow={false}
-
+              onPress={() => navigate('Developer')}
             />
             <SettingsList.Header headerStyle={{marginTop: -5}}/>
           </SettingsList>
