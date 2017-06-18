@@ -6,7 +6,7 @@ export default class SomeDayScreen extends React.Component{
       const {navigate} = this.props.navigation;
         return (
             <NavigationContainer navigate={navigate} title='Today'>
-              <Image source={require('../images/winter.png')} style = {styles.background}>
+              <Image source={require('../images/sep.png')} style = {styles.background}>
               </Image>
             </NavigationContainer>
         );

@@ -14,7 +14,6 @@ export default class UpcomingScreen extends React.Component{
           <Image source={require('../images/fall.png')} style = {styles.background}>
             <NavigationContainer navigate={navigate} title='Upcoming'>
                 <CalendarStrip
-
                 />
             </NavigationContainer>
             </Image>
