@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     View,
-    ListView, RefreshControl, Text
+    ListView, RefreshControl, Text, Image
 } from 'react-native';
 import InfiniteScrollView from 'react-native-infinite-scroll-view';
 import {Left,Right,Body, List, ListItem, Container, Content, Icon} from 'native-base';
 
 
 import PostItem from './PostItem';
-
+import CalendarStrip from 'react-native-calendar-strip';
 import {connect} from 'react-redux';
 import {listPosts, listMorePosts} from '../states/post-actions';
 import {CheckBox} from 'react-native-elements';
@@ -50,6 +50,7 @@ class PostList extends React.Component {
     render() {
         const {listingPosts, hasMorePosts, events} = this.props;
         return (
+
           <Container style={styles.mission}>
               <Content>
                 <List dataArray={events}
@@ -59,7 +60,7 @@ class PostList extends React.Component {
                             <Icon name='bell-ring' />
                             <Text>{event.Group}</Text>
                             <CheckBox
-                              containerStyle={{backgroundColor: 'rgb(247, 255, 238)', borderWidth:0,position:'absolute',right:10}}
+                              containerStyle={{backgroundColor:'transparent',borderWidth:0,position:'absolute',right:10}}
                               center
                               checkedColor='red'
                               uncheckedColor='black'
@@ -71,7 +72,6 @@ class PostList extends React.Component {
                             {/* <Text>{event.Title} {' Group: '+event.Group}</Text> */}
                             {/* <CheckBox checked={false} /> */}
                             <Text>{event.Description}</Text>
-
                         </ListItem>
                     </View>
                     }>
@@ -97,7 +97,7 @@ const styles = {
     mission: {
         margin: 30,
         height: 30,
-        backgroundColor: 'rgb(247, 255, 238)',
+        opacity: 0.8
     }
 }
 export default connect((state, ownProps) => ({

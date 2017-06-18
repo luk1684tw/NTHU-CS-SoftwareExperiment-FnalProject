@@ -1,5 +1,6 @@
 import React from 'react';
-import {Text,StyleSheet,ScrollView,View,TouchableOpacity} from 'react-native';
+
+import {Text,StyleSheet,ScrollView,View,TouchableOpacity,Image} from 'react-native';
 import {Container, Content, Button, Header, Left, Right, Body, Title, Form, Item, Label, Input} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';
@@ -25,7 +26,9 @@ class AddEventScreen extends React.Component{
 
     render () {
         return (
-            <Container>
+
+          <Image source={require('../images/spring.png')} style = {styles.background}>
+              <Container>
                 <Header>
                     <Left>
                         <Button transparent onPress={this.handleGoBack}>
@@ -35,7 +38,7 @@ class AddEventScreen extends React.Component{
                     <Body>
                         <Text style={{marginLeft: 59, fontSize: 15}}>Choose a Day!</Text>
                     </Body>
-                    <Right style={styles.overlap}>
+                    <Right>
 
                       {/*<DatePicker
                           date={this.state.time}
@@ -63,7 +66,8 @@ class AddEventScreen extends React.Component{
 
                 </Header>
                 <Content>
-                    <ScrollView style={styles.container}>
+
+                    <ScrollView>
                         <Calendar
                             onDayPress={(day)=> this.onDayPress(day)}
                             style={styles.calendar}
@@ -74,6 +78,7 @@ class AddEventScreen extends React.Component{
                             }}
                         />
                     </ScrollView>
+
                     {/*(this.state.start!=='')?
                         <Text style={{fontSize: 20, fontWeight: 'bold'}}>From:{this.state.start}</Text>
                         : <Text/>*/}
@@ -88,7 +93,9 @@ class AddEventScreen extends React.Component{
                     </Form>
 
                 </Content>
-            </Container>
+              </Container>
+            </Image>
+
         );
     };
 
@@ -118,24 +125,33 @@ export default connect((state) => ({
 }))(AddEventScreen);
 
 const styles = StyleSheet.create({
-    calendar: {
-        borderTopWidth: 1,
-        paddingTop: 5,
-        borderBottomWidth: 1,
-        borderColor: '#eee',
-        height: 365
-    },
-    text: {
-        textAlign: 'center',
-        borderColor: '#bbb',
-        padding: 10,
-        backgroundColor: '#eee'
-    },
-    container: {
-        flex: 1,
-        backgroundColor: 'white'
-    },
-    overlap:{
-        position: 'absolute'
-    },
+  background:{
+    resizeMode: 'cover',
+    width:null,
+    height:null,
+    flex: 1,
+    opacity:0.9
+  },
+  calendar: {
+    borderTopWidth: 1,
+    paddingTop: 5,
+    borderBottomWidth: 1,
+    borderColor: '#eee',
+    height: 320
+  },
+  text: {
+    textAlign: 'center',
+    borderColor: '#bbb',
+    padding: 10,
+    backgroundColor: '#eee'
+  },
+  container: {
+    flex: 1,
+    backgroundColor: 'white'
+  },
+ overlap:{
+   position: 'absolute'
+ },
+
+
 });

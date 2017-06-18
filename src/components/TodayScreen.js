@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {View, Text, TouchableWithoutFeedback} from 'react-native';
+import {View, Text, TouchableWithoutFeedback,Image} from 'react-native';
 import InfiniteScrollView from 'react-native-infinite-scroll-view';
 
 import {Fab, Button, Toast, Left, Body, Right, ListItem, Container, Content} from 'native-base';
@@ -15,7 +15,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';
 import {selectMood} from '../states/post-actions';
 import {setToast} from '../states/toast';
-
+import CalendarStrip from 'react-native-calendar-strip';
 class TodayScreen extends React.Component {
     static propTypes = {
         creatingPost: PropTypes.bool.isRequired,
@@ -75,15 +75,17 @@ class TodayScreen extends React.Component {
     render() {
         const {navigate} = this.props.navigation;
         return (
-            <Container>
+<Image source={require('../images/summer.png')} style = {styles.background}>
+                 <NavigationContainer navigate={navigate} title='Today' style={styles.todaynav}>
+
                 <View style={styles.header_title}>
                   <View style={styles.date}>
-                    <Text style={{fontSize:15,color: 'white',fontWeight:'bold'}}>  {this.state.day}</Text>
-                    <Text style={{fontSize:20,color: 'white'}}>  {new Date().getDate()}</Text>
+                    <Text style={{fontSize:15,color: 'black',fontWeight:'bold'}}>  {this.state.day}</Text>
+                    <Text style={{fontSize:20,color: 'black'}}>  {new Date().getDate()}</Text>
                   </View>
                   <Text style={styles.today}>TODAY</Text>
                </View>
-               <NavigationContainer navigate={navigate} title='Today' style={styles.todaynav}>
+
                <PostList/>
                <Fab
                    active={this.state.fabActive}
@@ -93,8 +95,9 @@ class TodayScreen extends React.Component {
                    onPress={this.handleFabClose}>
                   <Icon name='plus'/>
                </Fab>
+
             </NavigationContainer>
-          </Container>
+</Image>
         );
     }
 
@@ -128,21 +131,27 @@ const styles = {
     },
     today:{
       marginLeft: 40,
-      color:'white',
+      color:'black',
       fontSize:35,
+      fontWeight:'bold'
     },
     header_title: {
-        height:120,
+        height:70,
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: 'cornflowerblue',
-        opacity:0.5,
+        backgroundColor: 'transparent',
+        opacity: 0.7,
         top:0,
 
     },
     todaynav:{
-        position:'absolute',
-        top:0,
+
+    },
+    background:{
+      resizeMode: 'cover',
+      width:null,
+      height:null,
+      flex: 1
     }
 };
 

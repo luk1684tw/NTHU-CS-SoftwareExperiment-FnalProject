@@ -22,7 +22,6 @@ import SettingScreen from './components/SettingScreen.js';
 import ChooseColor from './components/ChooseColor.js';
 import CreateGroupScreen from './components/CreateGroupScreen.js';
 import AddEventScreen from './components/AddEventScreen.js';
-
 import Developer from './components/developer.js';
 
 
