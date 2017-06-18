@@ -102,3 +102,43 @@ export function group(state = initGroupState, action) {
             return state;
     }
 }
+const initPostFormState = {
+    inputDanger: false,
+    eventStartDate: '',
+    eventEndDate: '',
+    eventTitle: '',
+    eventGroup: '',
+};
+
+//Event Form Reducer
+export function eventForm(state = initeventFormState, action) {
+    switch (action.type) {
+        case '@EVENT_FORM/INPUT_EVENT_TITLE':
+            return {
+                ...state,
+                eventTitle: action.eventTitle
+            };
+        case '@EVENT_FORM/INPUT_DANGER':
+            return {
+                ...state,
+                inputDanger: action.danger
+            };
+        case '@EVENT_FORM/SELECT_START_DATE':
+            return {
+                ...state,
+                eventStartDate: action.eventStartDate
+            };
+        case '@EVENT_FORM/SELECT_END_DATE':
+            return{
+                ...state,
+                eventEndDate: action.eventEndDate
+            };
+        case '@EVENT_FORM/SELECT_GROUP':
+            return{
+                ...state,
+                eventGroup: action.eventGroup
+            }
+        default:
+            return state;
+    }
+}

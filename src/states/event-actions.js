@@ -124,3 +124,33 @@ export function setGroupScreenName(group){
         name
     };
 }
+export function inputEventTitle(eventTitle){
+    return{
+        type:'@EVENT_FORM/INPUT_EVENT_TITLE',
+        eventTitle
+    }
+}
+export function inputDanger(danger){
+    return{
+        type:'@EVENT_FORM/INPUT_DANGER',
+        danger
+    }
+}
+export function selectStartDate(eventStartDate){
+    return{
+        type:'@EVENT_FORM/SELECT_START_DATE',
+        eventStartDate
+    }
+}
+export function selectEndDate(eventEndDate){
+    return{
+        type:'@EVENT_FORM/SELECT_END_DATE',
+        eventEndDate
+    }
+}
+export function selectGroup(eventGroup){
+    return{
+        type:'@EVENT_FORM/SELECT_GROUP',
+        eventGroup
+    }
+}
