@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';
 import {Calendar,CalendarList} from 'react-native-calendars';
 import DatePicker from 'react-native-datepicker';
-import {inputEventTitle, inputDanger, selectStartDate, selectGroup, selectEndDate} from '../states/event-actions';
+import {resetForm, createEvent, inputEventTitle, inputDanger, selectStartDate, selectGroup, selectEndDate, changeFirstDate, changeSecondDate} from '../states/event-actions';
 
 class AddEventScreen extends React.Component{
     static propTypes={
@@ -16,7 +16,10 @@ class AddEventScreen extends React.Component{
         eventGroup: PropTypes.string,
         eventStartDate: PropTypes.string,
         eventEndDate: PropTypes.string,
-        inputDanger: PropTypes.bool
+        inputDanger: PropTypes.bool,
+        firstClickDate: PropTypes.string,
+        secondClickDate: PropTypes.string,
+        dispatch: PropTypes.func
     }
     constructor(props) {
         super(props);
@@ -30,14 +33,20 @@ class AddEventScreen extends React.Component{
           this.handleTitleChange = this.handleTitleChange.bind(this);
           this.handleCreateEvent = this.handleCreateEvent.bind(this);
       }
-     handleTitleChange(){
-         const {inputDanger: danger, dispatch} = this.props;
-         const title = e.nativeEvent.text;
-         if (danger)
-             dispatch(inputDanger(false));
-         dispatch(inputEventTitle(title));
+     handleTitleChange(e){
+         const {inputDanger: danger, eventTitle, dispatch} = this.props;
+         dispatch(inputEventTitle(e.nativeEvent.text));
+         console.log('eventTitle', eventTitle);
      }
      handleCreateEvent(){
+         const{eventTitle, eventStartDate, eventGroup, eventEndDate, firstClickDate, secondClickDate, dispatch}=this.props;
+         const {goBack, navigate} = this.props.navigation;
+         if(eventTitle && (eventStartDate||eventEndDate)&&(firstClickDate || secondClickDate)){
+             dispatch(createEvent(eventStartDate, eventEndDate, eventGroup, eventTitle));
+             dispatch(resetForm());
+
+             navigate('Today');
+         }
 
      }
     render () {
@@ -53,41 +62,36 @@ class AddEventScreen extends React.Component{
                     </Left>
 
                     <Body>
-                        <Text style={{marginLeft: 59, fontSize: 15, color:'white'}}>Choose a Day!</Text>
+                        <Text style={{marginLeft :75, fontSize: 20, color:'white'}}>新增提醒事項</Text>
                     </Body>
 
                     <Right>
-                        <Button transparent onPress={() => {}}>
+                        <Button transparent onPress={this.handleCreateEvent}>
                             <Icon name='chevron-right' size={30} style = {{color: 'white'}}/>
                         </Button>
                     </Right>
 
                 </Header>
                 <Content>
-
                     <ScrollView>
                         <Calendar
                             onDayPress={(day)=> this.onDayPress(day)}
                             style={styles.calendar}
                             markedDates={
                             {
-                                [this.state.start]: [{startingDay: true},{color:'green'},{marked:true}],
-                                [this.state.end]: [{endingDay: true},{color:'green'},{marked:true},{textColor: 'green'}]
+                                [this.props.firstClickDate]: [{startingDay: true},{color:'green'},{marked:true}],
+                                [this.props.secondClickDate]: [{endingDay: true},{color:'green'},{marked:true},{textColor: 'green'}]
                             }}
                         />
                     </ScrollView>
-
-                    {/*(this.state.start!=='')?
-                        <Text style={{fontSize: 20, fontWeight: 'bold'}}>From:{this.state.start}</Text>
-                        : <Text/>*/}
-                    {/*(this.state.end!=='')?
-                        <Text style={{fontSize: 20, fontWeight: 'bold'}}>To:{this.state.start}</Text>
-                        : <Text/>*/}
                     <Form>
                         <Item floatingLabel>
                             <Label style={{color:'white'}}>想要提醒甚麼</Label>
-                            <Input  onChangeText={(text) => {console.log(text);}}/>
+                            <Input  onChange={this.handleTitleChange}/>
                         </Item>
+                        <View style={{flex:1, margin:20}}>
+                            <Right><Button info rounded onPress={this.handleCreateEvent}><Text style={{color:'white'}}>新增</Text></Button></Right>
+                        </View>
                     </Form>
 
                 </Content>
@@ -98,39 +102,31 @@ class AddEventScreen extends React.Component{
     };
 
     onDayPress(day) {
-        const {eventStartDate, eventEndDate, dispatch} = this.props;
-        if (this.state.start == this.state.end) {
-            this.setState({
-                end: day.dateString
-            })
-        } else {
-            this.setState({
-              start: day.dateString,
-              end: day.dateString
-            });
-        }
-        if(eventStartDate==='' && eventEndDate===''){
+        const {eventStartDate, eventEndDate, firstClickDate, secondClickDate, dispatch} = this.props;
+        if(firstClickDate==='' && secondClickDate===''){
+            dispatch(changeFirstDate(day.dateString));
             dispatch(selectStartDate(day.dateString));
-        }else if(eventStartDate){
-            if(day.string<eventStartDate){
+        }else if(firstClickDate!=='' && secondClickDate===''){
+            if(day.dateString<eventStartDate){
                 var temp=eventStartDate;
+                console.log('In this ass hole');
                 dispatch(selectStartDate(day.dateString));
                 dispatch(selectEndDate(temp));
-            }else{
+                dispatch(changeSecondDate(day.dateString));
+            }else if(day.dateString>eventStartDate){
+                console.log('In here fuck you');
                 dispatch(selectEndDate(day.dateString));
+                dispatch(changeSecondDate(day.dateString));
             }
-        }else if(this.props.eventEndDate){
-            if(day.string>eventEndDate){
-                var temp=eventEndDate;
-                dispatch(selectEndDate(day.dateString));
-                dispatch(selectStartDate(temp));
-            }else{
-                dispatch(selectStartDate(day.dateString));
-            }
-        }else{
-
+        }else if(firstClickDate && secondClickDate){
+            dispatch(changeFirstDate(''));
+            dispatch(changeSecondDate(''));
+            dispatch(selectStartDate(day.dateString));
         }
-        console.log(this.state);
+        // console.log('eventStartDate', eventStartDate);
+        // console.log('eventEndDate', eventEndDate);
+        // console.log('firstClickDate', firstClickDate);
+        // console.log('secondClickDate', secondClickDate);
     }
 
     handleGoBack() {
@@ -140,13 +136,15 @@ class AddEventScreen extends React.Component{
 
 }
 
-export default connect((state) => ({
+export default connect((state, ownProps) => ({
     eventTitle: state.eventForm.eventTitle,
     eventGroup: state.eventForm.eventGroup,
     eventStartDate: state.eventForm.eventStartDate,
     eventEndDate: state.eventForm.eventEndDate,
     groupScreenName: state.group.groupScreenName,
-    inputDanger: state.eventForm.inputDanger
+    inputDanger: state.eventForm.inputDanger,
+    firstClickDate: state.eventForm.firstClickDate,
+    secondClickDate: state.eventForm.secondClickDate
 }))(AddEventScreen);
 
 const styles = StyleSheet.create({
