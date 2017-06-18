@@ -37,7 +37,7 @@ export default class NavigationContainer extends React.Component {
                       <Icon name='menu' />
                 </Button>
                 {this.props.children}
-
+                
             </Drawer>
         );
     }

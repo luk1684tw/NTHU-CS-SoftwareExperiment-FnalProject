@@ -1,31 +1,50 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {View, Text, Image, Platform} from 'react-native'
+import {View, Text, Image, Platform, Modal} from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Container, Content, Thumbnail, Badge, Button, Text as NbText, List, ListItem, Separator, Left, Body, Right} from 'native-base';
+import {Header, Container, Item, Input, Content, Thumbnail,Label, Badge, Button, Text as NbText, List, ListItem, Separator, Left, Body, Right} from 'native-base';
 import appColors from '../styles/colors';
 import {setGroupScreenName} from '../states/event-actions';
+import {toggleGroupNameModal, setGroupNameText} from '../states/groupName';
 import {connect} from 'react-redux';
-
 class DrawerSideBar extends React.Component {
     static propTypes = {
         navigate: PropTypes.func.isRequired,
+        groupScreenName: PropTypes.string.isRequired,
+        groupNameText: PropTypes.string.isRequired,
+        modalToggle: PropTypes.bool.isRequired,
         dispatch: PropTypes.func.isRequired
     };
     constructor(props){
         super(props);
         this.handleOnClick=this.handleOnClick.bind(this);
+        this.handleOpenGroupName=this.handleOpenGroupName.bind(this);
+        this.handleCloseGroupName=this.handleCloseGroupName.bind(this);
+        this.handleSubmit=this.handleSubmit.bind(this);
     }
     handleOnClick(item){
-        console.log(this.props);
         this.props.dispatch(setGroupScreenName(item));
-        console.log(setGroupScreenName);
+        // console.log(item, this.props.groupScreenName);
         this.props.navigate('Group');
         // this.props.dispatch(setGroupScreenName(item));
     }
-
+    handleOpenGroupName(){
+        // Todo: dynamic add group name
+        this.props.dispatch(setGroupNameText(''));
+        this.props.dispatch(toggleGroupNameModal());
+    }
+    handleCloseGroupName(){
+        this.props.dispatch(setGroupNameText(''));
+        this.props.dispatch(toggleGroupNameModal());
+    }
+    handleSubmit(e){
+        if(e.nativeEvent.text){
+            this.props.dispatch(setGroupNameText(e.nativeEvent.text));
+            this.props.dispatch(toggleGroupNameModal());
+        }
+    }
     render() {
-      const {navigate, dispatch} = this.props;
+      const {navigate, dispatch, modalToggle, groupNameText} = this.props;
       //-----------------Group List Setting-----------------------
         var items=['和學妹出去玩', '和妹妹野餐', '和女友約會'];
         let children=(
@@ -68,10 +87,25 @@ class DrawerSideBar extends React.Component {
                     </ListItem>
                     {/* 群組 */}
                     <ListItem itemDivider>
-                        <Left><Text>群組</Text></Left>
-                        <Body></Body>
-                        <Right><Icon button name='tag-plus' size={24} onPress={() => navigate('CreateGroup')}/></Right>
+                            <Left><Text>群組</Text></Left>
+                            <Body></Body>
+                            <Right>
+                                {/* TODO: Add Group Name Button */}
+                                {(modalToggle)?
+                                    <Icon name='window-close' size={20}
+                                    onPress={this.handleOpenGroupName} />:
+                                    <Icon name='tag-plus' size={20}
+                                        onPress={this.handleCloseGroupName} />}
+                            </Right>
                     </ListItem>
+                    {(modalToggle===false)?<Text></Text>:<ListItem>
+                        <Item >
+                               <Input placeholder='請輸入群組名稱 '
+                                   defaultValue={groupNameText}
+                                   onEndEditing={this.handleSubmit}/>
+                               <Button transparent success onPress={this.handleSubmit}><Text>新增</Text></Button>
+                        </Item>
+                    </ListItem>}
                     {children}
                     {/* 設定 */}
                     <ListItem itemDivider><Left><Text>設定</Text></Left><Body></Body><Right></Right></ListItem>
@@ -102,6 +136,10 @@ const styles = {
         backgroundColor: '#666',
         marginBottom: 16
     },
+    header_title: {
+        flexDirection:'row',
+        justifyContent:'center'
+    },
     item: {
         alignItems: 'center'
     },
@@ -121,5 +159,7 @@ const styles = {
     }
 };
 export default connect((state, ownProps) => ({
-    groupScreenName: state.group.groupScreenName
+    groupScreenName: state.group.groupScreenName,
+    groupNameText: state.groupName.groupNameText,
+    modalToggle: state.groupName.modalToggle
 }))(DrawerSideBar);
