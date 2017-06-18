@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text,StyleSheet,ScrollView,View,TouchableOpacity} from 'react-native';
-import {Container, Content, Button, Header, Left, Right, Body, Title} from 'native-base';
+import {Container, Content, Button, Header, Left, Right, Body, Title, Form, Item, Label, Input} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';
 import {Calendar,CalendarList} from 'react-native-calendars';
@@ -19,6 +19,7 @@ class AddEventScreen extends React.Component{
           };
           this.onDayPress = this.onDayPress.bind(this);
           this.handleGoBack = this.handleGoBack.bind(this);
+          this.handleCreateEvent = this.handleCreateEvent.bind(this);
           console.log('props:',this.props);
       }
 
@@ -55,7 +56,7 @@ class AddEventScreen extends React.Component{
                         }}
                           onDateChange={(time) => {this.setState({time: time});}}
                         />*/}
-                        <Button transparent onPress={() => {this.props.navigate('TypeEvent')}}>
+                        <Button transparent onPress={() => {this.handleCreateEvent}}>
                             <Icon name='chevron-right' size={30}/>
                         </Button>
                     </Right>
@@ -73,12 +74,18 @@ class AddEventScreen extends React.Component{
                             }}
                         />
                     </ScrollView>
-                    {(this.state.start!=='')?
+                    {/*(this.state.start!=='')?
                         <Text style={{fontSize: 20, fontWeight: 'bold'}}>From:{this.state.start}</Text>
-                        : <Text/>}
+                        : <Text/>*/}
                     {/*(this.state.end!=='')?
                         <Text style={{fontSize: 20, fontWeight: 'bold'}}>To:{this.state.start}</Text>
                         : <Text/>*/}
+                    <Form>
+                        <Item floatingLabel>
+                            <Label>輸入提醒名稱</Label>
+                            <Input onChangeText={(text) => {console.log(text);}}/>
+                        </Item>
+                    </Form>
 
                 </Content>
             </Container>
@@ -109,25 +116,24 @@ export default connect((state) => ({
 }))(AddEventScreen);
 
 const styles = StyleSheet.create({
-  calendar: {
-    borderTopWidth: 1,
-    paddingTop: 5,
-    borderBottomWidth: 1,
-    borderColor: '#eee',
-    height: 365
-  },
-  text: {
-    textAlign: 'center',
-    borderColor: '#bbb',
-    padding: 10,
-    backgroundColor: '#eee'
-  },
-  container: {
-    flex: 1,
-    backgroundColor: 'white'
-  },
- overlap:{
-   position: 'absolute'
- },
-
+    calendar: {
+        borderTopWidth: 1,
+        paddingTop: 5,
+        borderBottomWidth: 1,
+        borderColor: '#eee',
+        height: 365
+    },
+    text: {
+        textAlign: 'center',
+        borderColor: '#bbb',
+        padding: 10,
+        backgroundColor: '#eee'
+    },
+    container: {
+        flex: 1,
+        backgroundColor: 'white'
+    },
+    overlap:{
+        position: 'absolute'
+    },
 });

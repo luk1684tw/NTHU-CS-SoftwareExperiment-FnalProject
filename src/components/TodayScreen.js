@@ -54,16 +54,16 @@ class TodayScreen extends React.Component {
                 <View style={styles.header_title}>
                     <Icon name='star' size={30} style={styles.header_icon} />
                     <Text style={{fontSize:22}}>今天</Text>
-               </View>
-               <PostList/>
-               <Fab
-                   active={this.state.fabActive}
-                   containerStyle={styles.fabContainer}
-                   style={styles.fab}
-                   position="bottomRight"
-                   onPress={this.handleFabClose}>
-                  <Icon name='plus'/>
-               </Fab>
+                </View>
+                <PostList/>
+                <Fab
+                    active={this.state.fabActive}
+                    containerStyle={styles.fabContainer}
+                    style={styles.fab}
+                    position="bottomRight"
+                    onPress={this.handleFabClose}>
+                    <Icon name='plus'/>
+                </Fab>
 
             </NavigationContainer>
         );
