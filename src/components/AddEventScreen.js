@@ -19,7 +19,7 @@ class AddEventScreen extends React.Component{
           };
           this.onDayPress = this.onDayPress.bind(this);
           this.handleGoBack = this.handleGoBack.bind(this);
-          this.handleCreateEvent = this.handleCreateEvent.bind(this);
+
           console.log('props:',this.props);
       }
 
@@ -56,7 +56,7 @@ class AddEventScreen extends React.Component{
                         }}
                           onDateChange={(time) => {this.setState({time: time});}}
                         />*/}
-                        <Button transparent onPress={() => {this.handleCreateEvent}}>
+                        <Button transparent onPress={() => {}}>
                             <Icon name='chevron-right' size={30}/>
                         </Button>
                     </Right>
@@ -110,6 +110,8 @@ class AddEventScreen extends React.Component{
     handleGoBack() {
         this.props.navigation.goBack();
     }
+
+
 }
 
 export default connect((state) => ({
