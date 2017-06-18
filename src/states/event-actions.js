@@ -46,8 +46,34 @@ export function listEvents(searchText, group, startDate, endDate) {
     };
 };
 
+//eventform input handling
+export function inputStart(date) {
+    return {
+        type: '@EVENTFORM/STARTDATE',
+        date
+    };
+}
+export function inputEnd(date) {
+    return {
+        type: '@EVENTFORM/ENDDATE',
+        date
+    };
+}
+export function inputTitle(title) {
+    return {
+        type: '@EVENTFORM/TITLE',
+        title
+    };
+}
+export function inputGroup(group) {
+    return {
+        type: '@EVENTFORM/GROUP',
+        group: group
+    };
+}
 
 export function createEvent(StartDate, EndDate, Group, Title, Description) {
+    console.log('redux received:',StartDate,EndDate,Group.Title,Description);
     return (dispatch, getState) => {
         dispatch(startCreateEvent());
 

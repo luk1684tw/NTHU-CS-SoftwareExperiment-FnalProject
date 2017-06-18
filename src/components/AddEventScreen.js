@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';
 import {Calendar,CalendarList} from 'react-native-calendars';
 import DatePicker from 'react-native-datepicker';
-
+import {inputStart, inputEnd, inputTitle, inputGroup, createEvent} from '../states/event-actions.js'
 
 class AddEventScreen extends React.Component{
 
@@ -59,7 +59,7 @@ class AddEventScreen extends React.Component{
                         }}
                           onDateChange={(time) => {this.setState({time: time});}}
                         />*/}
-                        <Button transparent onPress={() => {}}>
+                        <Button transparent onPress={this.handleCreateEvent}>
                             <Icon name='chevron-right' size={30}/>
                         </Button>
                     </Right>
@@ -119,7 +119,11 @@ class AddEventScreen extends React.Component{
     }
 
     handleCreateEvent() {
-        
+        // this.props.dispatch(inputStart('2017-6-23'));
+        // this.props.dispatch(inputEnd('2017-6-24'));
+        // this.props.dispatch(inputTitle('teeeeeeeeeeeeeeeeeest'));
+        // this.props.dispatch(inputGroup('Handsome'));
+        this.props.dispatch(createEvent('2017-06-22', '2017-06-24', '', 'test', ''));
     }
 
 }
