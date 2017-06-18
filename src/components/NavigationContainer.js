@@ -32,10 +32,9 @@ export default class NavigationContainer extends React.Component {
                         backgroundColor: appColors.mask
                     }
                 })}>
-                <Header>
-                <Left><Button transparent onPress={this.openDrawer} style={{opacity:0.2}}>
+                <Button transparent onPress={this.openDrawer} style={{opacity:0.2}}>
                       <Icon name='menu' />
-                </Button></Left></Header>
+                </Button>
                 {this.props.children}
 
             </Drawer>

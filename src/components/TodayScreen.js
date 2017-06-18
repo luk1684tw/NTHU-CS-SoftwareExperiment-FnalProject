@@ -33,7 +33,7 @@ class TodayScreen extends React.Component {
             fabActive: false,
             day:'THU'
         };
-        this.componentDidMount = this.componentDidMount.bind(this);
+
         this.handleFabClose = this.handleFabClose.bind(this);
     }
 
@@ -75,7 +75,7 @@ class TodayScreen extends React.Component {
     render() {
         const {navigate} = this.props.navigation;
         return (
-            <NavigationContainer navigate={navigate} title='Today'>
+            <Container>
                 <View style={styles.header_title}>
                   <View style={styles.date}>
                     <Text style={{fontSize:15,color: 'white',fontWeight:'bold'}}>  {this.state.day}</Text>
@@ -83,6 +83,7 @@ class TodayScreen extends React.Component {
                   </View>
                   <Text style={styles.today}>TODAY</Text>
                </View>
+               <NavigationContainer navigate={navigate} title='Today' style={styles.todaynav}>
                <PostList/>
                <Fab
                    active={this.state.fabActive}
@@ -93,6 +94,7 @@ class TodayScreen extends React.Component {
                   <Icon name='plus'/>
                </Fab>
             </NavigationContainer>
+          </Container>
         );
     }
 
@@ -115,7 +117,8 @@ const styles = {
         marginLeft: 10
     },
     fab: {
-        backgroundColor: appColors.primary
+        backgroundColor: appColors.primary,
+        opacity: 0.5
     },
     date:{
       flexDirection: 'column',
@@ -135,7 +138,12 @@ const styles = {
         backgroundColor: 'cornflowerblue',
         opacity:0.5,
         top:0,
+
     },
+    todaynav:{
+        position:'absolute',
+        top:0,
+    }
 };
 
 export default connect((state, ownProps) => ({

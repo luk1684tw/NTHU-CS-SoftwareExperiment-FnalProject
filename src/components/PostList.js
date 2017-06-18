@@ -5,14 +5,14 @@ import {
     ListView, RefreshControl, Text
 } from 'react-native';
 import InfiniteScrollView from 'react-native-infinite-scroll-view';
-import {Left,Right,Body, List, ListItem, CheckBox, Container, Content, Icon} from 'native-base';
+import {Left,Right,Body, List, ListItem, Container, Content, Icon} from 'native-base';
 
 
 import PostItem from './PostItem';
 
 import {connect} from 'react-redux';
 import {listPosts, listMorePosts} from '../states/post-actions';
-
+import {CheckBox} from 'react-native-elements';
 class PostList extends React.Component {
     static propTypes = {
         searchText: PropTypes.string.isRequired,
@@ -58,13 +58,20 @@ class PostList extends React.Component {
                         <ListItem itemHeader first>
                             <Icon name='bell-ring' />
                             <Text>{event.Group}</Text>
+                            <CheckBox
+                              containerStyle={{backgroundColor: 'rgb(247, 255, 238)', borderWidth:0,position:'absolute',right:10}}
+                              center
+                              checkedColor='red'
+                              uncheckedColor='black'
+                              checked={false}
+                            />
                         </ListItem>
                         <ListItem>
                             <Text>{event.StartDate}-{event.EndDate}{'   '}</Text>
                             {/* <Text>{event.Title} {' Group: '+event.Group}</Text> */}
                             {/* <CheckBox checked={false} /> */}
-                            <CheckBox checked={false} />
-                                <Text>{event.Description}</Text>
+                            <Text>{event.Description}</Text>
+
                         </ListItem>
                     </View>
                     }>
