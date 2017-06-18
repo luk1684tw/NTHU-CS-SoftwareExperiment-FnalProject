@@ -33,7 +33,7 @@ class TodayScreen extends React.Component {
             fabActive: false,
             day:"MON"
         };
-        this.componentDidMount = this.componentDidMount.bind(this);
+
         this.handleFabClose = this.handleFabClose.bind(this);
     }
 

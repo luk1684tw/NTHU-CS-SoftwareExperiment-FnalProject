@@ -22,7 +22,7 @@ import SettingScreen from './components/SettingScreen.js';
 import ChooseColor from './components/ChooseColor.js';
 import CreateGroupScreen from './components/CreateGroupScreen.js';
 import AddEventScreen from './components/AddEventScreen.js';
-import TypeEventScreen from './components/TypeEventScreen.js';
+
 
 const AppNavigator = StackNavigator({
     Today: {screen: TodayScreen},
@@ -33,7 +33,6 @@ const AppNavigator = StackNavigator({
     CreateGroup: {screen: CreateGroupScreen},
     AddEvent: {screen: AddEventScreen},
     ChooseColor: {screen: ChooseColor},
-    TypeEvent: {screen: TypeEventScreen}
 }, {
     headerMode: 'none'
 });
