@@ -11,16 +11,16 @@ class AddEventScreen extends React.Component{
 
     constructor(props) {
         super(props);
-          this.state = {
-
+        this.state = {
             start: '',
             end: '',
             time:"12:50"
-          };
-          this.onDayPress = this.onDayPress.bind(this);
-          this.handleGoBack = this.handleGoBack.bind(this);
+        };
+        this.onDayPress = this.onDayPress.bind(this);
+        this.handleGoBack = this.handleGoBack.bind(this);
+        this.handleCreateEvent = this.handleCreateEvent.bind(this);
 
-          console.log('props:',this.props);
+        console.log('props:',this.props);
       }
 
     render () {
@@ -111,6 +111,9 @@ class AddEventScreen extends React.Component{
         this.props.navigation.goBack();
     }
 
+    handleCreateEvent() {
+        
+    }
 
 }
 
