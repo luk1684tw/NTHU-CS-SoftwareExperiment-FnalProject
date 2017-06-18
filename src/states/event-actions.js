@@ -135,6 +135,7 @@ export function setGroupScreenName(group){
         name
     };
 }
+
 export function inputEventTitle(eventTitle){
     return{
         type:'@EVENT_FORM/INPUT_EVENT_TITLE',
@@ -181,4 +182,9 @@ export function resetForm(){
     return{
         type:'@EVENT_FORM/RESET_FORM'
     }
+export function Animated(pictureNum) {
+    return {
+        type: '@PICTURE/Animated',
+        pictureNum
+    };
 }

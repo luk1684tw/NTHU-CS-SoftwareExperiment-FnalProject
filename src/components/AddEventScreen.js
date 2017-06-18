@@ -54,15 +54,17 @@ class AddEventScreen extends React.Component{
 
           <Image source={require('../images/spring.png')} style = {styles.background}>
               <Container>
-                <Header>
+                <Header style={styles.header}>
                     <Left>
                         <Button transparent onPress={this.handleGoBack}>
                             <Icon name='chevron-left' size={30} style = {{color: 'white'}}/>
                         </Button>
                     </Left>
+
                     <Body>
                         <Text style={{marginLeft :75, fontSize: 20, color:'white'}}>新增提醒事項</Text>
                     </Body>
+
                     <Right>
                         <Button transparent onPress={this.handleCreateEvent}>
                             <Icon name='chevron-right' size={30} style = {{color: 'white'}}/>
@@ -170,6 +172,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white'
   },
+
   overlap:{
     position: 'absolute'
   },
@@ -178,6 +181,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF'
-  },
+  }
 
 });
