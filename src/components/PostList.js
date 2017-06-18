@@ -34,7 +34,7 @@ class PostList extends React.Component {
                 rowHasChanged: (r1, r2) => JSON.stringify(r1) !== JSON.stringify(r2)
             })
         };
-
+        console.log(this.props.duration);
         this.handleRefresh = this.handleRefresh.bind(this);
         this.handleLoadMore = this.handleLoadMore.bind(this);
     }

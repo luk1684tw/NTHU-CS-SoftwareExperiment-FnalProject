@@ -103,7 +103,6 @@ export function group(state = initGroupState, action) {
     }
 }
 const initEventFormState = {
-    inputDanger: false,
     eventStartDate: '',
     eventEndDate: '',
     eventTitle: '',

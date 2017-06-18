@@ -86,7 +86,7 @@ class TodayScreen extends React.Component {
                   <Text style={styles.today}>TODAY</Text>
                </View>
 
-               <PostList/>
+               <PostList duration='today'/>
                <Fab
                    active={this.state.fabActive}
                    containerStyle={styles.fabContainer}
