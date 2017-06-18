@@ -32,7 +32,6 @@ export default class NavigationContainer extends React.Component {
                         backgroundColor: appColors.mask
                     }
                 })}>
-
                 <Button transparent onPress={this.openDrawer} style={{opacity:0.2}}>
                       <Icon name='menu' />
                 </Button>
