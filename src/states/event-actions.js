@@ -54,6 +54,7 @@ export function createEvent(StartDate, EndDate, Group, Title) {
         return createPostFromApi(StartDate, EndDate, Group, Title).then(event => {
             console.log('event get from api', event);
             dispatch(endCreateEvent(event));
+            dispatch(listEvents());
         }).catch(err => {
             dispatch(endCreateEvent())
             console.error('Error creating event', err);
