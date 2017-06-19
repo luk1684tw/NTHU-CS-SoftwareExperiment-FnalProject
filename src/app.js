@@ -25,9 +25,11 @@ import ChooseColor from './components/ChooseColor.js';
 import CreateGroupScreen from './components/CreateGroupScreen.js';
 import AddEventScreen from './components/AddEventScreen.js';
 import Developer from './components/developer.js';
+import Intro from './components/AppIntro.js';
 
 
 const AppNavigator = StackNavigator({
+    Intro: {screen: Intro},
     Today: {screen: TodayScreen},
     Upcoming: {screen: UpcomingScreen},
     SomeDay: {screen: SomeDayScreen},
@@ -73,7 +75,7 @@ const AppWithNavState = connect(state => ({
 }))(AppWithStyleAndNavigator);
 
 // Nav reducer
-const initialState = AppNavigator.router.getStateForAction(NavigationActions.navigate({routeName: 'Today'}));
+const initialState = AppNavigator.router.getStateForAction(NavigationActions.navigate({routeName: 'Intro'}));
 const nav = (state = initialState, action) => {
     const nextState = AppNavigator.router.getStateForAction(action, state);
     return nextState || state;

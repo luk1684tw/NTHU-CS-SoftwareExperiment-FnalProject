@@ -7,6 +7,7 @@ import appColors from '../styles/colors';
 import {setGroupScreenName, createGroup,Animated} from '../states/event-actions';
 import {toggleGroupNameModal, setGroupNameText} from '../states/groupName';
 import {connect} from 'react-redux';
+
 class DrawerSideBar extends React.Component {
     static propTypes = {
         navigate: PropTypes.func.isRequired,
@@ -23,6 +24,28 @@ class DrawerSideBar extends React.Component {
         this.handleOpenGroupName=this.handleOpenGroupName.bind(this);
         this.handleCloseGroupName=this.handleCloseGroupName.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
+        this.images = [
+          require('../images/corgi-24.png'),
+          require('../images/corgi-25.png'),
+          require('../images/corgi-26.png'),
+          require('../images/corgi-27.png'),
+          require('../images/corgi-28.png'),
+          require('../images/corgi-29.png'),
+          require('../images/corgi-30.png'),
+          require('../images/corgi-31.png'),
+          require('../images/corgi-32.png'),
+          require('../images/corgi-33.png'),
+          require('../images/corgi-34.png'),
+          require('../images/corgi-35.png'),
+          require('../images/corgi-36.png'),
+          require('../images/corgi-37.png'),
+          require('../images/corgi-38.png'),
+          require('../images/corgi-39.png'),
+          require('../images/corgi-40.png'),
+          require('../images/corgi-41.png'),
+        ];
+        this.next = this.next.bind(this);
+        this.state = {index: 0};
     }
 
     handleOnClick(item){
@@ -60,10 +83,25 @@ class DrawerSideBar extends React.Component {
           }
     }
 
+    componentDidMount() {
+        this.next();
+    }
+
+    next() {
+        setTimeout(() => {
+            this.setState({index: (this.state.index+1)%18});
+            this.next();
+        }, 50);
+    }
+
+
     render() {
       const {navigate, dispatch, modalToggle, groupNameText, groups , pictureNum} = this.props;
       //-----------------Group List Setting-----------------------
         //var items=['和學妹出去玩', '和妹妹野餐', '和女友約會'];
+
+
+
         let children=(
           <ListItem>
               <Icon name='tag-multiple' size={24}/>
@@ -86,9 +124,10 @@ class DrawerSideBar extends React.Component {
 
       return (
         <Container style={styles.drawer}>
-
-          <Image source={require('../images/corgi-24.png')} style={styles.corgi}  onPress={()=>{this.handleOnClickCorgi()}}>
-          </Image>
+          <Image
+              source={this.images[this.state.index]}
+              style={styles.image}
+            />
 
             <Content>
                 <List>
