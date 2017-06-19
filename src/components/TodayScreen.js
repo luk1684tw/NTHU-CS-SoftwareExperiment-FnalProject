@@ -78,7 +78,7 @@ class TodayScreen extends React.Component {
         const {navigate} = this.props.navigation;
         const {events}=this.props;
         return (
-            <Image source={require('../images/summer.png')} style = {styles.background}>
+            <Image source={require('../images/plant4.png')} style = {styles.background}>
                  <NavigationContainer navigate={navigate} title='Today' style={styles.todaynav}>
 
                 <View style={styles.header_title}>
@@ -155,7 +155,8 @@ const styles = {
       resizeMode: 'cover',
       width:null,
       height:null,
-      flex: 1
+      flex: 1,
+
     }
 };
 
