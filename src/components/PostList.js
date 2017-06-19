@@ -9,19 +9,13 @@ import {Left,Right,Body, List, ListItem, Container, Content, Icon} from 'native-
 import PostItem from './PostItem';
 import CalendarStrip from 'react-native-calendar-strip';
 import {connect} from 'react-redux';
-import {listPosts, listMorePosts} from '../states/post-actions';
+import {listEvents} from '../states/event-actions';
 import CheckBox from './CheckBox.js';
-
+import Timeline from 'react-native-timeline-listview';
 class PostList extends React.Component {
     static propTypes = {
         searchText: PropTypes.string.isRequired,
-        listingPosts: PropTypes.bool.isRequired,
-        listingMorePosts: PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.number
-        ]),
         events: PropTypes.array.isRequired,
-        hasMorePosts: PropTypes.bool.isRequired,
         dispatch: PropTypes.func.isRequired
     };
 
@@ -29,60 +23,41 @@ class PostList extends React.Component {
         super(props);
 
         console.log(this.props.duration);
-        this.handleRefresh = this.handleRefresh.bind(this);
-        this.handleLoadMore = this.handleLoadMore.bind(this);
-        // this.handleCheckBoxClick = this.handleCheckBoxClick.bind(this);
     }
 
     componentDidMount() {
-        this.props.dispatch(listPosts(this.props.searchText));
+        this.props.dispatch(listEvents());
     }
-
     componentWillReceiveProps(nextProps) {
-
+        if(nextProps.events !==this.props.events){
+            this.props.dispatch(listEvents());
+        }
     }
-
     render() {
-        const {listingPosts, hasMorePosts, events} = this.props;
-        console.log('this.props:',this.props);
+        const {events} = this.props;
+        console.log('In PostList:',this.props);
         return (
 
           <Container style={styles.mission}>
 
               <Content>
-                <List dataArray={events}
-                    renderRow={(event) =>
-                    <View>
-                        {console.log('event in renderRow',event)}
-                        <ListItem itemHeader first >
-                            <Icon name='bell-ring' />
-                            <Text style={{marginLeft:10}}>{event.Title}</Text>
-                            <CheckBox/>
-                        </ListItem>
-                        <ListItem>
-                            <Text>{event.StartDate}-{event.EndDate}{'   '}</Text>
-                            {/* <Text>{event.Title} {' Group: '+event.Group}</Text> */}
-                            {/* <CheckBox checked={false} /> */}
-                            <Text>群組: {event.Group}</Text>
-                        </ListItem>
-                    </View>
-                    }>
-                </List>
+
+                <Timeline
+                    data={events}
+                    innerCircle={'dot'}
+                    circleSize={20}
+                    circleColor='rgb(45,156,219)'
+                    lineColor='rgb(45,156,219)'
+                    timeContainerStyle={{minWidth:52, marginTop: 1}}
+                    timeStyle={{textAlign: 'center', backgroundColor:'#ff9797', color:'white', padding:5, borderRadius:13}}
+                    descriptionStyle={{color:'gray'}}
+                    options={{
+                        style:{paddingTop:5}
+                    }}
+                />
               </Content>
           </Container>
         )
-    }
-
-    handleRefresh() {
-        const {dispatch, searchText} = this.props;
-        dispatch(listPosts(searchText));
-    }
-
-    handleLoadMore() {
-        const {listingMorePosts, dispatch, events, searchText} = this.props;
-        const start = events[events.length - 1].id;
-        if (listingMorePosts !== start)
-            dispatch(listMorePosts(searchText, start));
     }
 
 }

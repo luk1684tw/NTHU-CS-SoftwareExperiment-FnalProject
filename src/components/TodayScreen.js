@@ -22,6 +22,7 @@ class TodayScreen extends React.Component {
         creatingPost: PropTypes.bool.isRequired,
         creatingVote: PropTypes.bool.isRequired,
         toast: PropTypes.string.isRequired,
+        events: PropTypes.array,
         dispatch: PropTypes.func.isRequired,
     };
 
@@ -75,13 +76,7 @@ class TodayScreen extends React.Component {
 
     render() {
         const {navigate} = this.props.navigation;
-        const data = [
-            {time: '09:00', title: 'Event 1', description: 'Event 1 Description'},
-            {time: '10:45', title: 'Event 2', description: 'Event 2 Description'},
-            {time: '12:00', title: 'Event 3', description: 'Event 3 Description'},
-            {time: '14:00', title: 'Event 4', description: 'Event 4 Description'},
-            {time: '16:30', title: 'Event 5', description: 'Event 5 Description'}
-        ]
+        const {events}=this.props;
         return (
             <Image source={require('../images/summer.png')} style = {styles.background}>
                  <NavigationContainer navigate={navigate} title='Today' style={styles.todaynav}>
@@ -94,20 +89,8 @@ class TodayScreen extends React.Component {
                   <Text style={styles.today}>TODAY</Text>
                </View>
 
-               {/* <PostList duration='today'/> */}
-               <Timeline
-                   data={data}
-                   innerCircle={'dot'}
-                   circleSize={20}
-                   circleColor='rgb(45,156,219)'
-                   lineColor='rgb(45,156,219)'
-                   timeContainerStyle={{minWidth:52, marginTop: 1}}
-                   timeStyle={{textAlign: 'center', backgroundColor:'#ff9797', color:'white', padding:5, borderRadius:13}}
-                   descriptionStyle={{color:'gray'}}
-                   options={{
-                       style:{paddingTop:5}
-                   }}
-               />
+               <PostList duration='today'/>
+
                <Fab
                    active={this.state.fabActive}
                    containerStyle={styles.fabContainer}
@@ -179,5 +162,6 @@ const styles = {
 export default connect((state, ownProps) => ({
     creatingPost: state.post.creatingPost,
     creatingVote: state.post.creatingVote,
+    events: state.event.events,
     toast: state.toast
 }))(TodayScreen);

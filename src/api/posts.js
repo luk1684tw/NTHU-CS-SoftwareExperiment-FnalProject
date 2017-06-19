@@ -11,7 +11,7 @@ const moment = require('moment');
 const uuid = require('uuid/v4');
 
 
-export function listPosts(searchText = '', start, group = '', startDate='', endDate='') {
+export function listPosts(group = '', startDate='', endDate='') {
     return new Promise((resolve,reject) => {
         AsyncStorage.getItem('user').then(events => {
             var Events = JSON.parse(events);
@@ -23,11 +23,6 @@ export function listPosts(searchText = '', start, group = '', startDate='', endD
             if (endDate) {
                 Events.filter((item) => {
                     return (moment(endDate,'YYYY-MM-DD HH:mm').unix() <= moment(item,'YYYY-MM-DD HH:mm').unix());
-                });
-            }
-            if (searchText) {
-                Events.filter((e) => {
-                    return ((e.Title.toLowerCase().indexOf(searchText.toLowerCase()) !== -1));
                 });
             }
             if (group) {
