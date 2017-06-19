@@ -14,28 +14,28 @@ const uuid = require('uuid/v4');
 export function listPosts(searchText = '', start, group = '', startDate='', endDate='') {
     return new Promise((resolve,reject) => {
         AsyncStorage.getItem('user').then(events => {
+            var Events = JSON.parse(events);
             if (startDate) {
-                events.filter((item) => {
+                Events.filter((item) => {
                     return (moment(startDate,'YYYY-MM-DD HH:mm').unix() >= moment(item,'YYYY-MM-DD HH:mm').unix());
                 });
             }
             if (endDate) {
-                events.filter((item) => {
+                Events.filter((item) => {
                     return (moment(endDate,'YYYY-MM-DD HH:mm').unix() <= moment(item,'YYYY-MM-DD HH:mm').unix());
                 });
             }
             if (searchText) {
-                events.filter((e) => {
-                    return ((e.Description.toLowerCase().indexOf(searchText.toLowerCase()) !== -1)
-                    || (e.Title.toLowerCase().indexOf(searchText.toLowerCase()) !== -1));
+                Events.filter((e) => {
+                    return ((e.Title.toLowerCase().indexOf(searchText.toLowerCase()) !== -1));
                 });
             }
             if (group) {
-                events.filter((e) => {
+                Events.filter((e) => {
                     return (e.Group.toLowerCase().indexOf(group.toLowerCase()) !== -1);
                 });
             }
-            resolve(events);
+            resolve(Events);
         }).catch((err) => {
             console.log('read file failed');
             reject(err);

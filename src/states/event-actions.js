@@ -35,15 +35,15 @@ function endCreateEvent(event) {
 
 
 export function listEvents(searchText, group, startDate, endDate) {
-    // return (dispatch, getState) => {
-    //     dispatch(startListEvents());
-    //     return listPostsFromApi(searchText, '', group, startDate, endDate).then(events => {
-    //         dispatch(endListEvents(events));
-    //     }).catch(err => {
-    //         dispatch(endListEvents());
-    //         console.error('Error listing events', err);
-    //     });
-    // };
+    return (dispatch, getState) => {
+        dispatch(startListEvents());
+        return listPostsFromApi(searchText, '', group, startDate, endDate).then(events => {
+            dispatch(endListEvents(events));
+        }).catch(err => {
+            dispatch(endListEvents());
+            console.error('Error listing events', err);
+        });
+    };
 };
 
 
