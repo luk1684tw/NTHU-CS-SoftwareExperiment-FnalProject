@@ -44,6 +44,7 @@ class PostList extends React.Component {
 
     render() {
         const {listingPosts, hasMorePosts, events} = this.props;
+        console.log('this.props:',this.props);
         return (
 
           <Container style={styles.mission}>
@@ -52,6 +53,7 @@ class PostList extends React.Component {
                 <List dataArray={events}
                     renderRow={(event) =>
                     <View>
+                        {console.log('event in renderRow',event)}
                         <ListItem itemHeader first >
                             <Icon name='bell-ring' />
                             <Text style={{marginLeft:10}}>{event.Title}</Text>

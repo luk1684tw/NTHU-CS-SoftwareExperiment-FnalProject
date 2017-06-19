@@ -45,7 +45,7 @@ export function listPosts(searchText = '', start, group = '', startDate='', endD
 
 export function createPost(StartDate, EndDate, Group, Title) {
     return new Promise((resolve,reject) => {
-        // AsyncStorage.removeItem('user');
+        //  AsyncStorage.removeItem('user');
         AsyncStorage.getItem('user').then(result => {
             if (moment(StartDate,'YYYY-MM-DD').unix() > moment(EndDate,'YYYY-MM-DD').unix()){
                 var startdate = EndDate;
@@ -73,12 +73,15 @@ export function createPost(StartDate, EndDate, Group, Title) {
                 resolve(result);
             } else {
                 console.log('in result != null');
-                result = [
-                    ...result,
+                var Result = JSON.parse(result);
+                Result = [
+                    ...Result,
                     Newevent
                 ];
-                AsyncStorage.setItem('user',JSON.stringify(result));
-                resolve(result);
+                console.log('Result:',Result);
+                AsyncStorage.setItem('user',JSON.stringify(Result));
+                console.log('write data to async success');
+                resolve(Result);
             }
         }).catch(error => {
             reject(error);
