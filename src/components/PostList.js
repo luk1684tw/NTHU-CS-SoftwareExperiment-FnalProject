@@ -29,9 +29,9 @@ class PostList extends React.Component {
         this.props.dispatch(listEvents());
     }
     componentWillReceiveProps(nextProps) {
-        if(nextProps.events !==this.props.events){
-            this.props.dispatch(listEvents());
-        }
+        // if(nextProps.events !==this.props.events){
+        //     this.props.dispatch(listEvents());
+        // }
     }
     render() {
         const {events} = this.props;

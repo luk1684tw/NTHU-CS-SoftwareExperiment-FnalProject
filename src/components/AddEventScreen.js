@@ -46,7 +46,7 @@ class AddEventScreen extends React.Component{
          if(eventTitle && (eventStartDate||eventEndDate)&&(firstClickDate || secondClickDate)){
              dispatch(createEvent(eventStartDate, eventEndDate, eventGroup, eventTitle));
              dispatch(resetForm());
-             dispatch(listEvents());
+             //dispatch(listEvents());
              navigate('Today');
          }
 
