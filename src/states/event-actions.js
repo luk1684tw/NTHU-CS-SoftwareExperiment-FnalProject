@@ -48,27 +48,28 @@ export function listEvents(searchText, group, startDate, endDate) {
 
 
 export function createEvent(StartDate, EndDate, Group, Title) {
-    // return (dispatch, getState) => {
-    //     dispatch(startCreateEvent());
-    //
-    //     return createPostFromApi(StartDate, EndDate, Group, Title).then(event => {
-    //         dispatch(endCreateEvent(event));
-    //     }).catch(err => {
-    //         dispatch(endCreateEvent())
-    //         console.error('Error creating event', err);
-    //     });
-    // };
-    var newEvent={
-        id: '666666666',
-        StartDate: StartDate,
-        EndDate: EndDate,
-        Group: Group,
-        Title: Title
+    return (dispatch, getState) => {
+        dispatch(startCreateEvent());
+
+        return createPostFromApi(StartDate, EndDate, Group, Title).then(event => {
+            console.log('event get from api', event);
+            dispatch(endCreateEvent(event));
+        }).catch(err => {
+            dispatch(endCreateEvent())
+            console.error('Error creating event', err);
+        });
     };
-    return{
-        type: '@EVENT/UPDATE_EVENT',
-        event: newEvent
-    }
+    // var newEvent={
+    //     id: '666666666',
+    //     StartDate: StartDate,
+    //     EndDate: EndDate,
+    //     Group: Group,
+    //     Title: Title
+    // };
+    // return{
+    //     type: '@EVENT/UPDATE_EVENT',
+    //     event: newEvent
+    // }
 };
 
 //Side bar: group list

@@ -1,6 +1,6 @@
 const initEventState = {
     listingEvents: false,
-    events: [{id: '94879487',StartDate: '2017/6/16', EndDate: '2017/6/16', Group: '測試用', Title:'和女朋友吃飯'}, {id: '94539453',StartDate: '2017/6/17', EndDate: '2017/6/18', Group: '測試用', Title:'和老婆約會'}],
+    events: [],
     creatingEvent: false,
 };
 export function event(state = initEventState, action) {

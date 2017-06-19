@@ -28,9 +28,6 @@ class PostList extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            checked: false
-        };
         console.log(this.props.duration);
         this.handleRefresh = this.handleRefresh.bind(this);
         this.handleLoadMore = this.handleLoadMore.bind(this);
@@ -47,8 +44,6 @@ class PostList extends React.Component {
 
     render() {
         const {listingPosts, hasMorePosts, events} = this.props;
-        const {checked} = this.state;
-        console.log('checked:',checked);
         return (
 
           <Container style={styles.mission}>
@@ -59,14 +54,14 @@ class PostList extends React.Component {
                     <View>
                         <ListItem itemHeader first >
                             <Icon name='bell-ring' />
-                            <Text>{event.Group}</Text>
+                            <Text style={{marginLeft:10}}>{event.Title}</Text>
                             <CheckBox/>
                         </ListItem>
                         <ListItem>
                             <Text>{event.StartDate}-{event.EndDate}{'   '}</Text>
                             {/* <Text>{event.Title} {' Group: '+event.Group}</Text> */}
                             {/* <CheckBox checked={false} /> */}
-                            <Text>{event.Title}</Text>
+                            <Text>群組: {event.Group}</Text>
                         </ListItem>
                     </View>
                     }>
@@ -88,14 +83,6 @@ class PostList extends React.Component {
             dispatch(listMorePosts(searchText, start));
     }
 
-    // handleCheckBoxClick() {
-    //     this.setState(previousState => {
-    //         console.log('previousState:',previousState);
-    //         return {
-    //             checkbox: !previousState.checkbox
-    //     }});
-    //
-    // }
 }
 const styles = {
     mission: {
