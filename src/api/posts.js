@@ -14,7 +14,7 @@ const uuid = require('uuid/v4');
 export function listPosts(group = '', startDate='', endDate='') {
     return new Promise((resolve,reject) => {
         AsyncStorage.getItem('user').then(events => {
-            var Events=JSON.parse(events);
+            var Events = JSON.parse(events);
             if (startDate) {
                 Events.filter((item) => {
                     return (moment(startDate,'YYYY-MM-DD HH:mm').unix() >= moment(item,'YYYY-MM-DD HH:mm').unix());
@@ -40,7 +40,7 @@ export function listPosts(group = '', startDate='', endDate='') {
 
 export function createPost(StartDate, EndDate, Group, Title) {
     return new Promise((resolve,reject) => {
-        //  AsyncStorage.removeItem('user');
+        // AsyncStorage.removeItem('user');
         AsyncStorage.getItem('user').then(result => {
             if (moment(StartDate,'YYYY-MM-DD').unix() > moment(EndDate,'YYYY-MM-DD').unix()){
                 var startdate = EndDate;
@@ -57,7 +57,7 @@ export function createPost(StartDate, EndDate, Group, Title) {
                 EndDate: enddate,
                 Group: Group,
                 title: Title,
-                time: time
+                time: Group
             };
 
             console.log('api create',Newevent);

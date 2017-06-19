@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {View, Text, Image, Platform, Modal,TouchableOpacity} from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Header, Container, Item, Input, Content, Thumbnail,Label, Badge, Button, Text as NbText, List, ListItem, Separator, Left, Body, Right} from 'native-base';
+import {Header, Container, Item, Input, Content, Thumbnail,Label, Badge, Button, Text as NbText, List, ListItem, Separator, Left, Body, Right,Toast} from 'native-base';
 import appColors from '../styles/colors';
 import {setGroupScreenName, createGroup,Animated} from '../states/event-actions';
 import {toggleGroupNameModal, setGroupNameText} from '../states/groupName';
@@ -106,9 +106,12 @@ class DrawerSideBar extends React.Component {
     }
 
     next() {
-        this.interval = setTimeout(() => {
+        this.interval = setInterval(() => {
             this.setState({index: (this.state.index+1)%34});
-            this.next();
+            if(this.state.index == 33){
+              this.setState({index: (this.state.index+1)%34});
+              clearInterval(this.interval);
+            }
         }, 50);
     }
 
@@ -118,8 +121,6 @@ class DrawerSideBar extends React.Component {
       const {navigate, dispatch, modalToggle, groupNameText, groups , pictureNum} = this.props;
       //-----------------Group List Setting-----------------------
         //var items=['和學妹出去玩', '和妹妹野餐', '和女友約會'];
-
-
 
         let children=(
           <ListItem>
@@ -143,7 +144,13 @@ class DrawerSideBar extends React.Component {
 
       return (
         <Container style={styles.drawer}>
-          <TouchableOpacity   onPress={() => {this.handleOnClickCorgi()}}>
+          <TouchableOpacity   onPress={() => {this.handleOnClickCorgi();
+                                              Toast.show({
+                                              supportedOrientations: ['portrait','landscape'],
+                                              text: '臭湯包!',
+                                              position: 'bottom',
+                                              duration: 2600
+                                            })}}>
           <Image
               source={this.images[this.state.index]}
               style={styles.corgi}
