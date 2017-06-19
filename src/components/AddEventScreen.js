@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Text,StyleSheet,ScrollView,View,TouchableOpacity,Image} from 'react-native';
-import {Container, Content, Button, Header, Left, Right, Body, Title, Form, Item, Label, Input} from 'native-base';
+import {TimePickerAndroid,Text,StyleSheet,ScrollView,View,TouchableOpacity,Image} from 'react-native';
+import {Container, Content, Button, Header, Left, Right, Body, ListItem, Title, Form, Item, Label, Input} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';
 import {Calendar,CalendarList} from 'react-native-calendars';
-import DatePicker from 'react-native-datepicker';
-import {resetForm, createEvent, inputEventTitle, inputDanger, selectStartDate, selectGroup, selectEndDate, changeFirstDate, changeSecondDate} from '../states/event-actions';
-
+//import DatePicker from 'react-native-datepicker';
+import {selectStartTime, selectEndTime,resetForm, createEvent, inputEventTitle, inputDanger, selectStartDate, selectGroup, selectEndDate, changeFirstDate, changeSecondDate} from '../states/event-actions';
 class AddEventScreen extends React.Component{
     static propTypes={
         navigation: PropTypes.object,
@@ -16,6 +15,8 @@ class AddEventScreen extends React.Component{
         eventGroup: PropTypes.string,
         eventStartDate: PropTypes.string,
         eventEndDate: PropTypes.string,
+        eventStartTime: PropTypes.string,
+        eventEndTime: PropTypes.string,
         inputDanger: PropTypes.bool,
         firstClickDate: PropTypes.string,
         secondClickDate: PropTypes.string,
@@ -26,13 +27,13 @@ class AddEventScreen extends React.Component{
           this.state = {
             start: '',
             end: '',
-            time:"12:50"
+            time:"12:50",
           };
           this.onDayPress = this.onDayPress.bind(this);
           this.handleGoBack = this.handleGoBack.bind(this);
           this.handleTitleChange = this.handleTitleChange.bind(this);
           this.handleCreateEvent = this.handleCreateEvent.bind(this);
-      }
+    }
      handleTitleChange(e){
          const {inputDanger: danger, eventTitle, dispatch} = this.props;
          dispatch(inputEventTitle(e.nativeEvent.text));
@@ -83,17 +84,18 @@ class AddEventScreen extends React.Component{
                                 [this.props.secondClickDate]: [{endingDay: true},{color:'green'},{marked:true},{textColor: 'green'}]
                             }}
                         />
+
                     </ScrollView>
                     <Form>
                         <Item floatingLabel>
                             <Label style={{color:'white'}}>想要提醒甚麼</Label>
                             <Input  onChange={this.handleTitleChange}/>
                         </Item>
+
                         <View style={{flex:1, margin:20}}>
                             <Right><Button info rounded onPress={this.handleCreateEvent}><Text style={{color:'white'}}>新增</Text></Button></Right>
                         </View>
                     </Form>
-
                 </Content>
               </Container>
             </Image>
@@ -141,6 +143,8 @@ export default connect((state, ownProps) => ({
     eventGroup: state.eventForm.eventGroup,
     eventStartDate: state.eventForm.eventStartDate,
     eventEndDate: state.eventForm.eventEndDate,
+    eventStartTime:state.eventForm.eventStartTime,
+    eventEndTime:state.eventForm.eventEndTime,
     groupScreenName: state.group.groupScreenName,
     inputDanger: state.eventForm.inputDanger,
     firstClickDate: state.eventForm.firstClickDate,
