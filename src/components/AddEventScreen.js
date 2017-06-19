@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';
 import {Calendar,CalendarList} from 'react-native-calendars';
 //import DatePicker from 'react-native-datepicker';
+import {listEvents} from '../states/event-actions';
 import {selectStartTime, selectEndTime,resetForm, createEvent, inputEventTitle, inputDanger, selectStartDate, selectGroup, selectEndDate, changeFirstDate, changeSecondDate} from '../states/event-actions';
 class AddEventScreen extends React.Component{
     static propTypes={
@@ -45,7 +46,7 @@ class AddEventScreen extends React.Component{
          if(eventTitle && (eventStartDate||eventEndDate)&&(firstClickDate || secondClickDate)){
              dispatch(createEvent(eventStartDate, eventEndDate, eventGroup, eventTitle));
              dispatch(resetForm());
-
+             dispatch(listEvents());
              navigate('Today');
          }
 
