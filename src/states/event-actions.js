@@ -2,7 +2,8 @@ import {
     listPosts as listPostsFromApi,
     createPost as createPostFromApi,
     listGroup as listGroupFromApi,
-    createGroup as createGroupFromApi
+    createGroup as createGroupFromApi,
+    doneEvent as doneEventFromApi
 } from '../api/posts.js';
 
 /*  Posts */
@@ -33,7 +34,21 @@ function endCreateEvent(event) {
     };
 }
 
-
+export function finishEvent(id){
+    return (dispatch, getState)=>{
+        dispatch(startListEvents());
+        return doneEventFromApi(id).then(
+            events=>{
+                dispatch(endListEvents(events));
+            }
+        ).catch(
+            err=>{
+                dispatch(endListEvents());
+                console.error('Error finish event', err);
+            }
+        );
+    }
+}
 export function listEvents(group, startDate, endDate) {
     return (dispatch, getState) => {
         dispatch(startListEvents());
