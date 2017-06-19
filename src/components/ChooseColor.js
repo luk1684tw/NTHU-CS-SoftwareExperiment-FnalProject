@@ -26,16 +26,17 @@ class ChooseColor extends React.Component{
         const {navigate} = this.props.navigation;
         return (
               <View style={styles.center}>
-              <TouchableOpacity style={styles.buttonblack} onPress={this.handleThemeMode(1)}>
+              <TouchableOpacity style={styles.buttonblack} onPress={() =>this.handleThemeMode(0)}>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.buttonpink} onPress={() => navigate('Setting')}>
+              <TouchableOpacity style={styles.buttonpink} onPress={() =>this.handleThemeMode(1)}>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.buttonbrown} onPress={() => navigate('Setting')}>
+              <TouchableOpacity style={styles.buttonbrown} onPress={() =>this.handleThemeMode(2)}>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.buttongrey} onPress={() =>this.handleThemeMode(3)}>
               </TouchableOpacity>
               <TouchableOpacity style={styles.buttongrey} onPress={() => navigate('Setting')}>
               </TouchableOpacity>
               </View>
-
         );
     };
     handleThemeMode(mode) {

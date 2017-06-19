@@ -26,8 +26,6 @@ class TodayScreen extends React.Component {
         dispatch: PropTypes.func.isRequired,
     };
 
-
-
     constructor(props) {
         super(props);
 
@@ -77,10 +75,23 @@ class TodayScreen extends React.Component {
     render() {
         const {navigate} = this.props.navigation;
         const {events}=this.props;
-        return (
-            <Image source={require('../images/plant4.png')} style = {styles.background}>
-                 <NavigationContainer navigate={navigate} title='Today' style={styles.todaynav}>
 
+            console.log('mode',this.props.mode);
+        if(this.props.mode===0){
+            var url= require('../images/plant1.png');
+        }
+        else if(this.props.mode===1){
+            var url=require('../images/pet1.png');
+        }
+        else if(this.props.mode===2){
+            var url=require('../images/summer.png');
+        }
+        else if(this.props.mode===3){
+            var url=require('../images/bird1.png');
+        }
+        return (
+            <Image source={url} style = {styles.background}>
+                 <NavigationContainer navigate={navigate} title='Today' style={styles.todaynav}>
                 <View style={styles.header_title}>
                   <View style={styles.date}>
                     <Text style={{fontSize:15,color: 'black',fontWeight:'bold'}}>  {this.state.day}</Text>
@@ -101,7 +112,7 @@ class TodayScreen extends React.Component {
                </Fab>
 
             </NavigationContainer>
-</Image>
+          </Image>
         );
     }
 
@@ -156,7 +167,6 @@ const styles = {
       width:null,
       height:null,
       flex: 1,
-
     }
 };
 
@@ -164,5 +174,6 @@ export default connect((state, ownProps) => ({
     creatingPost: state.post.creatingPost,
     creatingVote: state.post.creatingVote,
     events: state.event.events,
-    toast: state.toast
+    toast: state.toast,
+    mode:state.theme.mode,
 }))(TodayScreen);
