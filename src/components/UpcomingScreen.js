@@ -4,15 +4,27 @@ import NavigationContainer from './NavigationContainer';
 import CalendarStrip from 'react-native-calendar-strip';
 import PostList from './PostList.js';
 import moment from 'moment';
-
-export default class UpcomingScreen extends React.Component{
-
+import {connect} from 'react-redux';
+class UpcomingScreen extends React.Component{
 
 
     render () {
         const {navigate} = this.props.navigation;
+        if(this.props.mode===0){
+            var url= require('../images/fall.png');
+        }
+        else if(this.props.mode===1){
+            var url=require('../images/pet3.png');
+        }
+        else if(this.props.mode===2){
+            var url=require('../images/plant3.png');
+        }
+        else if(this.props.mode===3){
+            var url=require('../images/bird3.png');
+        }
+
         return (
-            <Image source={require('../images/fall.png')} style = {styles.background}>
+            <Image source={url} style = {styles.background}>
                 <NavigationContainer navigate={navigate} title='Upcoming'>
                     <CalendarStrip/>
                     <PostList duration='upcoming'/>
@@ -31,3 +43,8 @@ const styles = {
     flex: 1
   }
 };
+
+
+export default connect((state, ownProps) => ({
+    mode:state.theme.mode,
+}))(UpcomingScreen);
