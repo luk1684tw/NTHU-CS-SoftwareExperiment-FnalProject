@@ -14,6 +14,7 @@ import {toast} from './states/toast';
 import {groupName} from './states/groupName'
 import {post, postForm, postItem} from './states/post-reducers';
 import {group, event, eventForm , corgi} from './states/event-reducers';
+import {theme} from './states/ChooseTheme.js';
 
 import {StackNavigator, NavigationActions, addNavigationHelpers} from 'react-navigation';
 import TodayScreen from './components/TodayScreen';
@@ -85,7 +86,7 @@ const nav = (state = initialState, action) => {
 const store = createStore(combineReducers({
     nav, search, toast,
     post, postForm, postItem,
-    event, group, groupName, eventForm ,corgi
+    event, group, groupName, eventForm ,corgi ,theme
 }), compose(applyMiddleware(thunkMiddleware, loggerMiddleware)));
 
 export default class App extends React.Component {

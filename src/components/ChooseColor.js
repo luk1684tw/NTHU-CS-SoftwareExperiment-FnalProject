@@ -10,18 +10,23 @@ import {
   Button,
   Navigator
 } from 'react-native';
+
+import {connect} from 'react-redux';
+import {setTheme} from '../states/ChooseTheme.js';
 import SettingsList from 'react-native-settings-list';
 
 
-export default class ChooseColor extends React.Component{
+class ChooseColor extends React.Component{
     constructor(props){
         super(props);
+
+        this.handleThemeMode = this.handleThemeMode.bind(this);
     }
     render () {
         const {navigate} = this.props.navigation;
         return (
               <View style={styles.center}>
-              <TouchableOpacity style={styles.buttonblack} onPress={() => navigate('Setting')}>
+              <TouchableOpacity style={styles.buttonblack} onPress={this.handleThemeMode(1)}>
               </TouchableOpacity>
               <TouchableOpacity style={styles.buttonpink} onPress={() => navigate('Setting')}>
               </TouchableOpacity>
@@ -33,7 +38,14 @@ export default class ChooseColor extends React.Component{
 
         );
     };
+    handleThemeMode(mode) {
+        console.log('mode:',mode);
+        this.props.dispatch(setTheme(mode));
+    }
 }
+
+export default connect((state) => ({
+}))(ChooseColor);
 
 const styles = StyleSheet.create({
   center: {
