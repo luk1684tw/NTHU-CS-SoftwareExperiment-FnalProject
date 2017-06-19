@@ -12,7 +12,7 @@ import {
   Button
 } from 'react-native';
 import NavigationContainer from './NavigationContainer';
-
+import {web} from 'react-native-communications'
 
 export default class Developer extends React.Component{
 
@@ -24,7 +24,7 @@ export default class Developer extends React.Component{
       const {navigate} = this.props.navigation;
       return (
           <NavigationContainer navigate={navigate} title='Today'>
-          <Button title='Fuck the world' onPress={() => navigate('ChooseColor')}>
+          <Button title='Fuck the world' onPress={() => { web('http://www.github.com') }}>
 
 
           </Button>
