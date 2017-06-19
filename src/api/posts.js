@@ -55,12 +55,14 @@ export function createPost(StartDate, EndDate, Group, Title) {
                 var enddate = EndDate;
             }
             console.log('result=',result);
+            var time = startdate+'-'+enddate;
             let Newevent = {
                 Id: uuid(),
                 StartDate: startdate,
                 EndDate: enddate,
                 Group: Group,
-                Title: Title,
+                title: Title,
+                time: time
             };
 
             console.log('api create',Newevent);
