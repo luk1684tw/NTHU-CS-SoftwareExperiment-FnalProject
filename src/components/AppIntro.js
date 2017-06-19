@@ -28,8 +28,8 @@ export default class Intro extends React.Component {
       fontColor: '#fff',
       level: 10,
     }, {
-      title: '擁有寵物',
-      description: '擁有寵物在你的行事曆',
+      title: '擁有小助手',
+      description: '擁有助手在你的行事曆',
       img: require('../images/dog.png'),
       imgStyle: {
         height: 93 * 1.5,
