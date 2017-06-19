@@ -12,7 +12,6 @@ class DrawerSideBar extends React.Component {
     static propTypes = {
         navigate: PropTypes.func.isRequired,
         groups: PropTypes.array.isRequired,
-        groupScreenName: PropTypes.string.isRequired,
         groupNameText: PropTypes.string.isRequired,
         modalToggle: PropTypes.bool.isRequired,
         dispatch: PropTypes.func.isRequired,
