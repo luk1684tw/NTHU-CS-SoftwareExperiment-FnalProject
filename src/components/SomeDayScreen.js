@@ -9,8 +9,6 @@ export default class SomeDayScreen extends React.Component{
         return (
             <Image source={require('../images/sep.png')} style = {styles.background}>
                 <NavigationContainer navigate={navigate} title='Today'>
-                    <CalendarStrip
-                    />
                     <PostList/>
                 </NavigationContainer>
             </Image>
