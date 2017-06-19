@@ -11,31 +11,26 @@ const moment = require('moment');
 const uuid = require('uuid/v4');
 
 
-export function listPosts(searchText = '', start, group = '', startDate='', endDate='') {
+export function listPosts(group = '', startDate='', endDate='') {
     return new Promise((resolve,reject) => {
         AsyncStorage.getItem('user').then(events => {
+            var Events=JSON.parse(events);
             if (startDate) {
-                events.filter((item) => {
+                Events.filter((item) => {
                     return (moment(startDate,'YYYY-MM-DD HH:mm').unix() >= moment(item,'YYYY-MM-DD HH:mm').unix());
                 });
             }
             if (endDate) {
-                events.filter((item) => {
+                Events.filter((item) => {
                     return (moment(endDate,'YYYY-MM-DD HH:mm').unix() <= moment(item,'YYYY-MM-DD HH:mm').unix());
                 });
             }
-            if (searchText) {
-                events.filter((e) => {
-                    return ((e.Description.toLowerCase().indexOf(searchText.toLowerCase()) !== -1)
-                    || (e.Title.toLowerCase().indexOf(searchText.toLowerCase()) !== -1));
-                });
-            }
             if (group) {
-                events.filter((e) => {
+                Events.filter((e) => {
                     return (e.Group.toLowerCase().indexOf(group.toLowerCase()) !== -1);
                 });
             }
-            resolve(events);
+            resolve(Events);
         }).catch((err) => {
             console.log('read file failed');
             reject(err);
@@ -45,7 +40,7 @@ export function listPosts(searchText = '', start, group = '', startDate='', endD
 
 export function createPost(StartDate, EndDate, Group, Title) {
     return new Promise((resolve,reject) => {
-        // AsyncStorage.removeItem('user');
+        //  AsyncStorage.removeItem('user');
         AsyncStorage.getItem('user').then(result => {
             if (moment(StartDate,'YYYY-MM-DD').unix() > moment(EndDate,'YYYY-MM-DD').unix()){
                 var startdate = EndDate;
@@ -55,12 +50,14 @@ export function createPost(StartDate, EndDate, Group, Title) {
                 var enddate = EndDate;
             }
             console.log('result=',result);
+            var time = startdate+'-'+enddate;
             let Newevent = {
                 Id: uuid(),
                 StartDate: startdate,
                 EndDate: enddate,
                 Group: Group,
-                Title: Title,
+                title: Title,
+                time: time
             };
 
             console.log('api create',Newevent);
@@ -73,12 +70,15 @@ export function createPost(StartDate, EndDate, Group, Title) {
                 resolve(result);
             } else {
                 console.log('in result != null');
-                result = [
-                    ...result,
+                var Result = JSON.parse(result);
+                Result = [
+                    ...Result,
                     Newevent
                 ];
-                AsyncStorage.setItem('user',JSON.stringify(result));
-                resolve(result);
+                console.log('Result:',Result);
+                AsyncStorage.setItem('user',JSON.stringify(Result));
+                console.log('write data to async success');
+                resolve(Result);
             }
         }).catch(error => {
             reject(error);

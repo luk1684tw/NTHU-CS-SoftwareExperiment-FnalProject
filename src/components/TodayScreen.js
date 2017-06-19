@@ -11,7 +11,7 @@ import NavigationContainer from './NavigationContainer';
 import PostList from './PostList';
 import PostItem from './PostItem';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import Timeline from 'react-native-timeline-listview';
 import {connect} from 'react-redux';
 import {selectMood} from '../states/post-actions';
 import {setToast} from '../states/toast';
@@ -22,6 +22,7 @@ class TodayScreen extends React.Component {
         creatingPost: PropTypes.bool.isRequired,
         creatingVote: PropTypes.bool.isRequired,
         toast: PropTypes.string.isRequired,
+        events: PropTypes.array,
         dispatch: PropTypes.func.isRequired,
     };
 
@@ -75,8 +76,9 @@ class TodayScreen extends React.Component {
 
     render() {
         const {navigate} = this.props.navigation;
+        const {events}=this.props;
         return (
-<Image source={require('../images/summer.png')} style = {styles.background}>
+            <Image source={require('../images/summer.png')} style = {styles.background}>
                  <NavigationContainer navigate={navigate} title='Today' style={styles.todaynav}>
 
                 <View style={styles.header_title}>
@@ -88,6 +90,7 @@ class TodayScreen extends React.Component {
                </View>
 
                <PostList duration='today'/>
+
                <Fab
                    active={this.state.fabActive}
                    containerStyle={styles.fabContainer}
@@ -159,5 +162,6 @@ const styles = {
 export default connect((state, ownProps) => ({
     creatingPost: state.post.creatingPost,
     creatingVote: state.post.creatingVote,
+    events: state.event.events,
     toast: state.toast
 }))(TodayScreen);

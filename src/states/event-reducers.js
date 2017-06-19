@@ -115,7 +115,9 @@ const initEventFormState = {
     eventTitle: '',
     eventGroup: '',
     firstClickDate: '',
-    secondClickDate: ''
+    secondClickDate: '',
+    eventStartTime: '',
+    eventEndTime: ''
 };
 
 //Event Form Reducer
@@ -165,6 +167,16 @@ export function eventForm(state = initEventFormState, action) {
                 eventTitle: '',
                 firstClickDate: '',
                 secondClickDate: ''
+            }
+        case '@EVENT_FORM/SELECT_START_TIME':
+            return{
+                ...state,
+                eventStartTime: action.eventStartTime
+            }
+        case '@EVENT_FORM/SELECT_END_TIME':
+            return{
+                ...state,
+                eventEndTime: action.eventEndTime
             }
         default:
             return state;

@@ -17,17 +17,36 @@ export default class Intro extends React.Component {
   }
   render() {
     const pageArray = [{
-      title: 'Page 1',
-      description: 'Description 1',
-
-      backgroundColor: '#a8c7f5',
+      title:'VirPet 日曆',
+      description: '充實每一天',
+      img: require('../images/calen.png'),
+      imgStyle: {
+        height: 93 * 1.5,
+        width: 103 * 1.5,
+      },
+      backgroundColor: '#cbd4e2',
       fontColor: '#fff',
       level: 10,
     }, {
-      title: 'Page 2',
-      description: 'Description 2',
-
-      backgroundColor: '#a8c7f5',
+      title: '擁有寵物',
+      description: '擁有寵物在你的行事曆',
+      img: require('../images/dog.png'),
+      imgStyle: {
+        height: 93 * 1.5,
+        width: 103 * 1.5,
+      },
+      backgroundColor: '#cbd4e2',
+      fontColor: '#fff',
+      level: 10,
+    }, {
+      title: '更換主題',
+      description: '讓你的行事曆與眾不同',
+      img: require('../images/pencils.png'),
+      imgStyle: {
+        height: 93 * 1.4,
+        width: 103 * 1.4,
+      },
+      backgroundColor: '#cbd4e2',
       fontColor: '#fff',
       level: 10,
     }];

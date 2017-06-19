@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NavigationContainer from './NavigationContainer';
 import {Fab, Button, Toast, Left, Body, Right, ListItem, Container, Content} from 'native-base';
 import {connect} from 'react-redux';
+import PostList from './PostList';
 class GroupScreen extends React.Component{
     static propTypes = {
         navigation: PropTypes.object.isRequired,
@@ -33,6 +34,7 @@ class GroupScreen extends React.Component{
                   <Icon name='star' size={30} style={styles.header_icon} />
                   <Text style={{fontSize:22}}>{groupScreenName}</Text>
              </View>
+             <PostList/>
              <Fab
                  active={this.state.fabActive}
                  containerStyle={styles.fabContainer}

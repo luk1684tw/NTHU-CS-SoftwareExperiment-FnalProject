@@ -34,16 +34,16 @@ function endCreateEvent(event) {
 }
 
 
-export function listEvents(searchText, group, startDate, endDate) {
-    // return (dispatch, getState) => {
-    //     dispatch(startListEvents());
-    //     return listPostsFromApi(searchText, '', group, startDate, endDate).then(events => {
-    //         dispatch(endListEvents(events));
-    //     }).catch(err => {
-    //         dispatch(endListEvents());
-    //         console.error('Error listing events', err);
-    //     });
-    // };
+export function listEvents(group, startDate, endDate) {
+    return (dispatch, getState) => {
+        dispatch(startListEvents());
+        return listPostsFromApi(group, startDate, endDate).then(events => {
+            dispatch(endListEvents(events));
+        }).catch(err => {
+            dispatch(endListEvents());
+            console.error('Error listing events', err);
+        });
+    };
 };
 
 
@@ -54,6 +54,7 @@ export function createEvent(StartDate, EndDate, Group, Title) {
         return createPostFromApi(StartDate, EndDate, Group, Title).then(event => {
             console.log('event get from api', event);
             dispatch(endCreateEvent(event));
+            dispatch(listEvents());
         }).catch(err => {
             dispatch(endCreateEvent())
             console.error('Error creating event', err);
@@ -177,6 +178,18 @@ export function changeSecondDate(secondClickDate){
     return{
         type:'@EVENT_FORM/CHANGE_SECOND_DATE',
         secondClickDate
+    }
+}
+export function selectStartTime(eventStartTime){
+    return{
+        type:'@EVENT_FORM/SELECT_START_TIME',
+        eventStartTime
+    }
+}
+export function selectEndTime(eventEndTime){
+    return{
+        type:'@EVENT_FORM/SELECT_END_TIME',
+        eventEndTime
     }
 }
 export function resetForm(){

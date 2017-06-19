@@ -12,7 +12,6 @@ class DrawerSideBar extends React.Component {
     static propTypes = {
         navigate: PropTypes.func.isRequired,
         groups: PropTypes.array.isRequired,
-        groupScreenName: PropTypes.string.isRequired,
         groupNameText: PropTypes.string.isRequired,
         modalToggle: PropTypes.bool.isRequired,
         dispatch: PropTypes.func.isRequired,
@@ -24,6 +23,7 @@ class DrawerSideBar extends React.Component {
         this.handleOpenGroupName=this.handleOpenGroupName.bind(this);
         this.handleCloseGroupName=this.handleCloseGroupName.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
+        this.handleOnClickOtherWindow=this.handleOnClickOtherWindow.bind(this);
         this.handleOnClickCorgi=this.handleOnClickCorgi.bind(this);
         this.images = [
           require('../images/corgi-24.png'),
@@ -44,6 +44,22 @@ class DrawerSideBar extends React.Component {
           require('../images/corgi-39.png'),
           require('../images/corgi-40.png'),
           require('../images/corgi-41.png'),
+          require('../images/corgi-42.png'),
+          require('../images/corgi-43.png'),
+          require('../images/corgi-44.png'),
+          require('../images/corgi-45.png'),
+          require('../images/corgi-46.png'),
+          require('../images/corgi-47.png'),
+          require('../images/corgi-48.png'),
+          require('../images/corgi-49.png'),
+          require('../images/corgi-50.png'),
+          require('../images/corgi-51.png'),
+          require('../images/corgi-52.png'),
+          require('../images/corgi-53.png'),
+          require('../images/corgi-54.png'),
+          require('../images/corgi-55.png'),
+          require('../images/corgi-56.png'),
+          require('../images/corgi-57.png'),
         ];
         this.next = this.next.bind(this);
         this.state = {index: 0};
@@ -53,7 +69,12 @@ class DrawerSideBar extends React.Component {
         this.props.dispatch(setGroupScreenName(item));
         // console.log(item, this.props.groupScreenName);
         this.props.navigate('Group');
+
         // this.props.dispatch(setGroupScreenName(item));
+    }
+    handleOnClickOtherWindow(screenName){
+        this.props.dispatch(setGroupScreenName(''));
+        this.props.navigate(screenName);
     }
 
     handleOpenGroupName(){
@@ -86,7 +107,7 @@ class DrawerSideBar extends React.Component {
 
     next() {
         this.interval = setTimeout(() => {
-            this.setState({index: (this.state.index+1)%18});
+            this.setState({index: (this.state.index+1)%34});
             this.next();
         }, 50);
     }
@@ -131,15 +152,15 @@ class DrawerSideBar extends React.Component {
                 <List>
                     {/* 代辦事項 */}
                     <ListItem itemDivider style={styles.itemheight}><Left><Text style={styles.text}>待辦事項</Text></Left><Body></Body><Right></Right></ListItem>
-                    <ListItem button onPress={() => navigate('Today')}>
+                    <ListItem button onPress={()=>{this.handleOnClickOtherWindow('Today')}}>
                         <Icon name='bomb' size={20}/>
                         <Text style={styles.text}>今天</Text>
                     </ListItem>
-                    <ListItem  button onPress={() => navigate('Upcoming')}>
+                    <ListItem  button onPress={()=>{this.handleOnClickOtherWindow('Upcoming')}}>
                         <Icon name='clock-alert' size={20}/>
                         <Text style={styles.text}>即將來臨</Text>
                     </ListItem>
-                    <ListItem  button onPress={() => navigate('SomeDay')}>
+                    <ListItem  button onPress={()=>{this.handleOnClickOtherWindow('SomeDay')}}>
                         <Icon name='timetable' size={20}/>
                         <Text style={styles.text}>選擇一天</Text>
                     </ListItem>
@@ -167,7 +188,7 @@ class DrawerSideBar extends React.Component {
                     {children}
                     {/* 設定 */}
                     <ListItem itemDivider><Left><Text style={styles.text}>設定</Text></Left><Body></Body><Right></Right></ListItem>
-                    <ListItem  button onPress={() => navigate('Setting')}>
+                    <ListItem  button onPress={()=>{this.handleOnClickOtherWindow('Setting')}}>
                         <Icon name='settings-box' size={20}/>
                         <Text style={styles.text}>個人設定</Text>
                     </ListItem>
