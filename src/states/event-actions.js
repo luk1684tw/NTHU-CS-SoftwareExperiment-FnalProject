@@ -178,6 +178,18 @@ export function changeSecondDate(secondClickDate){
         secondClickDate
     }
 }
+export function selectStartTime(eventStartTime){
+    return{
+        type:'@EVENT_FORM/SELECT_START_TIME',
+        eventStartTime
+    }
+}
+export function selectEndTime(eventEndTime){
+    return{
+        type:'@EVENT_FORM/SELECT_END_TIME',
+        eventEndTime
+    }
+}
 export function resetForm(){
     return{
         type:'@EVENT_FORM/RESET_FORM'

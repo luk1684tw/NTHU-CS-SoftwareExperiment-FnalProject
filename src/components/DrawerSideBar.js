@@ -23,13 +23,19 @@ class DrawerSideBar extends React.Component {
         this.handleOpenGroupName=this.handleOpenGroupName.bind(this);
         this.handleCloseGroupName=this.handleCloseGroupName.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
+        this.handleOnClickOtherWindow=this.handleOnClickOtherWindow.bind(this);
     }
 
     handleOnClick(item){
         this.props.dispatch(setGroupScreenName(item));
         // console.log(item, this.props.groupScreenName);
         this.props.navigate('Group');
+
         // this.props.dispatch(setGroupScreenName(item));
+    }
+    handleOnClickOtherWindow(screenName){
+        this.props.dispatch(setGroupScreenName(''));
+        this.props.navigate(screenName);
     }
 
     handleOpenGroupName(){
@@ -94,15 +100,15 @@ class DrawerSideBar extends React.Component {
                 <List>
                     {/* 代辦事項 */}
                     <ListItem itemDivider style={styles.itemheight}><Left><Text style={styles.text}>待辦事項</Text></Left><Body></Body><Right></Right></ListItem>
-                    <ListItem button onPress={() => navigate('Today')}>
+                    <ListItem button onPress={()=>{this.handleOnClickOtherWindow('Today')}}>
                         <Icon name='bomb' size={20}/>
                         <Text style={styles.text}>今天</Text>
                     </ListItem>
-                    <ListItem  button onPress={() => navigate('Upcoming')}>
+                    <ListItem  button onPress={()=>{this.handleOnClickOtherWindow('Upcoming')}}>
                         <Icon name='clock-alert' size={20}/>
                         <Text style={styles.text}>即將來臨</Text>
                     </ListItem>
-                    <ListItem  button onPress={() => navigate('SomeDay')}>
+                    <ListItem  button onPress={()=>{this.handleOnClickOtherWindow('SomeDay')}}>
                         <Icon name='timetable' size={20}/>
                         <Text style={styles.text}>選擇一天</Text>
                     </ListItem>
@@ -130,7 +136,7 @@ class DrawerSideBar extends React.Component {
                     {children}
                     {/* 設定 */}
                     <ListItem itemDivider><Left><Text style={styles.text}>設定</Text></Left><Body></Body><Right></Right></ListItem>
-                    <ListItem  button onPress={() => navigate('Setting')}>
+                    <ListItem  button onPress={()=>{this.handleOnClickOtherWindow('Setting')}}>
                         <Icon name='settings-box' size={20}/>
                         <Text style={styles.text}>個人設定</Text>
                     </ListItem>
