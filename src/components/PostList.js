@@ -2,17 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     View,
-    ListView, RefreshControl, Text, Image
+    ListView, Text, Image
 } from 'react-native';
 import InfiniteScrollView from 'react-native-infinite-scroll-view';
 import {Left,Right,Body, List, ListItem, Container, Content, Icon} from 'native-base';
-
-
 import PostItem from './PostItem';
 import CalendarStrip from 'react-native-calendar-strip';
 import {connect} from 'react-redux';
 import {listPosts, listMorePosts} from '../states/post-actions';
-import {CheckBox} from 'react-native-elements';
+import CheckBox from './CheckBox.js';
+
 class PostList extends React.Component {
     static propTypes = {
         searchText: PropTypes.string.isRequired,
@@ -30,13 +29,12 @@ class PostList extends React.Component {
         super(props);
 
         this.state = {
-            dataSource: new ListView.DataSource({
-                rowHasChanged: (r1, r2) => JSON.stringify(r1) !== JSON.stringify(r2)
-            })
+            checked: false
         };
         console.log(this.props.duration);
         this.handleRefresh = this.handleRefresh.bind(this);
         this.handleLoadMore = this.handleLoadMore.bind(this);
+        // this.handleCheckBoxClick = this.handleCheckBoxClick.bind(this);
     }
 
     componentDidMount() {
@@ -49,23 +47,20 @@ class PostList extends React.Component {
 
     render() {
         const {listingPosts, hasMorePosts, events} = this.props;
+        const {checked} = this.state;
+        console.log('checked:',checked);
         return (
 
           <Container style={styles.mission}>
+
               <Content>
                 <List dataArray={events}
                     renderRow={(event) =>
                     <View>
-                        <ListItem itemHeader first>
+                        <ListItem itemHeader first >
                             <Icon name='bell-ring' />
                             <Text>{event.Group}</Text>
-                            <CheckBox
-                              containerStyle={{backgroundColor:'transparent',borderWidth:0,position:'absolute',right:10}}
-                              center
-                              checkedColor='red'
-                              uncheckedColor='black'
-                              checked={false}
-                            />
+                            <CheckBox/>
                         </ListItem>
                         <ListItem>
                             <Text>{event.StartDate}-{event.EndDate}{'   '}</Text>
@@ -92,6 +87,15 @@ class PostList extends React.Component {
         if (listingMorePosts !== start)
             dispatch(listMorePosts(searchText, start));
     }
+
+    // handleCheckBoxClick() {
+    //     this.setState(previousState => {
+    //         console.log('previousState:',previousState);
+    //         return {
+    //             checkbox: !previousState.checkbox
+    //     }});
+    //
+    // }
 }
 const styles = {
     mission: {
