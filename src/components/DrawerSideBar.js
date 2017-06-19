@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {View, Text, Image, Platform, Modal} from 'react-native'
+import {View, Text, Image, Platform, Modal,TouchableOpacity} from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Header, Container, Item, Input, Content, Thumbnail,Label, Badge, Button, Text as NbText, List, ListItem, Separator, Left, Body, Right} from 'native-base';
 import appColors from '../styles/colors';
 import {setGroupScreenName, createGroup,Animated} from '../states/event-actions';
 import {toggleGroupNameModal, setGroupNameText} from '../states/groupName';
 import {connect} from 'react-redux';
+
 class DrawerSideBar extends React.Component {
     static propTypes = {
         navigate: PropTypes.func.isRequired,
@@ -24,6 +25,29 @@ class DrawerSideBar extends React.Component {
         this.handleCloseGroupName=this.handleCloseGroupName.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
         this.handleOnClickOtherWindow=this.handleOnClickOtherWindow.bind(this);
+        this.handleOnClickCorgi=this.handleOnClickCorgi.bind(this);
+        this.images = [
+          require('../images/corgi-24.png'),
+          require('../images/corgi-25.png'),
+          require('../images/corgi-26.png'),
+          require('../images/corgi-27.png'),
+          require('../images/corgi-28.png'),
+          require('../images/corgi-29.png'),
+          require('../images/corgi-30.png'),
+          require('../images/corgi-31.png'),
+          require('../images/corgi-32.png'),
+          require('../images/corgi-33.png'),
+          require('../images/corgi-34.png'),
+          require('../images/corgi-35.png'),
+          require('../images/corgi-36.png'),
+          require('../images/corgi-37.png'),
+          require('../images/corgi-38.png'),
+          require('../images/corgi-39.png'),
+          require('../images/corgi-40.png'),
+          require('../images/corgi-41.png'),
+        ];
+        this.next = this.next.bind(this);
+        this.state = {index: 0};
     }
 
     handleOnClick(item){
@@ -57,7 +81,7 @@ class DrawerSideBar extends React.Component {
 
     handleOnClickCorgi(){
       clearInterval(this.interval);
-      this.interval = setInterval(()=>{this.props.dispatch(Animated(24))}, 60);
+      this.next();
     }
 
     componentWillReceiveProps(){
@@ -66,10 +90,22 @@ class DrawerSideBar extends React.Component {
           }
     }
 
+    next() {
+        this.interval = setTimeout(() => {
+            this.setState({index: (this.state.index+1)%18});
+            this.next();
+        }, 50);
+    }
+
+
+
     render() {
       const {navigate, dispatch, modalToggle, groupNameText, groups , pictureNum} = this.props;
       //-----------------Group List Setting-----------------------
         //var items=['和學妹出去玩', '和妹妹野餐', '和女友約會'];
+
+
+
         let children=(
           <ListItem>
               <Icon name='tag-multiple' size={24}/>
@@ -92,10 +128,11 @@ class DrawerSideBar extends React.Component {
 
       return (
         <Container style={styles.drawer}>
-
-          <Image source={require('../images/corgi-24.png')} style={styles.corgi}  onPress={()=>{this.handleOnClickCorgi()}}>
-          </Image>
-
+          <TouchableOpacity   onPress={() => {this.handleOnClickCorgi()}}>
+          <Image
+              source={this.images[this.state.index]}
+              style={styles.corgi}
+            /></TouchableOpacity>
             <Content>
                 <List>
                     {/* 代辦事項 */}
@@ -190,9 +227,14 @@ const styles = {
       flex:1
     },
     corgi:{
-      width:200,
-      height:150,
-      marginLeft:30
+      width:125,
+      height:125,
+      marginLeft:'auto',
+      marginRight:'auto',
+      opacity:0.5,
+      borderWidth: 0.5,
+      borderColor: 'black',
+      borderRadius:90,
     },
     background:{
       resizeMode: 'cover',

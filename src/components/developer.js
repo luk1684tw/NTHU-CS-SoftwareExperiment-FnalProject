@@ -24,7 +24,7 @@ export default class Developer extends React.Component{
       const {navigate} = this.props.navigation;
       return (
           <NavigationContainer navigate={navigate} title='Today'>
-          <Button title='開發團隊' onPress={() => navigate('ChooseColor')}>
+          <Button title='Fuck the world' onPress={() => navigate('ChooseColor')}>
 
 
           </Button>

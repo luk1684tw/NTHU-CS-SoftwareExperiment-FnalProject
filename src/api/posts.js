@@ -43,26 +43,51 @@ export function listPosts(searchText = '', start, group = '', startDate='', endD
     });
 }
 
-export function createPost(StartDate, EndDate, Group, Title, Description) {
-    AsyncStorage.getItem('user').then(result => {
-        let Newevent = {
-            Id: uuid(),
-            StartDate: StartDate,
-            EndDate: EndDate,
-            Group: Group,
-            Title: Title,
-            Description: Description
-        };
-        result = [
-            ...result,
-            Newevent
-        ];
-        AsyncStorage.setItem('user',JSON.stringify(result));
-        return Newevent;
-    }).catch(error => {
-        console.log(eror);
-    });
+export function createPost(StartDate, EndDate, Group, Title) {
+    return new Promise((resolve,reject) => {
+        //  AsyncStorage.removeItem('user');
+        AsyncStorage.getItem('user').then(result => {
+            if (moment(StartDate,'YYYY-MM-DD').unix() > moment(EndDate,'YYYY-MM-DD').unix()){
+                var startdate = EndDate;
+                var enddate = StartDate;
+            } else {
+                var startdate = StartDate;
+                var enddate = EndDate;
+            }
+            console.log('result=',result);
+            let Newevent = {
+                Id: uuid(),
+                StartDate: startdate,
+                EndDate: enddate,
+                Group: Group,
+                Title: Title,
+            };
 
+            console.log('api create',Newevent);
+            if (result == null) {
+                console.log('in result = null');
+                result = [
+                    Newevent
+                ];
+                AsyncStorage.setItem('user',JSON.stringify(result));
+                resolve(result);
+            } else {
+                console.log('in result != null');
+                var Result = JSON.parse(result);
+                Result = [
+                    ...Result,
+                    Newevent
+                ];
+                console.log('Result:',Result);
+                AsyncStorage.setItem('user',JSON.stringify(Result));
+                console.log('write data to async success');
+                resolve(Result);
+            }
+        }).catch(error => {
+            reject(error);
+            console.log('write event to AsyncStorage failed');
+        });
+    });
 }
 
 export function listGroup() {
@@ -77,6 +102,7 @@ export function listGroup() {
 }
 
 export function createGroup(name = '') {
+    return new Promise((resolve))
     AsyncStorage.getItem('group',(err,result) => {
         result = [
             ...result,

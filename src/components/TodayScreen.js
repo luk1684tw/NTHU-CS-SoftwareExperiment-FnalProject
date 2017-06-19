@@ -16,6 +16,7 @@ import {connect} from 'react-redux';
 import {selectMood} from '../states/post-actions';
 import {setToast} from '../states/toast';
 import CalendarStrip from 'react-native-calendar-strip';
+
 class TodayScreen extends React.Component {
     static propTypes = {
         creatingPost: PropTypes.bool.isRequired,

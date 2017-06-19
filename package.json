@@ -12,6 +12,7 @@
     "prop-types": "^15.5.10",
     "react": "16.0.0-alpha.6",
     "react-native": "0.44.0",
+    "react-native-app-intro": "^1.1.5",
     "react-native-calendar-strip": "^0.1.4",
     "react-native-calendars": "^1.4.0",
     "react-native-datepicker": "^1.6.0",
