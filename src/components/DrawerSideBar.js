@@ -44,6 +44,22 @@ class DrawerSideBar extends React.Component {
           require('../images/corgi-39.png'),
           require('../images/corgi-40.png'),
           require('../images/corgi-41.png'),
+          require('../images/corgi-42.png'),
+          require('../images/corgi-43.png'),
+          require('../images/corgi-44.png'),
+          require('../images/corgi-45.png'),
+          require('../images/corgi-46.png'),
+          require('../images/corgi-47.png'),
+          require('../images/corgi-48.png'),
+          require('../images/corgi-49.png'),
+          require('../images/corgi-50.png'),
+          require('../images/corgi-51.png'),
+          require('../images/corgi-52.png'),
+          require('../images/corgi-53.png'),
+          require('../images/corgi-54.png'),
+          require('../images/corgi-55.png'),
+          require('../images/corgi-56.png'),
+          require('../images/corgi-57.png'),
         ];
         this.next = this.next.bind(this);
         this.state = {index: 0};
@@ -91,7 +107,7 @@ class DrawerSideBar extends React.Component {
 
     next() {
         this.interval = setTimeout(() => {
-            this.setState({index: (this.state.index+1)%18});
+            this.setState({index: (this.state.index+1)%34});
             this.next();
         }, 50);
     }

@@ -63,15 +63,15 @@ class AddEventScreen extends React.Component{
                         </Button>
                     </Left>
 
-                    <Body>
+                    {/*<Body>
                         <Text style={{marginLeft :75, fontSize: 20, color:'white'}}>新增提醒事項</Text>
-                    </Body>
+                    </Body>*/}
 
-                    <Right>
+                    {/*<Right>
                         <Button transparent onPress={this.handleCreateEvent}>
                             <Icon name='chevron-right' size={30} style = {{color: 'white'}}/>
                         </Button>
-                    </Right>
+                    </Right>*/}
 
                 </Header>
                 <Content>
