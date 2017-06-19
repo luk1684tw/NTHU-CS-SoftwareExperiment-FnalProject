@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {View, Text, Image, Platform, Modal} from 'react-native'
+import {View, Text, Image, Platform, Modal,TouchableOpacity} from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Header, Container, Item, Input, Content, Thumbnail,Label, Badge, Button, Text as NbText, List, ListItem, Separator, Left, Body, Right} from 'native-base';
 import appColors from '../styles/colors';
@@ -24,6 +24,7 @@ class DrawerSideBar extends React.Component {
         this.handleOpenGroupName=this.handleOpenGroupName.bind(this);
         this.handleCloseGroupName=this.handleCloseGroupName.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
+        this.handleOnClickCorgi=this.handleOnClickCorgi.bind(this);
         this.images = [
           require('../images/corgi-24.png'),
           require('../images/corgi-25.png'),
@@ -74,7 +75,7 @@ class DrawerSideBar extends React.Component {
 
     handleOnClickCorgi(){
       clearInterval(this.interval);
-      this.interval = setInterval(()=>{this.props.dispatch(Animated(24))}, 60);
+      this.next();
     }
 
     componentWillReceiveProps(){
@@ -83,16 +84,13 @@ class DrawerSideBar extends React.Component {
           }
     }
 
-    componentDidMount() {
-        this.next();
-    }
-
     next() {
-        setTimeout(() => {
+        this.interval = setTimeout(() => {
             this.setState({index: (this.state.index+1)%18});
             this.next();
         }, 50);
     }
+
 
 
     render() {
@@ -124,11 +122,11 @@ class DrawerSideBar extends React.Component {
 
       return (
         <Container style={styles.drawer}>
+          <TouchableOpacity   onPress={() => {this.handleOnClickCorgi()}}>
           <Image
               source={this.images[this.state.index]}
-              style={styles.image}
-            />
-
+              style={styles.corgi}
+            /></TouchableOpacity>
             <Content>
                 <List>
                     {/* 代辦事項 */}
@@ -223,9 +221,14 @@ const styles = {
       flex:1
     },
     corgi:{
-      width:200,
-      height:150,
-      marginLeft:30
+      width:125,
+      height:125,
+      marginLeft:'auto',
+      marginRight:'auto',
+      opacity:0.5,
+      borderWidth: 0.5,
+      borderColor: 'black',
+      borderRadius:90,
     },
     background:{
       resizeMode: 'cover',
