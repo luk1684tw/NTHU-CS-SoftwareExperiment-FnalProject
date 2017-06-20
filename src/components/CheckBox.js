@@ -39,7 +39,6 @@ class checkBox extends React.Component {
 const styles={
     checkbox:{
         backgroundColor:'transparent',
-        border:0,
         position:'absolute',
         // marginTop: -10
         margin: 0,
