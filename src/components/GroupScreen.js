@@ -6,6 +6,7 @@ import NavigationContainer from './NavigationContainer';
 import {Fab, Button, Toast, Left, Body, Right, ListItem, Container, Content} from 'native-base';
 import {connect} from 'react-redux';
 import PostList from './PostList';
+import {listEvents} from '../states/event-actions';
 class GroupScreen extends React.Component{
     static propTypes = {
         navigation: PropTypes.object.isRequired,
@@ -19,6 +20,9 @@ class GroupScreen extends React.Component{
             fabActive: false,
         };
         this.handleFabClose = this.handleFabClose.bind(this);
+    }
+    componentDidMount(){
+        this.props.dispatch(listEvents(this.props.groupScreenName));
     }
     handleFabClose() {
         this.setState({fabActive: !this.state.fabActive});
