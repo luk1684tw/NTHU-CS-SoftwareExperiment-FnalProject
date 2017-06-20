@@ -41,13 +41,16 @@ class AddEventScreen extends React.Component{
          console.log('eventTitle', eventTitle);
      }
      handleCreateEvent(){
-         const{eventTitle, eventStartDate, eventGroup, eventEndDate, firstClickDate, secondClickDate, dispatch}=this.props;
+         const{eventTitle, eventStartDate, groupScreenName, eventEndDate, firstClickDate, secondClickDate, dispatch}=this.props;
          const {goBack, navigate} = this.props.navigation;
          if(eventTitle && (eventStartDate||eventEndDate)&&(firstClickDate || secondClickDate)){
-             dispatch(createEvent(eventStartDate, eventEndDate, eventGroup, eventTitle));
+             dispatch(createEvent(eventStartDate, eventEndDate, groupScreenName, eventTitle));
              dispatch(resetForm());
              //dispatch(listEvents());
-             navigate('Today');
+             if(groupScreenName)
+                navigate('Group');
+             else
+                navigate('Today');
          }
 
      }

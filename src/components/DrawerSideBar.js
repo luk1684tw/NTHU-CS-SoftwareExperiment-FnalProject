@@ -4,7 +4,7 @@ import {View, Text, Image, Platform, Modal,TouchableOpacity} from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Header, Container, Item, Input, Content, Thumbnail,Label, Badge, Button, Text as NbText, List, ListItem, Separator, Left, Body, Right,Toast} from 'native-base';
 import appColors from '../styles/colors';
-import {setGroupScreenName, createGroup, listGroups, Animated} from '../states/event-actions';
+import {setGroupScreenName, createGroup, listEvents, listGroups, Animated} from '../states/event-actions';
 import {toggleGroupNameModal, setGroupNameText} from '../states/groupName';
 import {connect} from 'react-redux';
 
@@ -13,6 +13,7 @@ class DrawerSideBar extends React.Component {
         navigate: PropTypes.func.isRequired,
         groups: PropTypes.array.isRequired,
         groupNameText: PropTypes.string.isRequired,
+        groupScreenName: PropTypes.string.isRequired,
         modalToggle: PropTypes.bool.isRequired,
         dispatch: PropTypes.func.isRequired,
         pictureNum: PropTypes.number.isRequired
@@ -70,8 +71,8 @@ class DrawerSideBar extends React.Component {
     handleOnClick(item){
         this.props.dispatch(setGroupScreenName(item));
         // console.log(item, this.props.groupScreenName);
+        this.props.dispatch(listEvents(this.props.groupScreenName));
         this.props.navigate('Group');
-
         // this.props.dispatch(setGroupScreenName(item));
     }
     handleOnClickOtherWindow(screenName){
