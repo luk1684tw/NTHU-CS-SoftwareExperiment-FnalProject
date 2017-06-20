@@ -4,7 +4,7 @@ import {View, Text, Image, Platform, Modal,TouchableOpacity} from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Header, Container, Item, Input, Content, Thumbnail,Label, Badge, Button, Text as NbText, List, ListItem, Separator, Left, Body, Right,Toast} from 'native-base';
 import appColors from '../styles/colors';
-import {setGroupScreenName, createGroup,Animated} from '../states/event-actions';
+import {setGroupScreenName, createGroup, listGroups, Animated} from '../states/event-actions';
 import {toggleGroupNameModal, setGroupNameText} from '../states/groupName';
 import {connect} from 'react-redux';
 
@@ -64,7 +64,9 @@ class DrawerSideBar extends React.Component {
         this.next = this.next.bind(this);
         this.state = {index: 0};
     }
-
+    componentDidMount(){
+        this.props.dispatch(listGroups());
+    }
     handleOnClick(item){
         this.props.dispatch(setGroupScreenName(item));
         // console.log(item, this.props.groupScreenName);
