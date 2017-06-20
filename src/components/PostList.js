@@ -29,6 +29,7 @@ class PostList extends React.Component {
     }
 
     componentDidMount() {
+
         this.props.dispatch(listEvents(this.props.groupScreenName));
     }
 
@@ -76,6 +77,7 @@ class PostList extends React.Component {
                     data={events}
                     innerCircle={'dot'}
                     circleSize={20}
+                    columnFormat='two-column'
                     circleColor='rgb(45,156,219)'
                     lineColor='rgb(45,156,219)'
                     timeContainerStyle={{minWidth:52, marginTop: 1}}

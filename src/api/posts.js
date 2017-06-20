@@ -20,12 +20,12 @@ export function listPosts(group = '', startDate='', endDate='') {
             }
             if (startDate) {
                 Events=Events.filter((item) => {
-                    return (moment(startDate,'YYYY-MM-DD HH:mm').unix() >= moment(item,'YYYY-MM-DD HH:mm').unix());
+                    return (moment(startDate,'YYYY-MM-DD').unix() >= moment(item,'YYYY-MM-DD').unix());
                 });
             }
             if (endDate) {
                 Events=Events.filter((item) => {
-                    return (moment(endDate,'YYYY-MM-DD HH:mm').unix() <= moment(item,'YYYY-MM-DD HH:mm').unix());
+                    return (moment(endDate,'YYYY-MM-DD').unix() <= moment(item,'YYYY-MM-DD').unix());
                 });
             }
             if (Events.length>0 && group) {
@@ -63,6 +63,8 @@ export function doneEvent(id=''){
 export function createPost(StartDate, EndDate, Group, Title) {
     return new Promise((resolve,reject) => {
         // AsyncStorage.removeItem('user');
+        console.log('StartDate:',moment(StartDate,'YYYY-MM-DD').unix());
+        console.log('test' , moment().unix());
         AsyncStorage.getItem('user').then(result => {
             if (moment(StartDate,'YYYY-MM-DD').unix() > moment(EndDate,'YYYY-MM-DD').unix()){
                 var startdate = EndDate;
@@ -72,14 +74,17 @@ export function createPost(StartDate, EndDate, Group, Title) {
                 var enddate = EndDate;
             }
             console.log('result=',result);
-            var time = startdate+'-'+enddate;
+            var start = moment(startdate,'YYYY-MM-DD').format('MM-DD');
+            var end = moment(enddate,'YYYY-MM-DD').format('MM-DD');
+            var time = start + ' to ' + end;
+            console.log('time:' ,time);
             let Newevent = {
                 Id: uuid(),
                 StartDate: startdate,
                 EndDate: enddate,
                 Group: Group,
                 title: Title,
-                time: Group,
+                time: time,
                 isDone: false
             };
 
