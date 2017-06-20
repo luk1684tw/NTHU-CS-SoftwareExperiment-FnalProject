@@ -13,7 +13,7 @@ import {
   Image,
 } from 'react-native';
 
-import {Container} from 'native-base';
+import {Container, Content} from 'native-base';
 import {connect} from 'react-redux';
 import {setTheme} from '../states/ChooseTheme.js';
 
@@ -28,36 +28,38 @@ class ChooseColor extends React.Component{
     render () {
         const {navigate} = this.props.navigation;
         return (
-            <Container style={{backgroundColor:'rgb(232, 235, 188)'}}>
-              <Container style={{flexDirection:'row', flex:2}}>
-              <TouchableOpacity onPress={() =>{this.handleThemeMode(0),navigate('Setting')}}>
-                <Image
-                  style={styles.button}
-                  source={require('../images/bg/season1.png')}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() =>{this.handleThemeMode(1),navigate('Setting')}}>
-                <Image
-                  style={styles.button}
-                  source={require('../images/bg/plant1.png')}
-                />
-              </TouchableOpacity>
+            <Container style={{backgroundColor:'rgb(232, 235, 188)', justifyContent:'space-around'
+                                , flexDirection:'row', flex:2}}>
+                <Content >
+                    <TouchableOpacity onPress={() =>{this.handleThemeMode(0),navigate('Setting')}}>
+                        <Image
+                        style={styles.button}
+                        source={require('../images/bg/season1.png')}
+                        />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={() =>{this.handleThemeMode(1),navigate('Setting')}}>
+                        <Image
+                            style={styles.button}
+                            source={require('../images/bg/plant1.png')}
+                        />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={() =>{this.handleThemeMode(2),navigate('Setting')}}>
+                        <Image
+                            style={styles.button}
+                            source={require('../images/bg/bird1.png')}
+                        />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={() =>{this.handleThemeMode(3),navigate('Setting')}}>
+                        <Image
+                            style={styles.button}
+                            source={require('../images/bg/pet1.png')}
+                        />
+                    </TouchableOpacity>
+                </Content>
             </Container>
-            <Container style={{flexDirection:'row', flex:2}}>
-              <TouchableOpacity onPress={() =>{this.handleThemeMode(2),navigate('Setting')}}>
-                <Image
-                  style={styles.button}
-                  source={require('../images/bg/bird1.png')}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() =>{this.handleThemeMode(3),navigate('Setting')}}>
-                <Image
-                  style={styles.button}
-                  source={require('../images/bg/pet1.png')}
-                />
-              </TouchableOpacity>
-            </Container>
-          </Container>
         );
     };
     handleThemeMode(mode) {
