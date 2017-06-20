@@ -13,11 +13,23 @@ class SomeDayScreen extends React.Component{
         this.state = {
           opacityco: 0.3,
           opacitysi:0.3,
-          opacitygo:0.3
+          opacitygo:0.3,
+          opacitycobuev: 0.3,
+          opacitysibuev:0.3,
+          opacitygobuev:0.3,
+          opacitycobugr: 0.3,
+          opacitysibugr:0.3,
+          opacitygobugr:0.3
         }
         this.handleOnClickCo = this.handleOnClickCo.bind(this);
         this.handleOnClickSi = this.handleOnClickSi.bind(this);
         this.handleOnClickGo = this.handleOnClickGo.bind(this);
+        this.handleOnClickCoBuEv = this.handleOnClickCoBuEv.bind(this);
+        this.handleOnClickSiBuEv = this.handleOnClickSiBuEv.bind(this);
+        this.handleOnClickGoBuEv = this.handleOnClickGoBuEv.bind(this);
+        this.handleOnClickCoBuGr = this.handleOnClickCoBuGr.bind(this);
+        this.handleOnClickSiBuGr = this.handleOnClickSiBuGr.bind(this);
+        this.handleOnClickGoBuGr = this.handleOnClickGoBuGr.bind(this);
       }
 
       handleOnClickCo(){
@@ -25,16 +37,44 @@ class SomeDayScreen extends React.Component{
           opacityco: 1 //Anything u want
         });
       }
-
       handleOnClickSi(){
         this.setState({
           opacitysi: 1 //Anything u want
         });
       }
-
       handleOnClickGo(){
         this.setState({
           opacitygo: 1 //Anything u want
+        });
+      }
+      handleOnClickCoBuEv(){
+        this.setState({
+          opacitycobuev: 1 //Anything u want
+        });
+      }
+      handleOnClickSiBuEv(){
+        this.setState({
+          opacitysibuev: 1 //Anything u want
+        });
+      }
+      handleOnClickGoBuEv(){
+        this.setState({
+          opacitygobuev: 1 //Anything u want
+        });
+      }
+      handleOnClickCoBuGr(){
+        this.setState({
+          opacitycobugr: 1 //Anything u want
+        });
+      }
+      handleOnClickSiBuGr(){
+        this.setState({
+          opacitysibugr: 1 //Anything u want
+        });
+      }
+      handleOnClickGoBuGr(){
+        this.setState({
+          opacitygobugr: 1 //Anything u want
         });
       }
 
@@ -77,27 +117,39 @@ class SomeDayScreen extends React.Component{
                   <Text style = {styles.text}>完成事件100次</Text>
                   </ListItem>
                   <ListItem style = {styles.list}>
-                  <Image source={require('../images/cocup.png')} style = {styles.cup}/>
+                  <TouchableOpacity onPress={()=>{this.handleOnClickCoBuEv()}}>
+                  <Image source={require('../images/cocup.png')} style = {[styles.cup,{opacity:this.state.opacitycobuev}]}/>
+                  </TouchableOpacity>
                   <Text style = {styles.text}>創建事件1次</Text>
                   </ListItem>
                   <ListItem style = {styles.list}>
-                  <Image source={require('../images/sicup.png')} style = {styles.cup}/>
+                  <TouchableOpacity onPress={()=>{this.handleOnClickSiBuEv()}}>
+                  <Image source={require('../images/sicup.png')} style = {[styles.cup,{opacity:this.state.opacitysibuev}]}/>
+                  </TouchableOpacity>
                   <Text style = {styles.text}>創建事件10次</Text>
                   </ListItem>
                   <ListItem style = {styles.list}>
-                  <Image source={require('../images/gcup.png')} style = {styles.cup}/>
+                  <TouchableOpacity onPress={()=>{this.handleOnClickGoBuEv()}}>
+                  <Image source={require('../images/gcup.png')} style = {[styles.cup,{opacity:this.state.opacitygobuev}]}/>
+                  </TouchableOpacity>
                   <Text style = {styles.text}>創建事件100次</Text>
                   </ListItem>
                   <ListItem style = {styles.list}>
-                  <Image source={require('../images/cocup.png')} style = {styles.cup}/>
+                  <TouchableOpacity onPress={()=>{this.handleOnClickCoBuGr()}}>
+                  <Image source={require('../images/cocup.png')} style = {[styles.cup,{opacity:this.state.opacitycobugr}]}/>
+                  </TouchableOpacity>
                   <Text style = {styles.text}>創建群組1次</Text>
                   </ListItem>
                   <ListItem style = {styles.list}>
-                  <Image source={require('../images/sicup.png')} style = {styles.cup}/>
+                  <TouchableOpacity onPress={()=>{this.handleOnClickSiBuGr()}}>
+                  <Image source={require('../images/sicup.png')} style = {[styles.cup,{opacity:this.state.opacitysibugr}]}/>
+                  </TouchableOpacity>
                   <Text style = {styles.text}>創建群組5次</Text>
                   </ListItem>
                   <ListItem style = {styles.list}>
-                  <Image source={require('../images/gcup.png')} style = {styles.cup}/>
+                  <TouchableOpacity onPress={()=>{this.handleOnClickGoBuGr()}}>
+                  <Image source={require('../images/gcup.png')} style = {[styles.cup,{opacity:this.state.opacitygobugr}]}/>
+                  </TouchableOpacity>
                   <Text style = {styles.text}>創建群組10次</Text>
                   </ListItem>
                 </ScrollView>
