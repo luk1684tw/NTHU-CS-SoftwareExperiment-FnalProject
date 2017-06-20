@@ -5,13 +5,14 @@ import {
     ListView, Text, Image, TouchableOpacity
 } from 'react-native';
 import InfiniteScrollView from 'react-native-infinite-scroll-view';
-import {Left,Right,Body, List, ListItem, Container, Content, Icon, Button, CheckBox} from 'native-base';
+import {Left,Right,Body, List, ListItem, Container, Content, Icon, Button} from 'native-base';
 import PostItem from './PostItem';
 import CalendarStrip from 'react-native-calendar-strip';
 import {connect} from 'react-redux';
 import {listEvents, doneEvent} from '../states/event-actions';
-// import CheckBox from './CheckBox.js';
+import CheckBox from './CheckBox.js';
 import Timeline from 'react-native-timeline-listview';
+
 class PostList extends React.Component {
     static propTypes = {
         searchText: PropTypes.string.isRequired,
@@ -29,39 +30,35 @@ class PostList extends React.Component {
     componentDidMount() {
         this.props.dispatch(listEvents());
     }
+
     componentWillReceiveProps(nextProps) {
         // if(nextProps.events !==this.props.events){
         //     this.props.dispatch(listEvents());
         // }
     }
+
     handleComplete(isDone, id){
         console.log('In here', isDone, id);
         if(isDone===false)
             this.props.dispatch(doneEvent(id));
     }
+
     renderDetail(rowData, sectionID, rowID) {
-    let title = <Text style={styles.title} >{rowData.title}</Text>
-    var desc = null
-    // if(rowData.description && rowData.imageUrl)
-      desc = (
-        <View style={styles.descriptionContainer}>
-          {/* <Image source={{uri: rowData.imageUrl}} style={styles.image}/> */}
-          <Text style={styles.textDescription}>{rowData.description}</Text>
-        </View>
+        let title = <Text style={styles.title} >{rowData.title}</Text>
+        var desc = null
+        // if(rowData.description && rowData.imageUrl)
+        desc = (
+            <View style={styles.descriptionContainer}>
+            {/* <Image source={{uri: rowData.imageUrl}} style={styles.image}/> */}
+                <Text style={styles.textDescription}>{rowData.description}</Text>
+            </View>
         );
-
-    return (
-      <View style={{flex:1,flexDirection:'row',justifyContent:'flex-end'}}>
-        {title}
-        {/* <TouchableOpacity onPress={this.handleComplete(rowData.isDone, rowData.id)}>
-            {(rowData.isDone===false)?<CheckBox checked={false} />:<CheckBox checked={true} />}
-        </TouchableOpacity> */}
-        {/* 註解一的會一直listEvent 會lag */}
-
-        {/* {title}<CheckBox id={rowData.id} isDone={rowData.isDone}/> */}
-        {/* 註解二的是怎麼案都沒有反應QQ */}
-        {desc}
-      </View>
+        return (
+            <View style={{flex:1,flexDirection:'row',justifyContent:'flex-end'}}>
+                {title}
+                <CheckBox id={rowData.Id}/>
+                {desc}
+            </View>
     )
   }
     render() {
@@ -72,11 +69,8 @@ class PostList extends React.Component {
         ];
         console.log('In PostList:',this.props);
         return (
-
           <Container style={styles.mission}>
-
               <Content>
-
                 <Timeline
                     data={events}
                     innerCircle={'dot'}

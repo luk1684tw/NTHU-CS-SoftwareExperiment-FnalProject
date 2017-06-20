@@ -3,7 +3,9 @@ import {CheckBox} from 'react-native-elements';
 import {Container , Content} from 'native-base';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {finishEvent} from '../states/event-actions'
+import {finishEvent} from '../states/event-actions';
+
+
 class checkBox extends React.Component {
     static propTypes={
         id: PropTypes.string,
@@ -18,11 +20,12 @@ class checkBox extends React.Component {
         this.handleComplete=this.handleComplete.bind(this);
     }
     handleComplete(){
-        console.log('In here');
-        if(this.props.isDone===false)
-            this.props.dispatch(finishEvent(this.props.id));
+        console.log('In here',this.props); //id passed in props,KFCing
+        // if(this.props.isDone===false)
+        //     this.props.dispatch(finishEvent(this.props.id));
     }
     render () {
+        console.log('checked:',this.state.checked);
         return (
             <CheckBox
                 containerStyle={styles.checkbox}
@@ -30,7 +33,7 @@ class checkBox extends React.Component {
                 checkedColor='red'
                 uncheckedColor='black'
                 checked={this.state.checked}
-                onPress={()=> this.setState({checked: !this.state.checked})}
+                onPress={this.handleComplete}
             />
         );
     }
@@ -46,4 +49,4 @@ const styles={
     }
 }
 export default connect((state, ownProps) => ({
-}))(CheckBox);
+}))(checkBox);
