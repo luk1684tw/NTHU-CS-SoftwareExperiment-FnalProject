@@ -20,8 +20,13 @@ class checkBox extends React.Component {
         this.handleComplete=this.handleComplete.bind(this);
     }
     handleComplete(){
-        if(this.props.isDone===false)
-            this.props.dispatch(doneEvent(this.props.id));
+        if(this.props.isDone===false) {
+            if (this.props.duration === 'today')
+                this.props.dispatch(doneEvent(this.props.id,0,0));
+            else if (this.props.duration === 'today')
+                this.props.dispatch(doneEvent(this.props.id,1,3));
+        }
+
     }
     render () {
         return (

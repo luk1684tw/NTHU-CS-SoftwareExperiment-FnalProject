@@ -54,7 +54,7 @@ class PostList extends React.Component {
     return (
       <View style={{flex:1,flexDirection:'row',justifyContent:'flex-end'}}>
         {title}
-        <CheckBox id={rowData.Id} isDone={rowData.isDone}/>
+        <CheckBox id={rowData.Id} isDone={rowData.isDone} duration={this.props.duration}/>
         {desc}
       </View>
     )
@@ -65,7 +65,6 @@ class PostList extends React.Component {
             {time: '08:00', title: 'facebook Login'},
             {time: '09:00', title: 'ffff'}
         ];
-        console.log('In PostList:',this.props);
         return (
 
           <Container style={styles.mission}>
