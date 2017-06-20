@@ -34,7 +34,7 @@ function endCreateEvent(event) {
     };
 }
 
-export function finishEvent(id){
+export function doneEvent(id=''){
     return (dispatch, getState)=>{
         dispatch(startListEvents());
         return doneEventFromApi(id).then(
@@ -71,7 +71,7 @@ export function createEvent(StartDate, EndDate, Group, Title) {
             dispatch(endCreateEvent(event));
             dispatch(listEvents());
         }).catch(err => {
-            dispatch(endCreateEvent())
+            dispatch(endCreateEvent());
             console.error('Error creating event', err);
         });
     };
