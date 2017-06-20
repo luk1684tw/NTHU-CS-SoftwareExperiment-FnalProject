@@ -16,6 +16,7 @@ class PostList extends React.Component {
     static propTypes = {
         searchText: PropTypes.string.isRequired,
         events: PropTypes.array.isRequired,
+        groupScreenName: PropTypes.string.isRequired,
         dispatch: PropTypes.func.isRequired
     };
 
@@ -27,7 +28,7 @@ class PostList extends React.Component {
     }
 
     componentDidMount() {
-        this.props.dispatch(listEvents());
+        this.props.dispatch(listEvents(this.props.groupScreenName));
     }
     componentWillReceiveProps(nextProps) {
         // if(nextProps.events !==this.props.events){
@@ -67,8 +68,8 @@ class PostList extends React.Component {
     render() {
         const {events} = this.props;
         const data = [
-            {time: '08:00', title: 'facebook Login'},
-            {time: '09:00', title: 'ffff'}
+            {time: '08:00', title: 'facebook Login', Group: 'test'},
+            {time: '09:00', title: 'ffff', Group: 'ffff'}
         ];
         console.log('In PostList:',this.props);
         return (
@@ -138,5 +139,6 @@ export default connect((state, ownProps) => ({
     listingPosts: state.post.listingPosts,
     listingMorePosts: state.post.listingMorePosts,
     events: state.event.events,
-    hasMorePosts: state.post.hasMore
+    hasMorePosts: state.post.hasMore,
+    groupScreenName: state.group.groupScreenName
 }))(PostList);

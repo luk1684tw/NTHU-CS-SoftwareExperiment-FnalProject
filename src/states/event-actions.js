@@ -49,7 +49,8 @@ export function doneEvent(id=''){
         );
     }
 }
-export function listEvents(group, startDate, endDate) {
+export function listEvents(group, startDate='', endDate='') {
+    console.log('In listEvents: group: ', group);
     return (dispatch, getState) => {
         dispatch(startListEvents());
         return listPostsFromApi(group, startDate, endDate).then(events => {
@@ -69,7 +70,7 @@ export function createEvent(StartDate, EndDate, Group, Title) {
         return createPostFromApi(StartDate, EndDate, Group, Title).then(event => {
             console.log('event get from api', event);
             dispatch(endCreateEvent(event));
-            dispatch(listEvents());
+            dispatch(listEvents(getState().group.groupScreenName));
         }).catch(err => {
             dispatch(endCreateEvent());
             console.error('Error creating event', err);
@@ -148,10 +149,11 @@ export function createGroup(groupName=''){
     //dispatch(updateGroup(name));
 }
 export function setGroupScreenName(group){
-    var name=group.name
+    // var name=group.name;
+    console.log('In set GroupScreen name', group);
     return{
         type: '@GROUP/SET_GROUP_SCREEN_NAME',
-        name
+        group
     };
 }
 
