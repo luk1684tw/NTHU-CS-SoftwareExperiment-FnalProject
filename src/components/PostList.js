@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    View,
-    ListView, Text, Image, TouchableOpacity
+    View,Text, Image, TouchableOpacity
 } from 'react-native';
 import InfiniteScrollView from 'react-native-infinite-scroll-view';
 import {Left,Right,Body, List, ListItem, Container, Content, Icon, Button, CheckBox} from 'native-base';
@@ -16,7 +15,6 @@ class PostList extends React.Component {
     static propTypes = {
         searchText: PropTypes.string.isRequired,
         events: PropTypes.array.isRequired,
-        groupScreenName: PropTypes.string.isRequired,
         dispatch: PropTypes.func.isRequired
     };
 
@@ -28,7 +26,7 @@ class PostList extends React.Component {
     }
 
     componentDidMount() {
-        this.props.dispatch(listEvents(this.props.groupScreenName));
+        this.props.dispatch(listEvents());
     }
     componentWillReceiveProps(nextProps) {
         // if(nextProps.events !==this.props.events){
@@ -68,8 +66,8 @@ class PostList extends React.Component {
     render() {
         const {events} = this.props;
         const data = [
-            {time: '08:00', title: 'facebook Login', Group: 'test'},
-            {time: '09:00', title: 'ffff', Group: 'ffff'}
+            {time: '08:00', title: 'facebook Login'},
+            {time: '09:00', title: 'ffff'}
         ];
         console.log('In PostList:',this.props);
         return (
@@ -139,6 +137,5 @@ export default connect((state, ownProps) => ({
     listingPosts: state.post.listingPosts,
     listingMorePosts: state.post.listingMorePosts,
     events: state.event.events,
-    hasMorePosts: state.post.hasMore,
-    groupScreenName: state.group.groupScreenName
+    hasMorePosts: state.post.hasMore
 }))(PostList);
