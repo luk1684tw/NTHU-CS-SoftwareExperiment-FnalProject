@@ -131,6 +131,7 @@ class DrawerSideBar extends React.Component {
     }
 
     render() {
+
       const {navigate, dispatch, modalToggle, groupNameText, groups , pictureNum , eventStartDate ,eventEndDate} = this.props;
       console.log('groups :' ,groups);
       const e = 'Welcome back Master~';

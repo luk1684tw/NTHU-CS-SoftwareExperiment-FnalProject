@@ -6,7 +6,7 @@ import NavigationContainer from './NavigationContainer';
 import {Fab, Button, Toast, Left, Body, Right, ListItem, Container, Content} from 'native-base';
 import {connect} from 'react-redux';
 import PostList from './PostList';
-import {listEvents} from '../states/event-actions';
+import {listEvents, selectGroup} from '../states/event-actions';
 class GroupScreen extends React.Component{
     static propTypes = {
         navigation: PropTypes.object.isRequired,
@@ -30,6 +30,7 @@ class GroupScreen extends React.Component{
     }
     render () {
         const {groupScreenName} = this.props;
+        console.log('groupScreenName :',groupScreenName);
         const{navigate}=this.props.navigation;
 
         if(this.props.mode===0){
@@ -53,7 +54,7 @@ class GroupScreen extends React.Component{
                   <Icon name='star' size={30} style={styles.header_icon} />
                   <Text style={{fontSize:22}}>{groupScreenName}</Text>
              </View>
-             <PostList />
+             <PostList duration='group'/>
              <Fab
                  active={this.state.fabActive}
                  containerStyle={styles.fabContainer}

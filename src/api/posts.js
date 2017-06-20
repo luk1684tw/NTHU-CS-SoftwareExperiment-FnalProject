@@ -5,13 +5,14 @@
 // const postBaseUrl = 'http://weathermood-staging.us-west-2.elasticbeanstalk.com/api';
 
 // Production server URL
-const postBaseUrl = 'http://weathermood-production.us-west-2.elasticbeanstalk.com/api';
+
 import {AsyncStorage} from 'react-native';
 const moment = require('moment');
 const uuid = require('uuid/v4');
 
 
 export function listPosts(group = '', startDate='', endDate='') {
+    console.log('listPosts get',group,startDate,endDate);
     return new Promise((resolve,reject) => {
         AsyncStorage.getItem('user').then(events => {
             var Events=[];
@@ -20,12 +21,12 @@ export function listPosts(group = '', startDate='', endDate='') {
             }
             if (startDate) {
                 Events=Events.filter((item) => {
-                    return (moment(startDate,'YYYY-MM-DD HH:mm').unix() >= moment(item,'YYYY-MM-DD HH:mm').unix());
+                    return (moment(item.StartDate,'YYYY-MM-DD').unix() >= moment().unix() + 86400*1000*startDate);
                 });
             }
             if (endDate) {
                 Events=Events.filter((item) => {
-                    return (moment(endDate,'YYYY-MM-DD HH:mm').unix() <= moment(item,'YYYY-MM-DD HH:mm').unix());
+                    return (moment(item.endDate,'YYYY-MM-DD').unix() <= moment().unix() + 86400*1000*endDate);
                 });
             }
             if (Events.length>0 && group) {
@@ -63,6 +64,7 @@ export function doneEvent(id=''){
 export function createPost(StartDate, EndDate, Group, Title) {
     return new Promise((resolve,reject) => {
         // AsyncStorage.removeItem('user');
+
         AsyncStorage.getItem('user').then(result => {
             if (moment(StartDate,'YYYY-MM-DD').unix() > moment(EndDate,'YYYY-MM-DD').unix()){
                 var startdate = EndDate;
@@ -72,14 +74,17 @@ export function createPost(StartDate, EndDate, Group, Title) {
                 var enddate = EndDate;
             }
             console.log('result=',result);
-            var time = startdate+'-'+enddate;
+            var start = moment(startdate,'YYYY-MM-DD').format('MM-DD');
+            var end = moment(enddate,'YYYY-MM-DD').format('MM-DD');
+            var time = start + ' to ' + end;
+            console.log('time:' ,time);
             let Newevent = {
                 Id: uuid(),
                 StartDate: startdate,
                 EndDate: enddate,
                 Group: Group,
                 title: Title,
-                time: Group,
+                time: time,
                 isDone: false
             };
 
