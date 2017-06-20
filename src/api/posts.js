@@ -21,20 +21,15 @@ export function listPosts(group = '', startDate = -1, endDate = -1) {
             }
             if (startDate >= 0) {
                 Events=Events.filter((item) => {
-                    const now = moment().unix() + startDate*86400;
-                    const start = moment(item.StartDate,'YYYY-MM-DD').unix();
+                    const up = moment().unix() + endDate*86400;
+                    const down = moment().unix() + (startDate-1)*86400;
+                    const event = moment(item.StartDate,'YYYY-MM-DD').unix();
                     console.log('from', item.StartDate, ' to ',item.EndDate);
-                    console.log(now-86400, ' < ', start , ' < ', now);
-                    return (((now-86400) <= start) && (now >= start))
+                    console.log(down, ' < ', event , ' < ', up);
+                    return ((down <= event) && (up >= event))
                 });
             }
-            // if (endDate >= 0) {
-            //     Events=Events.filter((item) => {
-            //         const deadline = moment().unix() + endDate*86400;
-            //         const start = moment(item.StartDate,'YYYY-MM-DD').unix();
-            //         return (dea)
-            //     });
-            // }
+
             if (Events.length>0 && group) {
                 Events=Events.filter((e) => {
                     return (e.Group.toLowerCase().indexOf(group.toLowerCase()) !== -1);
