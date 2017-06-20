@@ -7,10 +7,10 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Button,
   Navigator
 } from 'react-native';
 
+import {Button, Container , Content} from 'native-base';
 import {connect} from 'react-redux';
 import {setTheme} from '../states/ChooseTheme.js';
 import SettingsList from 'react-native-settings-list';
@@ -25,16 +25,24 @@ class ChooseColor extends React.Component{
     render () {
         const {navigate} = this.props.navigation;
         return (
-              <View style={styles.center}>
-              <TouchableOpacity style={styles.buttonblack} onPress={this.handleThemeMode(1)}>
+                <Container>
+                    <Content>
+                <Button style={styles.buttonblack} onPress={()=> {this.handleThemeMode(1)}} >
+                    <Text>Press me</Text>
+                </Button>
+                <Button style={styles.buttonblack} onPress={()=> {this.handleThemeMode(2)}} >
+                    <Text>Press me!</Text>
+                </Button>
+              {/*<TouchableOpacity style={styles.buttonblack} onPress={this.handleThemeMode(1)}>
               </TouchableOpacity>
               <TouchableOpacity style={styles.buttonpink} onPress={() => navigate('Setting')}>
               </TouchableOpacity>
               <TouchableOpacity style={styles.buttonbrown} onPress={() => navigate('Setting')}>
               </TouchableOpacity>
               <TouchableOpacity style={styles.buttongrey} onPress={() => navigate('Setting')}>
-              </TouchableOpacity>
-              </View>
+              </TouchableOpacity>*/}
+              </Content>
+              </Container>
 
         );
     };

@@ -57,7 +57,8 @@ export function createPost(StartDate, EndDate, Group, Title) {
                 EndDate: enddate,
                 Group: Group,
                 title: Title,
-                time: Group
+                time: Group,
+                isDone: false
             };
 
             console.log('api create',Newevent);
@@ -99,12 +100,21 @@ export function listGroup() {
 }
 
 export function createGroup(name = '') {
-    return new Promise((resolve))
-    AsyncStorage.getItem('group',(err,result) => {
-        result = [
-            ...result,
-            name
-        ];
-        AsyncStorage.setItem('group',JSON.stringify(result));
-    });
+    return new Promise((resolve,reject) => {
+        AsyncStorage.getItem('group').then(groups => {
+            var Groups = JSON.parse(groups);
+            Groups = [
+                Groups,
+                name
+            ];
+            AsyncStorage.setItem('group',JSON.stringify(Groups));
+        });
+    })
+
+}
+
+export function AccomplishedEvent(id = '') {
+    return new Promise((resolve,reject) => {
+        
+    })
 }
