@@ -56,7 +56,10 @@ class PostList extends React.Component {
         {/* <TouchableOpacity onPress={this.handleComplete(rowData.isDone, rowData.id)}>
             {(rowData.isDone===false)?<CheckBox checked={false} />:<CheckBox checked={true} />}
         </TouchableOpacity> */}
+        {/* 註解一的會一直listEvent 會lag */}
+
         {/* {title}<CheckBox id={rowData.id} isDone={rowData.isDone}/> */}
+        {/* 註解二的是怎麼案都沒有反應QQ */}
         {desc}
       </View>
     )
