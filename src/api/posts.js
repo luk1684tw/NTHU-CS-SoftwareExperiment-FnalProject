@@ -37,10 +37,11 @@ export function listPosts(group = '', startDate='', endDate='') {
         });
     });
 }
-export function finishEvent(id=''){
+export function doneEvent(id=''){
     return new Promise((resolve, reject)=>{
         AsyncStorage.getItem('user').then(events => {
             var Events = JSON.parse(events);
+            console.log('finishEvent in API', Events);
             Events.map(p => {
                 if (p.id === id) {
                     p.isDone = true;//moment().unix();

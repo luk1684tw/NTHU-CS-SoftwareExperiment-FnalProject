@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     View,
-    ListView, Text, Image
+    ListView, Text, Image, TouchableOpacity
 } from 'react-native';
 import InfiniteScrollView from 'react-native-infinite-scroll-view';
-import {Left,Right,Body, List, ListItem, Container, Content, Icon, Button} from 'native-base';
+import {Left,Right,Body, List, ListItem, Container, Content, Icon, Button, CheckBox} from 'native-base';
 import PostItem from './PostItem';
 import CalendarStrip from 'react-native-calendar-strip';
 import {connect} from 'react-redux';
-import {listEvents} from '../states/event-actions';
-import CheckBox from './CheckBox.js';
+import {listEvents, doneEvent} from '../states/event-actions';
+// import CheckBox from './CheckBox.js';
 import Timeline from 'react-native-timeline-listview';
 class PostList extends React.Component {
     static propTypes = {
@@ -22,6 +22,7 @@ class PostList extends React.Component {
     constructor(props) {
         super(props);
         this.renderDetail=this.renderDetail.bind(this);
+        this.handleComplete=this.handleComplete.bind(this);
         console.log(this.props.duration);
     }
 
@@ -33,8 +34,13 @@ class PostList extends React.Component {
         //     this.props.dispatch(listEvents());
         // }
     }
+    handleComplete(isDone, id){
+        console.log('In here', isDone, id);
+        if(isDone===false)
+            this.props.dispatch(doneEvent(id));
+    }
     renderDetail(rowData, sectionID, rowID) {
-    let title = <Text style={styles.title}>{rowData.title}</Text>
+    let title = <Text style={styles.title} >{rowData.title}</Text>
     var desc = null
     // if(rowData.description && rowData.imageUrl)
       desc = (
@@ -45,8 +51,11 @@ class PostList extends React.Component {
         );
 
     return (
-      <View   style={{flex:1,flexDirection:'row',justifyContent:'flex-end'}}>
+      <View style={{flex:1,flexDirection:'row',justifyContent:'flex-end'}}>
         {title}
+        {/* <TouchableOpacity onPress={this.handleComplete(rowData.isDone, rowData.id)}>
+            {(rowData.isDone===false)?<CheckBox checked={false} />:<CheckBox checked={true} />}
+        </TouchableOpacity> */}
         {/* {title}<CheckBox id={rowData.id} isDone={rowData.isDone}/> */}
         {desc}
       </View>
@@ -66,7 +75,7 @@ class PostList extends React.Component {
               <Content>
 
                 <Timeline
-                    data={data}
+                    data={events}
                     innerCircle={'dot'}
                     circleSize={20}
                     circleColor='rgb(45,156,219)'
