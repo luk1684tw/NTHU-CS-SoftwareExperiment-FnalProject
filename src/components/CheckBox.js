@@ -3,7 +3,7 @@ import {CheckBox} from 'react-native-elements';
 import {Container , Content} from 'native-base';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {finishEvent} from '../states/event-actions';
+import {doneEvent} from '../states/event-actions';
 
 
 class checkBox extends React.Component {
@@ -20,9 +20,9 @@ class checkBox extends React.Component {
         this.handleComplete=this.handleComplete.bind(this);
     }
     handleComplete(){
-        console.log('In here',this.props); //id passed in props,KFCing
-        // if(this.props.isDone===false)
-        //     this.props.dispatch(finishEvent(this.props.id));
+        console.log('In here',this.props);
+        if(this.props.isDone===false)
+            this.props.dispatch(doneEvent(this.props.id));
     }
     render () {
         console.log('checked:',this.state.checked);
@@ -32,7 +32,7 @@ class checkBox extends React.Component {
                 center
                 checkedColor='red'
                 uncheckedColor='black'
-                checked={this.state.checked}
+                checked={this.props.isDone}
                 onPress={this.handleComplete}
             />
         );

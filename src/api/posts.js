@@ -43,11 +43,11 @@ export function doneEvent(id=''){
             var Events = JSON.parse(events);
             console.log('finishEvent in API', Events);
             Events.map(p => {
-                if (p.id === id) {
+                if (p.Id === id) {
                     p.isDone = true;//moment().unix();
                 }
-                return p;
             });
+            console.log('Events dealt: ',Events);
             AsyncStorage.setItem('user',JSON.stringify(Events));
             resolve(Events);
         }).catch((err) => {

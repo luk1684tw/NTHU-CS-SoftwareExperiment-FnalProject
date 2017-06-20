@@ -56,7 +56,7 @@ class PostList extends React.Component {
         return (
             <View style={{flex:1,flexDirection:'row',justifyContent:'flex-end'}}>
                 {title}
-                <CheckBox id={rowData.Id}/>
+                <CheckBox id={rowData.Id} isDone={rowData.isDone}/>
                 {desc}
             </View>
     )

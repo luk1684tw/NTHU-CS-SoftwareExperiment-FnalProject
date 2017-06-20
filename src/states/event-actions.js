@@ -35,6 +35,7 @@ function endCreateEvent(event) {
 }
 
 export function doneEvent(id=''){
+    console.log('redux receive id: ',id);
     return (dispatch, getState)=>{
         dispatch(startListEvents());
         return doneEventFromApi(id).then(
