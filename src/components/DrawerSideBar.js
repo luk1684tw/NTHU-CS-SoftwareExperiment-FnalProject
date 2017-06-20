@@ -4,7 +4,7 @@ import {View, Text, Image, Platform, Modal,TouchableOpacity} from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Header, Container, Item, Input, Content, Thumbnail,Label, Badge, Button, Text as NbText, List, ListItem, Separator, Left, Body, Right,Toast} from 'native-base';
 import appColors from '../styles/colors';
-import {setGroupScreenName, createGroup,Animated} from '../states/event-actions';
+import {setGroupScreenName, createGroup, listGroups, Animated} from '../states/event-actions';
 import {toggleGroupNameModal, setGroupNameText} from '../states/groupName';
 import {connect} from 'react-redux';
 
@@ -64,7 +64,9 @@ class DrawerSideBar extends React.Component {
         this.next = this.next.bind(this);
         this.state = {index: 0};
     }
-
+    componentDidMount(){
+        this.props.dispatch(listGroups());
+    }
     handleOnClick(item){
         this.props.dispatch(setGroupScreenName(item));
         // console.log(item, this.props.groupScreenName);
@@ -87,6 +89,7 @@ class DrawerSideBar extends React.Component {
         this.props.dispatch(toggleGroupNameModal());
     }
     handleSubmit(e){
+        console.log('in DrawerSideBar:',e);
         if(e.nativeEvent.text){
             this.props.dispatch(createGroup(e.nativeEvent.text));
             this.props.dispatch(setGroupNameText(e.nativeEvent.text));
@@ -119,6 +122,8 @@ class DrawerSideBar extends React.Component {
 
     render() {
       const {navigate, dispatch, modalToggle, groupNameText, groups , pictureNum} = this.props;
+      console.log('groups :' ,groups);
+      const e = '臭湯包';
       //-----------------Group List Setting-----------------------
         //var items=['和學妹出去玩', '和妹妹野餐', '和女友約會'];
 
@@ -134,7 +139,7 @@ class DrawerSideBar extends React.Component {
               renderRow={(group) =>
                   <ListItem button onPress={() =>  {this.handleOnClick(group)}}>
                       <Icon name='tag-multiple' size={20}/>
-                      <Text style={styles.text}>{group.name}</Text>
+                      <Text style={styles.text}>{group}</Text>
                   </ListItem>
               }>
               </List>
@@ -147,7 +152,7 @@ class DrawerSideBar extends React.Component {
           <TouchableOpacity   onPress={() => {this.handleOnClickCorgi();
                                               Toast.show({
                                               supportedOrientations: ['portrait','landscape'],
-                                              text: '臭湯包!',
+                                              text: e,
                                               position: 'bottom',
                                               duration: 2600
                                             })}}>
@@ -168,8 +173,8 @@ class DrawerSideBar extends React.Component {
                         <Text style={styles.text}>即將來臨</Text>
                     </ListItem>
                     <ListItem  button onPress={()=>{this.handleOnClickOtherWindow('SomeDay')}}>
-                        <Icon name='timetable' size={20}/>
-                        <Text style={styles.text}>選擇一天</Text>
+                        <Icon name='trophy' size={20}/>
+                        <Text style={styles.text}>里程碑</Text>
                     </ListItem>
                     {/* 群組 */}
                     <ListItem itemDivider>

@@ -34,7 +34,7 @@ function endCreateEvent(event) {
     };
 }
 
-export function finishEvent(id){
+export function doneEvent(id=''){
     return (dispatch, getState)=>{
         dispatch(startListEvents());
         return doneEventFromApi(id).then(
@@ -71,7 +71,7 @@ export function createEvent(StartDate, EndDate, Group, Title) {
             dispatch(endCreateEvent(event));
             dispatch(listEvents());
         }).catch(err => {
-            dispatch(endCreateEvent())
+            dispatch(endCreateEvent());
             console.error('Error creating event', err);
         });
     };
@@ -113,11 +113,11 @@ function endCreateGroup(group){
 }
 export function listGroups(){
     return (dispatch, getState) => {
-        dispatch(startListEvents());
+        dispatch(startListGroup());
         return listGroupFromApi().then(groups => {
-            dispatch(endListEvents(groups));
+            dispatch(endListGroup(groups));
         }).catch(err => {
-            dispatch(endListEvents());
+            dispatch(endListGroup());
             console.error('Error listing group', err);
         });
     };

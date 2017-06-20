@@ -18,6 +18,7 @@ class checkBox extends React.Component {
         this.handleComplete=this.handleComplete.bind(this);
     }
     handleComplete(){
+        console.log('In here');
         if(this.props.isDone===false)
             this.props.dispatch(finishEvent(this.props.id));
     }
@@ -28,8 +29,8 @@ class checkBox extends React.Component {
                 center
                 checkedColor='red'
                 uncheckedColor='black'
-                checked={this.prop.isDone}
-                onPress={this.handleComplete}
+                checked={this.state.checked}
+                onPress={()=> this.setState({checked: !this.state.checked})}
             />
         );
     }

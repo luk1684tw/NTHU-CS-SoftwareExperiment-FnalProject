@@ -1,5 +1,4 @@
 export function setTheme(mode) {
-    console.log('actions',mode);
     return {
         type: '@THEME/SELECTMODE',
         mode: mode
@@ -11,7 +10,6 @@ const initThemeState = {
 };
 
 export function theme(state = initThemeState, action) {
-    console.log('tesssssst', action.mode);
     switch (action.type) {
         case '@THEME/SELECTMODE':
             return {

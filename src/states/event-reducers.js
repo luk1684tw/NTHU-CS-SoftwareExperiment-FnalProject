@@ -86,12 +86,12 @@ export function group(state = initGroupState, action) {
                     ...state,
                     creatingGroup: false
                 };
-            var newGroups = state.groups.slice();
-            newGroups.unshift(action.group);
+
+            console.log('action.groups in redux', action.group);
             return {
                 ...state,
                 creatingGroup: false,
-                groups: newGroups
+                groups: action.group
             };
         case '@GROUP/SET_GROUP_SCREEN_NAME':
             return{

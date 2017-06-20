@@ -37,10 +37,11 @@ export function listPosts(group = '', startDate='', endDate='') {
         });
     });
 }
-export function finishEvent(id=''){
+export function doneEvent(id=''){
     return new Promise((resolve, reject)=>{
         AsyncStorage.getItem('user').then(events => {
             var Events = JSON.parse(events);
+            console.log('finishEvent in API', Events);
             Events.map(p => {
                 if (p.id === id) {
                     p.isDone = true;//moment().unix();
@@ -108,8 +109,9 @@ export function createPost(StartDate, EndDate, Group, Title) {
 export function listGroup() {
     return new Promise((resolve,reject) => {
         AsyncStorage.getItem('group').then(groups => {
-            console.log('In listGroupFromApi', groups);
-            resolve(groups);
+            var Groups = JSON.parse(groups);
+            console.log('In listGroupFromApi', Groups);
+            resolve(Groups);
         }).catch((err) => {
             console.log('load group names failed');
             reject(err);
@@ -119,16 +121,15 @@ export function listGroup() {
 
 export function createGroup(name = '') {
     return new Promise((resolve, reject)=>{
-        AsyncStorage.getItem('group').then(
-            (result)=>{
-                if(result==null){
-                    var Result=[{name: name}];
+        AsyncStorage.getItem('group').then((result)=>{
+                if(result == null){
+                    var Result=[name];
                     AsyncStorage.setItem('group',JSON.stringify(Result));
                 }else{
                     var Result = JSON.parse(result);
                     Result=[
                         ...Result,
-                        {name: name}
+                        name
                     ]
                     AsyncStorage.setItem('group',JSON.stringify(Result));
                 }
