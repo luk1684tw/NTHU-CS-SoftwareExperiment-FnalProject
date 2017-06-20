@@ -109,8 +109,9 @@ export function createPost(StartDate, EndDate, Group, Title) {
 export function listGroup() {
     return new Promise((resolve,reject) => {
         AsyncStorage.getItem('group').then(groups => {
-            console.log('In listGroupFromApi', groups);
-            resolve(groups);
+            var Groups = JSON.parse(groups);
+            console.log('In listGroupFromApi', Groups);
+            resolve(Groups);
         }).catch((err) => {
             console.log('load group names failed');
             reject(err);
@@ -120,16 +121,15 @@ export function listGroup() {
 
 export function createGroup(name = '') {
     return new Promise((resolve, reject)=>{
-        AsyncStorage.getItem('group').then(
-            (result)=>{
-                if(result==null){
-                    var Result=[{name: name}];
+        AsyncStorage.getItem('group').then((result)=>{
+                if(result == null){
+                    var Result=[name];
                     AsyncStorage.setItem('group',JSON.stringify(Result));
                 }else{
                     var Result = JSON.parse(result);
                     Result=[
                         ...Result,
-                        {name: name}
+                        name
                     ]
                     AsyncStorage.setItem('group',JSON.stringify(Result));
                 }

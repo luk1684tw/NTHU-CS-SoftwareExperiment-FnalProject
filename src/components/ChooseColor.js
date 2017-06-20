@@ -7,10 +7,10 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Button,
   Navigator
 } from 'react-native';
 
+import {Button, Container , Content} from 'native-base';
 import {connect} from 'react-redux';
 import {setTheme} from '../states/ChooseTheme.js';
 import SettingsList from 'react-native-settings-list';

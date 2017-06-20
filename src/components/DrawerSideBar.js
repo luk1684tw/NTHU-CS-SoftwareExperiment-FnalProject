@@ -87,6 +87,7 @@ class DrawerSideBar extends React.Component {
         this.props.dispatch(toggleGroupNameModal());
     }
     handleSubmit(e){
+        console.log('in DrawerSideBar:',e);
         if(e.nativeEvent.text){
             this.props.dispatch(createGroup(e.nativeEvent.text));
             this.props.dispatch(setGroupNameText(e.nativeEvent.text));
@@ -119,6 +120,7 @@ class DrawerSideBar extends React.Component {
 
     render() {
       const {navigate, dispatch, modalToggle, groupNameText, groups , pictureNum} = this.props;
+      console.log('groups :' ,groups);
       //-----------------Group List Setting-----------------------
         //var items=['和學妹出去玩', '和妹妹野餐', '和女友約會'];
 
@@ -134,7 +136,7 @@ class DrawerSideBar extends React.Component {
               renderRow={(group) =>
                   <ListItem button onPress={() =>  {this.handleOnClick(group)}}>
                       <Icon name='tag-multiple' size={20}/>
-                      <Text style={styles.text}>{group.name}</Text>
+                      <Text style={styles.text}>{group}</Text>
                   </ListItem>
               }>
               </List>
@@ -168,8 +170,8 @@ class DrawerSideBar extends React.Component {
                         <Text style={styles.text}>即將來臨</Text>
                     </ListItem>
                     <ListItem  button onPress={()=>{this.handleOnClickOtherWindow('SomeDay')}}>
-                        <Icon name='timetable' size={20}/>
-                        <Text style={styles.text}>選擇一天</Text>
+                        <Icon name='trophy' size={20}/>
+                        <Text style={styles.text}>里程碑</Text>
                     </ListItem>
                     {/* 群組 */}
                     <ListItem itemDivider>
