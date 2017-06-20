@@ -113,7 +113,7 @@ function endCreateGroup(group){
 }
 export function listGroups(){
     return (dispatch, getState) => {
-        dispatch(startListEvents());
+        dispatch(startListGroup());
         return listGroupFromApi().then(groups => {
             dispatch(endListEvents(groups));
         }).catch(err => {
