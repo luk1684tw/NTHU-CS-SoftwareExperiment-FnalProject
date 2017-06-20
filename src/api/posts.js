@@ -21,18 +21,15 @@ export function listPosts(group = '', startDate = -1, endDate = -1) {
             }
             if (startDate >= 0) {
                 Events=Events.filter((item) => {
-                    const now = moment().unix();
-                    const start = moment(item.StartDate,'YYYY-MM-DD').unix();
+                    const up = moment().unix() + endDate*86400;
+                    const down = moment().unix() + (startDate-1)*86400;
+                    const event = moment(item.StartDate,'YYYY-MM-DD').unix();
                     console.log('from', item.StartDate, ' to ',item.EndDate);
-                    console.log(now-86400, ' < ', start , ' < ', now);
-                    return (((now-86400) <= start) && (now >= start))
+                    console.log(down, ' < ', event , ' < ', up);
+                    return ((down <= event) && (up >= event))
                 });
             }
-            // if (endDate >= 0) {
-            //     Events=Events.filter((item) => {
-            //         return (moment(item.endDate,'YYYY-MM-DD').unix() <= moment().unix() + 86400*1000*(endDate));
-            //     });
-            // }
+
             if (Events.length>0 && group) {
                 Events=Events.filter((e) => {
                     return (e.Group.toLowerCase().indexOf(group.toLowerCase()) !== -1);
@@ -46,21 +43,22 @@ export function listPosts(group = '', startDate = -1, endDate = -1) {
         });
     });
 }
-export function doneEvent(id=''){
+
+export function doneEvent(id='',start,end){
     return new Promise((resolve, reject)=>{
-        AsyncStorage.getItem('user').then(events => {
-            var Events = JSON.parse(events);
-            console.log('finishEvent in API', Events);
-            Events.map(p => {
+        listPosts('',start,end).then(events => {
+
+            console.log('finishEvent in API', events);
+            events.map(p => {
                 if (p.Id === id) {
                     p.isDone = true;//moment().unix();
                 }
             });
-            console.log('Events dealt: ',Events);
-            AsyncStorage.setItem('user',JSON.stringify(Events));
-            resolve(Events);
+            console.log('Events dealt: ',events);
+            AsyncStorage.setItem('user',JSON.stringify(events));
+            resolve(events);
         }).catch((err) => {
-            console.log('load group names failed');
+            console.log('load events failed',err);
             reject(err);
         });
     });

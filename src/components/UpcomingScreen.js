@@ -5,8 +5,17 @@ import CalendarStrip from 'react-native-calendar-strip';
 import PostList from './PostList.js';
 import moment from 'moment';
 import {connect} from 'react-redux';
-class UpcomingScreen extends React.Component{
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {Fab} from 'native-base';
 
+class UpcomingScreen extends React.Component{
+    constructor(props) {
+        super (props);
+        this.state = {
+            fabActive: false,
+        };
+        this.handleFabClose = this.handleFabClose.bind(this);
+    };
 
     render () {
         const {navigate} = this.props.navigation;
@@ -28,12 +37,26 @@ class UpcomingScreen extends React.Component{
                 <NavigationContainer navigate={navigate} title='Upcoming'>
                     <CalendarStrip/>
                     <PostList duration='upcoming'/>
-                </NavigationContainer>
 
+                    <Fab
+                        active={this.state.fabActive}
+                        containerStyle={styles.fabContainer}
+                        style={styles.fab}
+                        position="bottomRight"
+                        onPress={this.handleFabClose}>
+                        <Icon name='plus'/>
+                    </Fab>
+
+                </NavigationContainer>
             </Image>
 
-        );
+        )
     };
+
+    handleFabClose() {
+        this.setState({fabActive: !this.state.fabActive});
+        this.props.navigation.navigate('AddEvent');
+    }
 }
 const styles = {
   background:{
@@ -41,7 +64,11 @@ const styles = {
     width:null,
     height:null,
     flex: 1
-  }
+    },
+    fab: {
+        backgroundColor: appColors.primary,
+        opacity: 0.5
+    }
 };
 
 

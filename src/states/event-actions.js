@@ -34,11 +34,11 @@ function endCreateEvent(event) {
     };
 }
 
-export function doneEvent(id=''){
+export function doneEvent(id='',start,end){
     console.log('redux receive id: ',id);
     return (dispatch, getState)=>{
         dispatch(startListEvents());
-        return doneEventFromApi(id).then(
+        return doneEventFromApi(id,start,end).then(
             events=>{
                 dispatch(endListEvents(events));
             }

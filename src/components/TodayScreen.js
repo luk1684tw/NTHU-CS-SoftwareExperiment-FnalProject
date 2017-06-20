@@ -90,28 +90,28 @@ class TodayScreen extends React.Component {
         }
         return (
             <Image source={url} style = {styles.background}>
-                 <NavigationContainer navigate={navigate} title='Today' style={styles.todaynav}>
-                <View style={styles.header_title}>
-                  <View style={styles.date}>
-                    <Text style={{fontSize:15,color: 'black',fontWeight:'bold'}}>  {this.state.day}</Text>
-                    <Text style={{fontSize:20,color: 'black'}}>  {new Date().getDate()}</Text>
-                  </View>
-                  <Text style={styles.today}>TODAY</Text>
-               </View>
+                <NavigationContainer navigate={navigate} title='Today' style={styles.todaynav}>
+                    <View style={styles.header_title}>
+                        <View style={styles.date}>
+                            <Text style={{fontSize:15,color: 'black',fontWeight:'bold'}}>  {this.state.day}</Text>
+                            <Text style={{fontSize:20,color: 'black'}}>  {new Date().getDate()}</Text>
+                        </View>
+                        <Text style={styles.today}>TODAY</Text>
+                    </View>
 
-               <PostList duration='today'/>
+                    <PostList duration='today'/>
 
-               <Fab
-                   active={this.state.fabActive}
-                   containerStyle={styles.fabContainer}
-                   style={styles.fab}
-                   position="bottomRight"
-                   onPress={this.handleFabClose}>
-                  <Icon name='plus'/>
-               </Fab>
+                    <Fab
+                        active={this.state.fabActive}
+                        containerStyle={styles.fabContainer}
+                        style={styles.fab}
+                        position="bottomRight"
+                        onPress={this.handleFabClose}>
+                        <Icon name='plus'/>
+                    </Fab>
 
-            </NavigationContainer>
-          </Image>
+                </NavigationContainer>
+            </Image>
         );
     }
 

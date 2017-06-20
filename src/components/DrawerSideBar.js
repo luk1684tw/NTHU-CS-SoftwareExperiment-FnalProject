@@ -90,7 +90,6 @@ class DrawerSideBar extends React.Component {
         this.props.dispatch(toggleGroupNameModal());
     }
     handleSubmit(e){
-        console.log('in DrawerSideBar:',e);
         if(e.nativeEvent.text){
             this.props.dispatch(createGroup(e.nativeEvent.text));
             this.props.dispatch(setGroupNameText(e.nativeEvent.text));
@@ -133,7 +132,6 @@ class DrawerSideBar extends React.Component {
     render() {
 
       const {navigate, dispatch, modalToggle, groupNameText, groups , pictureNum , eventStartDate ,eventEndDate} = this.props;
-      console.log('groups :' ,groups);
       const e = 'Welcome back Master~';
       //-----------------Group List Setting-----------------------
         //var items=['和學妹出去玩', '和妹妹野餐', '和女友約會'];
