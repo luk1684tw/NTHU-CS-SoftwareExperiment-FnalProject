@@ -11,7 +11,7 @@ const moment = require('moment');
 const uuid = require('uuid/v4');
 
 
-export function listPosts(group = '', startDate='', endDate='') {
+export function listPosts(group = '', startDate = -1, endDate = -1) {
     console.log('listPosts get',group,startDate,endDate);
     return new Promise((resolve,reject) => {
         AsyncStorage.getItem('user').then(events => {
@@ -19,16 +19,20 @@ export function listPosts(group = '', startDate='', endDate='') {
             if(events){
                 Events = JSON.parse(events);
             }
-            if (startDate) {
+            if (startDate >= 0) {
                 Events=Events.filter((item) => {
-                    return (moment(item.StartDate,'YYYY-MM-DD').unix() >= moment().unix() + 86400*1000*startDate);
+                    const now = moment().unix();
+                    const start = moment(item.StartDate,'YYYY-MM-DD').unix();
+                    console.log('from', item.StartDate, ' to ',item.EndDate);
+                    console.log(now-86400, ' < ', start , ' < ', now);
+                    return (((now-86400) <= start) && (now >= start))
                 });
             }
-            if (endDate) {
-                Events=Events.filter((item) => {
-                    return (moment(item.endDate,'YYYY-MM-DD').unix() <= moment().unix() + 86400*1000*endDate);
-                });
-            }
+            // if (endDate >= 0) {
+            //     Events=Events.filter((item) => {
+            //         return (moment(item.endDate,'YYYY-MM-DD').unix() <= moment().unix() + 86400*1000*(endDate));
+            //     });
+            // }
             if (Events.length>0 && group) {
                 Events=Events.filter((e) => {
                     return (e.Group.toLowerCase().indexOf(group.toLowerCase()) !== -1);
