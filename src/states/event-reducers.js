@@ -55,7 +55,8 @@ const initGroupState = {
     listingGroups: false,
     groups: [],
     groupScreenName: '',
-    creatingGroup: false
+    creatingGroup: false,
+    inputGroupName:''
 };
 export function group(state = initGroupState, action) {
     switch (action.type) {
@@ -100,10 +101,15 @@ export function group(state = initGroupState, action) {
             };
         case '@GROUP/UPDATE_GROUP':
             var tempGroupNames=state.groups;
-            tempGroupNames.push({name: action.groupName});
+            tempGroupNames.push(action.groupName);
             return{
                 ...state,
                 groups: tempGroupNames
+            };
+        case '@GROUP/INPUT_GROUP':
+            return{
+                ...state,
+                inputGroupName: action.input
             };
         default:
             return state;

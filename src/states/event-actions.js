@@ -112,6 +112,12 @@ function endCreateGroup(group){
         group
     };
 }
+export function inputGroup(input){
+    return{
+        type: '@GROUP/INPUT_GROUP',
+        input
+    };
+}
 export function listGroups(){
     return (dispatch, getState) => {
         dispatch(startListGroup());
