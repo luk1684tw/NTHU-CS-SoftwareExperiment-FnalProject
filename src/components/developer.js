@@ -24,7 +24,7 @@ export default class Developer extends React.Component{
     render() {
       const {navigate} = this.props.navigation;
       return (
-          <Image source={require('../images/ahri.png')} style = {styles.background}>
+          <Image source={require('../images/bg/ahri.png')} style = {styles.background}>
           <NavigationContainer navigate={navigate} title='Today'>
             <View style={styles.header}>
             <Text style={{color:'black',fontSize:25,fontWeight:'bold'}}>Virpet Team</Text>

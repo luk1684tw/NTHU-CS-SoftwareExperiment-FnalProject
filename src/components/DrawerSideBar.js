@@ -170,8 +170,8 @@ class DrawerSideBar extends React.Component {
                         <Text style={styles.text}>即將來臨</Text>
                     </ListItem>
                     <ListItem  button onPress={()=>{this.handleOnClickOtherWindow('SomeDay')}}>
-                        <Icon name='timetable' size={20}/>
-                        <Text style={styles.text}>選擇一天</Text>
+                        <Icon name='trophy' size={20}/>
+                        <Text style={styles.text}>里程碑</Text>
                     </ListItem>
                     {/* 群組 */}
                     <ListItem itemDivider>

@@ -78,16 +78,16 @@ class TodayScreen extends React.Component {
 
             console.log('mode',this.props.mode);
         if(this.props.mode===0){
-            var url= require('../images/plant1.png');
+            var url= require('../images/bg/plant1.png');
         }
         else if(this.props.mode===1){
-            var url=require('../images/pet1.png');
+            var url=require('../images/bg/pet1.png');
         }
         else if(this.props.mode===2){
-            var url=require('../images/summer.png');
+            var url=require('../images/bg/summer.png');
         }
         else if(this.props.mode===3){
-            var url=require('../images/bird1.png');
+            var url=require('../images/bg/bird1.png');
         }
         return (
             <Image source={url} style = {styles.background}>
