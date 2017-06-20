@@ -30,6 +30,7 @@ class GroupScreen extends React.Component{
     }
     render () {
         const {groupScreenName} = this.props;
+        console.log('groupScreenName :',groupScreenName);
         const{navigate}=this.props.navigation;
 
         if(this.props.mode===0){
@@ -53,7 +54,7 @@ class GroupScreen extends React.Component{
                   <Icon name='star' size={30} style={styles.header_icon} />
                   <Text style={{fontSize:22}}>{groupScreenName}</Text>
              </View>
-             <PostList />
+             <PostList duration='group'/>
              <Fab
                  active={this.state.fabActive}
                  containerStyle={styles.fabContainer}

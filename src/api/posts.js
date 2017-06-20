@@ -5,7 +5,7 @@
 // const postBaseUrl = 'http://weathermood-staging.us-west-2.elasticbeanstalk.com/api';
 
 // Production server URL
-const postBaseUrl = 'http://weathermood-production.us-west-2.elasticbeanstalk.com/api';
+
 import {AsyncStorage} from 'react-native';
 const moment = require('moment');
 const uuid = require('uuid/v4');
@@ -20,12 +20,12 @@ export function listPosts(group = '', startDate='', endDate='') {
             }
             if (startDate) {
                 Events=Events.filter((item) => {
-                    return (moment(startDate,'YYYY-MM-DD').unix() >= moment(item,'YYYY-MM-DD').unix());
+                    return (moment(item.StartDate,'YYYY-MM-DD').unix() >= moment().unix() + 86400*1000*startDate);
                 });
             }
             if (endDate) {
                 Events=Events.filter((item) => {
-                    return (moment(endDate,'YYYY-MM-DD').unix() <= moment(item,'YYYY-MM-DD').unix());
+                    return (moment(item.endDate,'YYYY-MM-DD').unix() <= moment().unix() + 86400*1000*endDate);
                 });
             }
             if (Events.length>0 && group) {
@@ -63,8 +63,7 @@ export function doneEvent(id=''){
 export function createPost(StartDate, EndDate, Group, Title) {
     return new Promise((resolve,reject) => {
         // AsyncStorage.removeItem('user');
-        console.log('StartDate:',moment(StartDate,'YYYY-MM-DD').unix());
-        console.log('test' , moment().unix());
+
         AsyncStorage.getItem('user').then(result => {
             if (moment(StartDate,'YYYY-MM-DD').unix() > moment(EndDate,'YYYY-MM-DD').unix()){
                 var startdate = EndDate;
