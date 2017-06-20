@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {TimePickerAndroid,Text,StyleSheet,ScrollView,View,TouchableOpacity,Image} from 'react-native';
-import {Container, Content, Button, Header, Left, Right, Body, ListItem, Title, Form, Item, Label, Input} from 'native-base';
+import {Container, Content, Button, Header, Left, Right, Body, ListItem, Title, Form, Item, Label, Input,Toast} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';
 import {Calendar,CalendarList} from 'react-native-calendars';
@@ -51,9 +51,22 @@ class AddEventScreen extends React.Component{
                 navigate('Group');
              else
                 navigate('Today');
-         }
-
-     }
+         }else if(!(eventStartDate&&eventEndDate&&firstClickDate && secondClickDate)){
+           Toast.show({
+             supportedOrientations: ['portrait','landscape'],
+             text: 'choose Start and End day',
+             position: 'bottom',
+             duration: 2600
+         });
+       }else{
+          Toast.show({
+            supportedOrientations: ['portrait','landscape'],
+            text: 'add Text above ',
+            position: 'bottom',
+            duration: 2600
+       })
+      }
+    }
     render () {
       if(this.props.mode===0){
           var url= require('../images/bg/season1.png');
