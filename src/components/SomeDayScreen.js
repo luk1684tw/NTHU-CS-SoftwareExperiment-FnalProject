@@ -30,6 +30,7 @@ class SomeDayScreen extends React.Component{
         this.handleOnClickCoBuGr = this.handleOnClickCoBuGr.bind(this);
         this.handleOnClickSiBuGr = this.handleOnClickSiBuGr.bind(this);
         this.handleOnClickGoBuGr = this.handleOnClickGoBuGr.bind(this);
+
       }
 
       handleOnClickCo(){
@@ -79,6 +80,7 @@ class SomeDayScreen extends React.Component{
       }
 
 
+
     render () {
       const {navigate} = this.props.navigation;
       if(this.props.mode===0){
@@ -93,7 +95,12 @@ class SomeDayScreen extends React.Component{
             else if(this.props.mode===3){
                 var url=require('../images/bg/pet4.png');
             }
-      
+
+            if(this.props.groupNum>0){
+              this.state.opacitycobugr= 1; //Anything u want
+            }
+
+            console.log('groupNum',this.props.groupNum);
         return (
                 <Image source={url} style = {styles.background}>
                 <NavigationContainer navigate={navigate} title='Today'>
@@ -135,7 +142,7 @@ class SomeDayScreen extends React.Component{
                   <Text style = {styles.text}>創建事件100次</Text>
                   </ListItem>
                   <ListItem style = {styles.list}>
-                  <TouchableOpacity onPress={()=>{this.handleOnClickCoBuGr()}}>
+                  <TouchableOpacity>
                   <Image source={require('../images/cocup.png')} style = {[styles.cup,{opacity:this.state.opacitycobugr}]}/>
                   </TouchableOpacity>
                   <Text style = {styles.text}>創建群組1次</Text>
@@ -184,4 +191,5 @@ const styles = {
 
 export default connect((state, ownProps) => ({
     mode:state.theme.mode,
+    groupNum:state.group.groupNum,
 }))(SomeDayScreen);
