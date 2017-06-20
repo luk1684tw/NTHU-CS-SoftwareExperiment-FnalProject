@@ -12,6 +12,7 @@ const uuid = require('uuid/v4');
 
 
 export function listPosts(group = '', startDate='', endDate='') {
+    console.log('listPosts get',group,startDate,endDate);
     return new Promise((resolve,reject) => {
         AsyncStorage.getItem('user').then(events => {
             var Events=[];

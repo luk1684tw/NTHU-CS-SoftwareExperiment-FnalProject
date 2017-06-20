@@ -24,7 +24,6 @@ class checkBox extends React.Component {
             this.props.dispatch(doneEvent(this.props.id));
     }
     render () {
-        console.log('checked:',this.state.checked);
         return (
             <CheckBox
                 containerStyle={styles.checkbox}

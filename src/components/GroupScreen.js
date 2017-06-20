@@ -6,7 +6,7 @@ import NavigationContainer from './NavigationContainer';
 import {Fab, Button, Toast, Left, Body, Right, ListItem, Container, Content} from 'native-base';
 import {connect} from 'react-redux';
 import PostList from './PostList';
-import {listEvents} from '../states/event-actions';
+import {listEvents, selectGroup} from '../states/event-actions';
 class GroupScreen extends React.Component{
     static propTypes = {
         navigation: PropTypes.object.isRequired,

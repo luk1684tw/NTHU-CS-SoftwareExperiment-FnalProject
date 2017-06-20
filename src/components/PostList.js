@@ -4,12 +4,12 @@ import {
     View,Text, Image, TouchableOpacity
 } from 'react-native';
 import InfiniteScrollView from 'react-native-infinite-scroll-view';
-import {Left,Right,Body, List, ListItem, Container, Content, Icon, Button, CheckBox} from 'native-base';
+import {Left,Right,Body, List, ListItem, Container, Content, Icon, Button} from 'native-base';
 import PostItem from './PostItem';
 import CalendarStrip from 'react-native-calendar-strip';
 import {connect} from 'react-redux';
 import {listEvents, doneEvent} from '../states/event-actions';
-// import CheckBox from './CheckBox.js';
+import CheckBox from './CheckBox.js';
 import Timeline from 'react-native-timeline-listview';
 class PostList extends React.Component {
     static propTypes = {
@@ -21,24 +21,25 @@ class PostList extends React.Component {
     constructor(props) {
         super(props);
         this.renderDetail=this.renderDetail.bind(this);
-        this.handleComplete=this.handleComplete.bind(this);
         console.log(this.props.duration);
     }
 
     componentDidMount() {
+        if (this.props.duration === 'today') {
+            this.props.dispatch(listEvents(this.props.groupScreenName,0,0));
+        } else if (this.props.duration === 'upcoming') {
+            this.props.dispatch(listEvents(this.props.groupScreenName,1,3));
+        }else {
+            this.props.dispatch(listEvents(this.props.groupScreenName));
+        }
 
-        this.props.dispatch(listEvents(this.props.groupScreenName));
     }
     componentWillReceiveProps(nextProps) {
         // if(nextProps.events !==this.props.events){
         //     this.props.dispatch(listEvents());
         // }
     }
-    handleComplete(isDone, id){
-        console.log('In here', isDone, id);
-        if(isDone===false)
-            this.props.dispatch(doneEvent(id));
-    }
+
     renderDetail(rowData, sectionID, rowID) {
     let title = <Text style={styles.title} >{rowData.title}</Text>
     var desc = null
@@ -53,13 +54,7 @@ class PostList extends React.Component {
     return (
       <View style={{flex:1,flexDirection:'row',justifyContent:'flex-end'}}>
         {title}
-        {/* <TouchableOpacity onPress={this.handleComplete(rowData.isDone, rowData.id)}>
-            {(rowData.isDone===false)?<CheckBox checked={false} />:<CheckBox checked={true} />}
-        </TouchableOpacity> */}
-        {/* 註解一的會一直listEvent 會lag */}
-
-        {/* {title}<CheckBox id={rowData.id} isDone={rowData.isDone}/> */}
-        {/* 註解二的是怎麼案都沒有反應QQ */}
+        <CheckBox id={rowData.Id} isDone={rowData.isDone}/>
         {desc}
       </View>
     )
