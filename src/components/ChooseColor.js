@@ -16,7 +16,7 @@ import {
 import {Container} from 'native-base';
 import {connect} from 'react-redux';
 import {setTheme} from '../states/ChooseTheme.js';
-import SettingsList from 'react-native-settings-list';
+
 
 
 class ChooseColor extends React.Component{
@@ -28,7 +28,7 @@ class ChooseColor extends React.Component{
     render () {
         const {navigate} = this.props.navigation;
         return (
-            <Container>
+            <Container style={{backgroundColor:'rgb(232, 235, 188)'}}>
               <Container style={{flexDirection:'row', flex:2}}>
               <TouchableOpacity onPress={() =>{this.handleThemeMode(0),navigate('Setting')}}>
                 <Image
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
       marginLeft:'auto',
       marginRight:'auto',
       marginLeft: 38,
-      borderColor:'grey'
+      borderColor:'gray'
     },
     buttonText: {
       color: '#fff',
