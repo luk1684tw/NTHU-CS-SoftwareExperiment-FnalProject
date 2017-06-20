@@ -131,8 +131,10 @@ class DrawerSideBar extends React.Component {
     }
 
     render() {
-      const {navigate, dispatch, modalToggle, groupNameText, groups , pictureNum} = this.props;
-      const e = '臭湯包';
+
+      const {navigate, dispatch, modalToggle, groupNameText, groups , pictureNum , eventStartDate ,eventEndDate} = this.props;
+      console.log('groups :' ,groups);
+      const e = 'Welcome back Master~';
       //-----------------Group List Setting-----------------------
         //var items=['和學妹出去玩', '和妹妹野餐', '和女友約會'];
 
@@ -284,5 +286,5 @@ export default connect((state, ownProps) => ({
     groupNameText: state.groupName.groupNameText,
     groups: state.group.groups,
     modalToggle: state.groupName.modalToggle,
-    pictureNum: state.corgi.pictureNum
+    pictureNum: state.corgi.pictureNum,
 }))(DrawerSideBar);
