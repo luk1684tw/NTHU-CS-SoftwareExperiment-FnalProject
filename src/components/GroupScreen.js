@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Text, View} from 'react-native';
+import {Text, View,Image} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NavigationContainer from './NavigationContainer';
 import {Fab, Button, Toast, Left, Body, Right, ListItem, Container, Content} from 'native-base';
 import {connect} from 'react-redux';
 import PostList from './PostList';
+import {listEvents} from '../states/event-actions';
 class GroupScreen extends React.Component{
     static propTypes = {
         navigation: PropTypes.object.isRequired,
@@ -20,6 +21,9 @@ class GroupScreen extends React.Component{
         };
         this.handleFabClose = this.handleFabClose.bind(this);
     }
+    componentDidMount(){
+        this.props.dispatch(listEvents(this.props.groupScreenName));
+    }
     handleFabClose() {
         this.setState({fabActive: !this.state.fabActive});
         this.props.navigation.navigate('AddEvent');
@@ -27,7 +31,22 @@ class GroupScreen extends React.Component{
     render () {
         const {groupScreenName} = this.props;
         const{navigate}=this.props.navigation;
+
+        if(this.props.mode===0){
+            var url= require('../images/bg/season1.png');
+        }
+        else if(this.props.mode===1){
+            var url=require('../images/bg/plant1.png');
+        }
+        else if(this.props.mode===2){
+            var url=require('../images/bg/bird1.png');
+        }
+        else if(this.props.mode===3){
+            var url=require('../images/bg/pet1.png');
+        }
+
         return (
+          <Image source={url} style = {styles.background}>
           <NavigationContainer navigate={navigate} title='Group'>
               <View style={styles.header}/>
               <View style={styles.header_title}>
@@ -44,6 +63,7 @@ class GroupScreen extends React.Component{
                 <Icon name='plus'/>
              </Fab>
           </NavigationContainer>
+        </Image>
         );
     };
 }
@@ -74,7 +94,14 @@ const styles = {
     fab: {
         backgroundColor: appColors.primary
     },
+    background:{
+      resizeMode: 'cover',
+      width:null,
+      height:null,
+      flex: 1,
+    }
 };
 export default connect((state, ownProps) => ({
-    groupScreenName: state.group.groupScreenName
+    groupScreenName: state.group.groupScreenName,
+    mode:state.theme.mode
 }))(GroupScreen);

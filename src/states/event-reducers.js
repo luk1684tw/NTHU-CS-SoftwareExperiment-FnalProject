@@ -96,7 +96,7 @@ export function group(state = initGroupState, action) {
         case '@GROUP/SET_GROUP_SCREEN_NAME':
             return{
                 ...state,
-                groupScreenName: action.name
+                groupScreenName: action.group
             };
         case '@GROUP/UPDATE_GROUP':
             var tempGroupNames=state.groups;

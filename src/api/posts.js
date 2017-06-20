@@ -14,21 +14,25 @@ const uuid = require('uuid/v4');
 export function listPosts(group = '', startDate='', endDate='') {
     return new Promise((resolve,reject) => {
         AsyncStorage.getItem('user').then(events => {
-            var Events = JSON.parse(events);
+            var Events=[];
+            if(events){
+                Events = JSON.parse(events);
+            }
             if (startDate) {
-                Events.filter((item) => {
+                Events=Events.filter((item) => {
                     return (moment(startDate,'YYYY-MM-DD HH:mm').unix() >= moment(item,'YYYY-MM-DD HH:mm').unix());
                 });
             }
             if (endDate) {
-                Events.filter((item) => {
+                Events=Events.filter((item) => {
                     return (moment(endDate,'YYYY-MM-DD HH:mm').unix() <= moment(item,'YYYY-MM-DD HH:mm').unix());
                 });
             }
-            if (group) {
-                Events.filter((e) => {
+            if (Events.length>0 && group) {
+                Events=Events.filter((e) => {
                     return (e.Group.toLowerCase().indexOf(group.toLowerCase()) !== -1);
                 });
+                console.log('In listEvents API, group filter', group, Events);
             }
             resolve(Events);
         }).catch((err) => {
@@ -43,11 +47,11 @@ export function doneEvent(id=''){
             var Events = JSON.parse(events);
             console.log('finishEvent in API', Events);
             Events.map(p => {
-                if (p.id === id) {
+                if (p.Id === id) {
                     p.isDone = true;//moment().unix();
                 }
-                return p;
             });
+            console.log('Events dealt: ',Events);
             AsyncStorage.setItem('user',JSON.stringify(Events));
             resolve(Events);
         }).catch((err) => {

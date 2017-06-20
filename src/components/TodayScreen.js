@@ -76,7 +76,7 @@ class TodayScreen extends React.Component {
         const {navigate} = this.props.navigation;
         const {events}=this.props;
 
-            console.log('mode',this.props.mode);
+        console.log('mode',this.props.mode);
         if(this.props.mode===0){
             var url= require('../images/bg/season2.png');
         }
