@@ -56,7 +56,6 @@ const initGroupState = {
     groups: [],
     groupScreenName: '',
     creatingGroup: false,
-    groupNum:0,
 };
 export function group(state = initGroupState, action) {
     switch (action.type) {
@@ -92,7 +91,7 @@ export function group(state = initGroupState, action) {
             return {
                 ...state,
                 creatingGroup: false,
-                groups: action.group
+                groups: action.group,
             };
         case '@GROUP/SET_GROUP_SCREEN_NAME':
             return{
@@ -100,13 +99,11 @@ export function group(state = initGroupState, action) {
                 groupScreenName: action.group
             };
         case '@GROUP/UPDATE_GROUP':
-            var tempGroupNames=state.groups;
+            var tempGroupNames = state.groups;
             tempGroupNames.push({name: action.groupName});
-            console.log('in redux groupnum',state.groupNum);
             return{
                 ...state,
                 groups: tempGroupNames,
-                groupNum: state.groupNum+1
             };
         default:
             return state;

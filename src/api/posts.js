@@ -6,6 +6,8 @@
 
 // Production server URL
 
+//to be finished : add a accomplished event list & store redux state to AsyncStorage
+
 import {AsyncStorage} from 'react-native';
 const moment = require('moment');
 const uuid = require('uuid/v4');
@@ -47,7 +49,6 @@ export function listPosts(group = '', startDate = -1, endDate = -1) {
 export function doneEvent(id='',start,end){
     return new Promise((resolve, reject)=>{
         listPosts('',start,end).then(events => {
-
             console.log('finishEvent in API', events);
             events.map(p => {
                 if (p.Id === id) {
