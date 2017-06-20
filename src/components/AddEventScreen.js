@@ -38,7 +38,7 @@ class AddEventScreen extends React.Component{
      handleTitleChange(e){
          const {inputDanger: danger, eventTitle, dispatch} = this.props;
          dispatch(inputEventTitle(e.nativeEvent.text));
-         console.log('eventTitle', eventTitle);
+
      }
      handleCreateEvent(){
          const{eventTitle, eventStartDate, groupScreenName, eventEndDate, firstClickDate, secondClickDate, dispatch}=this.props;
@@ -100,6 +100,7 @@ class AddEventScreen extends React.Component{
                                 [this.props.firstClickDate]: [{startingDay: true},{color:'green'},{marked:true}],
                                 [this.props.secondClickDate]: [{endingDay: true},{color:'green'},{marked:true},{textColor: 'green'}]
                             }}
+                            format='MM-DD'
                         />
 
                     </ScrollView>
@@ -121,6 +122,7 @@ class AddEventScreen extends React.Component{
     };
 
     onDayPress(day) {
+        
         const {eventStartDate, eventEndDate, firstClickDate, secondClickDate, dispatch} = this.props;
         if(firstClickDate==='' && secondClickDate===''){
             dispatch(changeFirstDate(day.dateString));

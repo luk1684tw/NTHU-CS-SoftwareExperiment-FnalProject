@@ -20,12 +20,10 @@ class checkBox extends React.Component {
         this.handleComplete=this.handleComplete.bind(this);
     }
     handleComplete(){
-        console.log('In here',this.props);
         if(this.props.isDone===false)
             this.props.dispatch(doneEvent(this.props.id));
     }
     render () {
-        console.log('checked:',this.state.checked);
         return (
             <CheckBox
                 containerStyle={styles.checkbox}

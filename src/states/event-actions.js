@@ -55,6 +55,7 @@ export function listEvents(group, startDate='', endDate='') {
     return (dispatch, getState) => {
         dispatch(startListEvents());
         return listPostsFromApi(group, startDate, endDate).then(events => {
+            console.log('events get from API',events);
             dispatch(endListEvents(events));
         }).catch(err => {
             dispatch(endListEvents());
@@ -77,17 +78,6 @@ export function createEvent(StartDate, EndDate, Group, Title) {
             console.error('Error creating event', err);
         });
     };
-    // var newEvent={
-    //     id: '666666666',
-    //     StartDate: StartDate,
-    //     EndDate: EndDate,
-    //     Group: Group,
-    //     Title: Title
-    // };
-    // return{
-    //     type: '@EVENT/UPDATE_EVENT',
-    //     event: newEvent
-    // }
 };
 
 //Side bar: group list
