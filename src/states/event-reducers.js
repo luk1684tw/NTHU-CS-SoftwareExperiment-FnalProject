@@ -53,7 +53,7 @@ export function event(state = initEventState, action) {
 //SideBar Group List
 const initGroupState = {
     listingGroups: false,
-    groups: [{name: '暑期計畫'}, {name: '女友度假'}],
+    groups: [],
     groupScreenName: '',
     creatingGroup: false
 };

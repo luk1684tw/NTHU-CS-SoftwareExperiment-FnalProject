@@ -129,20 +129,22 @@ function updateGroup(groupName){
     }
 }
 export function createGroup(groupName=''){
-    // return (dispatch, getState) => {
-    //     dispatch(startCreateGroup());
-    //
-    //     return createGroupFromApi(name).then(group => {
-    //         dispatch(endCreateGroup(group));
-    //     }).catch(err => {
-    //         dispatch(endCreateGroup())
-    //         console.error('Error creating group', err);
-    //     });
-    // };
-    return{
-        type: '@GROUP/UPDATE_GROUP',
-        groupName
-    }
+    return (dispatch, getState) => {
+        dispatch(startCreateGroup());
+
+        return createGroupFromApi(groupName).then(group => {
+            console.log('In create Group', group);
+            dispatch(endCreateGroup(group));
+            dispatch(listGroups());
+        }).catch(err => {
+            dispatch(endCreateGroup())
+            console.error('Error creating group', err);
+        });
+    };
+    // return{
+    //     type: '@GROUP/UPDATE_GROUP',
+    //     groupName
+    // }
     //dispatch(updateGroup(name));
 }
 export function setGroupScreenName(group){
