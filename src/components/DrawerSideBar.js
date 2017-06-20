@@ -118,7 +118,16 @@ class DrawerSideBar extends React.Component {
         }, 50);
     }
 
-
+    componentWillMount(){
+      this.interval = setInterval(() => {
+          this.setState({index: (this.state.index+1)});
+          var w= this.images[this.state.index];
+          if(this.state.index == 33){
+            this.setState({index: 0});
+            clearInterval(this.interval);
+          }
+      }, 50);
+    }
 
     render() {
       const {navigate, dispatch, modalToggle, groupNameText, groups , pictureNum} = this.props;
@@ -135,7 +144,7 @@ class DrawerSideBar extends React.Component {
         );
         if(groups.length){
           children=(
-              <List dataArray={groups}
+              <List dataArray={groups} 
               renderRow={(group) =>
                   <ListItem button onPress={() =>  {this.handleOnClick(group)}}>
                       <Icon name='tag-multiple' size={20}/>

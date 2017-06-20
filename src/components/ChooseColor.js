@@ -16,7 +16,7 @@ import {
 import {Container} from 'native-base';
 import {connect} from 'react-redux';
 import {setTheme} from '../states/ChooseTheme.js';
-import SettingsList from 'react-native-settings-list';
+
 
 
 class ChooseColor extends React.Component{
