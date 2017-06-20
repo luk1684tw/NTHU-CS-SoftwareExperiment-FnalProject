@@ -124,6 +124,7 @@ class DrawerSideBar extends React.Component {
     render() {
       const {navigate, dispatch, modalToggle, groupNameText, groups , pictureNum} = this.props;
       console.log('groups :' ,groups);
+      const e = '臭湯包';
       //-----------------Group List Setting-----------------------
         //var items=['和學妹出去玩', '和妹妹野餐', '和女友約會'];
 
@@ -152,7 +153,7 @@ class DrawerSideBar extends React.Component {
           <TouchableOpacity   onPress={() => {this.handleOnClickCorgi();
                                               Toast.show({
                                               supportedOrientations: ['portrait','landscape'],
-                                              text: '臭湯包!',
+                                              text: e,
                                               position: 'bottom',
                                               duration: 2600
                                             })}}>

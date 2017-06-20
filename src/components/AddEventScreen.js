@@ -55,9 +55,22 @@ class AddEventScreen extends React.Component{
 
      }
     render () {
+      if(this.props.mode===0){
+          var url= require('../images/bg/season1.png');
+      }
+      else if(this.props.mode===1){
+          var url=require('../images/bg/plant1.png');
+      }
+      else if(this.props.mode===2){
+          var url=require('../images/bg/bird1.png');
+      }
+      else if(this.props.mode===3){
+          var url=require('../images/bg/pet1.png');
+      }
+
         return (
 
-          <Image source={require('../images/bg/spring.png')} style = {styles.background}>
+          <Image source={url} style = {styles.background}>
               <Container>
                 <Header style={styles.header}>
                     <Left>
