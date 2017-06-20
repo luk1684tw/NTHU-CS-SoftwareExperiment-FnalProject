@@ -55,7 +55,8 @@ const initGroupState = {
     listingGroups: false,
     groups: [],
     groupScreenName: '',
-    creatingGroup: false
+    creatingGroup: false,
+    groupNum:0,
 };
 export function group(state = initGroupState, action) {
     switch (action.type) {
@@ -84,7 +85,7 @@ export function group(state = initGroupState, action) {
             if (!action.group)
                 return {
                     ...state,
-                    creatingGroup: false
+                    creatingGroup: false,
                 };
 
             console.log('action.groups in redux', action.group);
@@ -101,9 +102,11 @@ export function group(state = initGroupState, action) {
         case '@GROUP/UPDATE_GROUP':
             var tempGroupNames=state.groups;
             tempGroupNames.push({name: action.groupName});
+            console.log('in redux groupnum',state.groupNum);
             return{
                 ...state,
-                groups: tempGroupNames
+                groups: tempGroupNames,
+                groupNum: state.groupNum+1
             };
         default:
             return state;
