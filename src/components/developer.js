@@ -41,7 +41,7 @@ export default class Developer extends React.Component{
             <Image source={require('../images/allen.jpg')} style = {styles.image}>
             </Image>
             </Container>
-          <Button title='Fuck the world' onPress={() => { web('http://www.github.com') }}>
+          <Button title='Welcome to contact us if any question' onPress={() => { web('http://www.github.com') }}>
           </Button>
           </NavigationContainer>
           </Image>
