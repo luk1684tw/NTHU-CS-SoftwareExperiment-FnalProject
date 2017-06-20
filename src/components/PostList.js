@@ -79,7 +79,7 @@ class PostList extends React.Component {
                     columnFormat='two-column'
                     circleColor='rgb(45,156,219)'
                     lineColor='rgb(45,156,219)'
-                    timeContainerStyle={{minWidth:52, marginTop: 1}}
+                    timeContainerStyle={{marginTop: 1, minWidth:72}}
                     timeStyle={{textAlign: 'center', backgroundColor:'#ff9797', color:'white', padding:5, borderRadius:13}}
                     descriptionStyle={{color:'gray'}}
                     renderDetail={this.renderDetail}

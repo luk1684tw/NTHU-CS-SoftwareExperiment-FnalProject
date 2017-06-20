@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {View, Text, Image, Platform, Modal,TouchableOpacity} from 'react-native'
+import {View, Text, Image, Platform, Modal,TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Header, Container, Item, Input, Content, Thumbnail,Label, Badge, Button, Text as NbText, List, ListItem, Separator, Left, Body, Right,Toast} from 'native-base';
+import {Header, Container, Item, Input, Content, Thumbnail,Label, Badge, Button, Text as NbText, List, ListItem, Separator, Left, Body, Right,Toast, Form} from 'native-base';
 import appColors from '../styles/colors';
-import {setGroupScreenName, createGroup, listEvents, listGroups, Animated} from '../states/event-actions';
+import {setGroupScreenName, createGroup, listEvents, listGroups, Animated, inputGroup} from '../states/event-actions';
 import {toggleGroupNameModal, setGroupNameText} from '../states/groupName';
 import {connect} from 'react-redux';
-
+import GroupList from './GroupList'
 class DrawerSideBar extends React.Component {
     static propTypes = {
         navigate: PropTypes.func.isRequired,
@@ -16,7 +16,8 @@ class DrawerSideBar extends React.Component {
         groupScreenName: PropTypes.string.isRequired,
         modalToggle: PropTypes.bool.isRequired,
         dispatch: PropTypes.func.isRequired,
-        pictureNum: PropTypes.number.isRequired
+        pictureNum: PropTypes.number.isRequired,
+        inputGroupName: PropTypes.string
     };
     constructor(props){
         super(props);
@@ -26,6 +27,7 @@ class DrawerSideBar extends React.Component {
         this.handleSubmit=this.handleSubmit.bind(this);
         this.handleOnClickOtherWindow=this.handleOnClickOtherWindow.bind(this);
         this.handleOnClickCorgi=this.handleOnClickCorgi.bind(this);
+        this.handleChange=this.handleChange.bind(this);
         this.images = [
           require('../images/corgi-24.png'),
           require('../images/corgi-25.png'),
@@ -71,7 +73,7 @@ class DrawerSideBar extends React.Component {
     handleOnClick(item){
         this.props.dispatch(setGroupScreenName(item));
         // console.log(item, this.props.groupScreenName);
-        this.props.dispatch(listEvents(this.props.groupScreenName));
+        // this.props.dispatch(listEvents(this.props.groupScreenName));
         this.props.navigate('Group');
         // this.props.dispatch(setGroupScreenName(item));
     }
@@ -89,15 +91,14 @@ class DrawerSideBar extends React.Component {
         this.props.dispatch(setGroupNameText(''));
         this.props.dispatch(toggleGroupNameModal());
     }
-    handleSubmit(e){
-        console.log('in DrawerSideBar:',e);
-        if(e.nativeEvent.text){
-            this.props.dispatch(createGroup(e.nativeEvent.text));
-            this.props.dispatch(setGroupNameText(e.nativeEvent.text));
+    handleSubmit(){
+            this.props.dispatch(createGroup(this.props.inputGroupName));
+            this.props.dispatch(setGroupNameText(this.props.inputGroupName));
             this.props.dispatch(toggleGroupNameModal());
-        }
     }
-
+    handleChange(e){
+        this.props.dispatch(inputGroup(e.nativeEvent.text));
+    }
     handleOnClickCorgi(){
       clearInterval(this.interval);
       this.next();
@@ -140,8 +141,8 @@ class DrawerSideBar extends React.Component {
 
         let children=(
           <ListItem>
-              <Icon name='tag-multiple' size={24}/>
-              <Text style={styles.text}>新增群組</Text>
+              <Icon name='call-made' size={24}/>
+              <Text style={styles.text}>點選右上角新增群組</Text>
           </ListItem>
         );
         if(groups.length){
@@ -200,15 +201,16 @@ class DrawerSideBar extends React.Component {
                                         onPress={this.handleCloseGroupName} />}
                             </Right>
                     </ListItem>
-                    {(modalToggle===false)?<Text></Text>:<ListItem>
-                        <Item >
+                    {(modalToggle===false)?<Text></Text>:<Form>
+                        <Item>
                                <Input placeholder='請輸入群組名稱 '
                                    defaultValue={groupNameText}
-                                   onEndEditing={this.handleSubmit}/>
+                                   onChange={this.handleChange}/>
                                <Button transparent success onPress={this.handleSubmit}><Text>新增</Text></Button>
                         </Item>
-                    </ListItem>}
+                    </Form>}
                     {children}
+                    {/* <GroupList navigate={navigate}/> */}
                     {/* 設定 */}
                     <ListItem itemDivider><Left><Text style={styles.text}>設定</Text></Left><Body></Body><Right></Right></ListItem>
                     <ListItem  button onPress={()=>{this.handleOnClickOtherWindow('Setting')}}>
@@ -287,4 +289,5 @@ export default connect((state, ownProps) => ({
     groups: state.group.groups,
     modalToggle: state.groupName.modalToggle,
     pictureNum: state.corgi.pictureNum,
+    inputGroupName: state.group.inputGroupName
 }))(DrawerSideBar);
