@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    View,
-    ListView, Text, Image, TouchableOpacity
+    View,Text, Image, TouchableOpacity
 } from 'react-native';
 import InfiniteScrollView from 'react-native-infinite-scroll-view';
 import {Left,Right,Body, List, ListItem, Container, Content, Icon, Button, CheckBox} from 'native-base';
