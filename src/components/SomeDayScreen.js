@@ -9,16 +9,16 @@ class SomeDayScreen extends React.Component{
     render () {
       const {navigate} = this.props.navigation;
       if(this.props.mode===0){
-          var url= require('../images/bg/plant1.png');
+          var url=require('../images/bg/season4.png');
       }
       else if(this.props.mode===1){
-          var url=require('../images/bg/pet1.png');
+          var url=require('../images/bg/plant4.png');
       }
       else if(this.props.mode===2){
-          var url=require('../images/bg/summer.png');
+          var url=require('../images/bg/p1.png');
       }
       else if(this.props.mode===3){
-          var url=require('../images/bg/bird1.png');
+          var url=require('../images/bg/pet4.png');
       }
         return (
 
