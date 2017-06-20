@@ -11,16 +11,16 @@ class UpcomingScreen extends React.Component{
     render () {
         const {navigate} = this.props.navigation;
         if(this.props.mode===0){
-            var url= require('../images/fall.png');
+            var url= require('../images/bg/fall.png');
         }
         else if(this.props.mode===1){
-            var url=require('../images/pet3.png');
+            var url=require('../images/bg/pet3.png');
         }
         else if(this.props.mode===2){
-            var url=require('../images/plant3.png');
+            var url=require('../images/bg/plant3.png');
         }
         else if(this.props.mode===3){
-            var url=require('../images/bird3.png');
+            var url=require('../images/bg/bird3.png');
         }
 
         return (

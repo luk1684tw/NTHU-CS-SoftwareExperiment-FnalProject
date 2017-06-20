@@ -54,7 +54,7 @@ class AddEventScreen extends React.Component{
     render () {
         return (
 
-          <Image source={require('../images/spring.png')} style = {styles.background}>
+          <Image source={require('../images/bg/spring.png')} style = {styles.background}>
               <Container>
                 <Header style={styles.header}>
                     <Left>
@@ -135,8 +135,6 @@ class AddEventScreen extends React.Component{
     handleGoBack() {
         this.props.navigation.goBack();
     }
-
-
 }
 
 export default connect((state, ownProps) => ({
@@ -149,7 +147,8 @@ export default connect((state, ownProps) => ({
     groupScreenName: state.group.groupScreenName,
     inputDanger: state.eventForm.inputDanger,
     firstClickDate: state.eventForm.firstClickDate,
-    secondClickDate: state.eventForm.secondClickDate
+    secondClickDate: state.eventForm.secondClickDate,
+    mode:state.theme.mode,
 }))(AddEventScreen);
 
 const styles = StyleSheet.create({

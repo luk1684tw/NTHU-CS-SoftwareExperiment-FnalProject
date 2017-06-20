@@ -4,25 +4,26 @@ import NavigationContainer from './NavigationContainer';
 import PostList from './PostList.js';
 import CalendarStrip from 'react-native-calendar-strip';
 import {List, ListItem} from 'native-base';
-export default class SomeDayScreen extends React.Component{
+import {connect} from 'react-redux';
+class SomeDayScreen extends React.Component{
     render () {
       const {navigate} = this.props.navigation;
       if(this.props.mode===0){
-          var url= require('../images/plant1.png');
+          var url= require('../images/bg/plant1.png');
       }
       else if(this.props.mode===1){
-          var url=require('../images/pet1.png');
+          var url=require('../images/bg/pet1.png');
       }
       else if(this.props.mode===2){
-          var url=require('../images/summer.png');
+          var url=require('../images/bg/summer.png');
       }
       else if(this.props.mode===3){
-          var url=require('../images/bird1.png');
+          var url=require('../images/bg/bird1.png');
       }
         return (
 
 
-            <Image source={require('../images/sep.png')} style = {styles.background}>
+            <Image source={url} style = {styles.background}>
                 <NavigationContainer navigate={navigate} title='Today'>
                   <ScrollView>
                   <ListItem style = {styles.list}>
@@ -91,3 +92,7 @@ const styles = {
     alignItems: 'flex-start',
   }
 };
+
+export default connect((state, ownProps) => ({
+    mode:state.theme.mode,
+}))(SomeDayScreen);
