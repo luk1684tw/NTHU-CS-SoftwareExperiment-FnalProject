@@ -25,25 +25,18 @@ class ChooseColor extends React.Component{
     render () {
         const {navigate} = this.props.navigation;
         return (
-                <Container>
-                    <Content>
-                <Button style={styles.buttonblack} onPress={()=> {this.handleThemeMode(1)}} >
-                    <Text>Press me</Text>
-                </Button>
-                <Button style={styles.buttonblack} onPress={()=> {this.handleThemeMode(2)}} >
-                    <Text>Press me!</Text>
-                </Button>
-              {/*<TouchableOpacity style={styles.buttonblack} onPress={this.handleThemeMode(1)}>
+              <View style={styles.center}>
+              <TouchableOpacity style={styles.buttonblack} onPress={() =>this.handleThemeMode(0)}>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.buttonpink} onPress={() => navigate('Setting')}>
+              <TouchableOpacity style={styles.buttonpink} onPress={() =>this.handleThemeMode(1)}>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.buttonbrown} onPress={() => navigate('Setting')}>
+              <TouchableOpacity style={styles.buttonbrown} onPress={() =>this.handleThemeMode(2)}>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.buttongrey} onPress={() =>this.handleThemeMode(3)}>
               </TouchableOpacity>
               <TouchableOpacity style={styles.buttongrey} onPress={() => navigate('Setting')}>
-              </TouchableOpacity>*/}
-              </Content>
-              </Container>
-
+              </TouchableOpacity>
+              </View>
         );
     };
     handleThemeMode(mode) {
