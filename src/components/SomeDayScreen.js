@@ -1,11 +1,44 @@
 import React from 'react';
-import {Text,Image,ScrollView} from 'react-native';
+import {Text,Image,ScrollView,TouchableOpacity} from 'react-native';
 import NavigationContainer from './NavigationContainer';
 import PostList from './PostList.js';
 import CalendarStrip from 'react-native-calendar-strip';
 import {List, ListItem} from 'native-base';
 import {connect} from 'react-redux';
+
+
 class SomeDayScreen extends React.Component{
+      constructor(props){
+        super(props)
+        this.state = {
+          opacityco: 0.3,
+          opacitysi:0.3,
+          opacitygo:0.3
+        }
+        this.handleOnClickCo = this.handleOnClickCo.bind(this);
+        this.handleOnClickSi = this.handleOnClickSi.bind(this);
+        this.handleOnClickGo = this.handleOnClickGo.bind(this);
+      }
+
+      handleOnClickCo(){
+        this.setState({
+          opacityco: 1 //Anything u want
+        });
+      }
+
+      handleOnClickSi(){
+        this.setState({
+          opacitysi: 1 //Anything u want
+        });
+      }
+
+      handleOnClickGo(){
+        this.setState({
+          opacitygo: 1 //Anything u want
+        });
+      }
+
+
     render () {
       const {navigate} = this.props.navigation;
       if(this.props.mode===0){
@@ -20,22 +53,27 @@ class SomeDayScreen extends React.Component{
       else if(this.props.mode===3){
           var url=require('../images/bg/bird1.png');
       }
+
         return (
-
-
-            <Image source={url} style = {styles.background}>
+                <Image source={url} style = {styles.background}>
                 <NavigationContainer navigate={navigate} title='Today'>
                   <ScrollView>
                   <ListItem style = {styles.list}>
-                  <Image source={require('../images/cocup.png')} style = {styles.cup}/>
+                  <TouchableOpacity onPress={()=>{this.handleOnClickCo()}}>
+                  <Image source={require('../images/cocup.png')} style = {[styles.cup,{opacity:this.state.opacityco}]}/>
+                  </TouchableOpacity>
                   <Text style = {styles.text}>完成事件1次</Text>
                   </ListItem>
                   <ListItem style = {styles.list}>
-                  <Image source={require('../images/sicup.png')} style = {styles.cup}/>
+                  <TouchableOpacity onPress={()=>{this.handleOnClickSi()}}>
+                  <Image source={require('../images/sicup.png')} style = {[styles.cup,{opacity:this.state.opacitysi}]}/>
+                  </TouchableOpacity>
                   <Text style = {styles.text}>完成事件10次</Text>
                   </ListItem>
                   <ListItem style = {styles.list}>
-                  <Image source={require('../images/gcup.png')} style = {styles.cup}/>
+                  <TouchableOpacity onPress={()=>{this.handleOnClickGo()}}>
+                  <Image source={require('../images/gcup.png')} style = {[styles.cup,{opacity:this.state.opacitygo}]}/>
+                  </TouchableOpacity>
                   <Text style = {styles.text}>完成事件100次</Text>
                   </ListItem>
                   <ListItem style = {styles.list}>
@@ -64,11 +102,11 @@ class SomeDayScreen extends React.Component{
                   </ListItem>
                 </ScrollView>
                 </NavigationContainer>
-            </Image>
-
+              </Image>
         );
     };
 }
+
 const styles = {
   background:{
     resizeMode: 'cover',
@@ -86,7 +124,6 @@ const styles = {
     alignSelf: 'flex-end',
     marginRight: 20,
     marginTop: 15,
-    opacity:0.3
   },
   text:{
     alignItems: 'flex-start',
