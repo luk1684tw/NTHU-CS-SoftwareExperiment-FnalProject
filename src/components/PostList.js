@@ -75,10 +75,9 @@ class PostList extends React.Component {
                     data={events}
                     innerCircle={'dot'}
                     circleSize={20}
-                    columnFormat='two-column'
                     circleColor='rgb(45,156,219)'
                     lineColor='rgb(45,156,219)'
-                    timeContainerStyle={{minWidth:52, marginTop: 1}}
+                    timeContainerStyle={{minWidth:52, marginTop: 2}}
                     timeStyle={{textAlign: 'center', backgroundColor:'#ff9797', color:'white', padding:5, borderRadius:13}}
                     descriptionStyle={{color:'gray'}}
                     renderDetail={this.renderDetail}
