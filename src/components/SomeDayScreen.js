@@ -5,6 +5,7 @@ import PostList from './PostList.js';
 import CalendarStrip from 'react-native-calendar-strip';
 import {List, ListItem} from 'native-base';
 import {connect} from 'react-redux';
+import {AsyncStorage} from 'react-native';
 
 
 class SomeDayScreen extends React.Component{
@@ -22,8 +23,6 @@ class SomeDayScreen extends React.Component{
             opacitygobugr:0.3
         }
     }
-
-
     render () {
         const {navigate} = this.props.navigation;
         if(this.props.mode===0){
@@ -59,7 +58,23 @@ class SomeDayScreen extends React.Component{
                 }
             }
         }
-        
+
+        AsyncStorage.getItem('finish').then(items => {
+            var finished = JSON.parse(items);
+            console.log('finished: ',finished);
+            if(finished.length >= 1){
+                this.state.opacityco = 1;
+                if (finished.length >= 10) {
+                    this.state.opacitysi= 1;
+                    if (finished.length >= 100) {
+                        this.state.opacitygo= 1;
+                    }
+                }
+            }
+        }).catch(err => {
+            console.log('error:',err);
+        });
+
 
         console.log('groupNum',this.props.groupNum);
 

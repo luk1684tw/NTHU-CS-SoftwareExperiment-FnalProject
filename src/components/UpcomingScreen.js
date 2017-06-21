@@ -17,6 +17,7 @@ class UpcomingScreen extends React.Component{
         this.handleFabClose = this.handleFabClose.bind(this);
     };
 
+
     render () {
         const {navigate} = this.props.navigation;
         if(this.props.mode===0){
