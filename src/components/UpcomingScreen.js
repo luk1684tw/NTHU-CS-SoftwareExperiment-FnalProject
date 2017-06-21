@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text,Image} from 'react-native';
+import {Text,Image, View} from 'react-native';
 import NavigationContainer from './NavigationContainer';
 import CalendarStrip from 'react-native-calendar-strip';
 import PostList from './PostList.js';
@@ -36,7 +36,9 @@ class UpcomingScreen extends React.Component{
         return (
             <Image source={url} style = {styles.background}>
                 <NavigationContainer navigate={navigate} title='Upcoming'>
-                    <CalendarStrip/>
+                    <View style={styles.upcoming}>
+                    <Text style={{marginLeft:'auto',marginRight:'auto',fontSize:25,fontWeight:'bold'}}>UPCOMING</Text>
+                    </View>
                     <PostList duration='upcoming'/>
 
                     <Fab
@@ -69,7 +71,15 @@ const styles = {
     fab: {
         backgroundColor: appColors.primary,
         opacity: 0.5
-    }
+    },
+    upcoming: {
+        height:70,
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: 'transparent',
+        opacity: 0.7,
+        top:0,
+    },
 };
 
 

@@ -139,7 +139,7 @@ class DrawerSideBar extends React.Component {
         let children=(
           <ListItem>
               <Icon name='tag-multiple' size={24}/>
-              <Text style={styles.text}>新增群組</Text>
+              <Text style={styles.text}>Add group</Text>
           </ListItem>
         );
         if(groups.length){
@@ -172,22 +172,22 @@ class DrawerSideBar extends React.Component {
             <Content>
                 <List>
                     {/* 代辦事項 */}
-                    <ListItem itemDivider style={styles.itemheight}><Left><Text style={styles.text}>待辦事項</Text></Left><Body></Body><Right></Right></ListItem>
+                    <ListItem itemDivider style={styles.itemheight}><Left><Text style={styles.text}>Todo</Text></Left><Body></Body><Right></Right></ListItem>
                     <ListItem button onPress={()=>{this.handleOnClickOtherWindow('Today')}}>
                         <Icon name='bomb' size={20}/>
-                        <Text style={styles.text}>今天</Text>
+                        <Text style={styles.text}>Today</Text>
                     </ListItem>
                     <ListItem  button onPress={()=>{this.handleOnClickOtherWindow('Upcoming')}}>
                         <Icon name='clock-alert' size={20}/>
-                        <Text style={styles.text}>即將來臨</Text>
+                        <Text style={styles.text}>Upcoming</Text>
                     </ListItem>
                     <ListItem  button onPress={()=>{this.handleOnClickOtherWindow('SomeDay')}}>
                         <Icon name='trophy' size={20}/>
-                        <Text style={styles.text}>里程碑</Text>
+                        <Text style={styles.text}>Milestone</Text>
                     </ListItem>
                     {/* 群組 */}
                     <ListItem itemDivider>
-                            <Left><Text>群組</Text></Left>
+                            <Left><Text style={styles.text}>Group</Text></Left>
                             <Body></Body>
                             <Right>
                                 {/* TODO: Add Group Name Button */}
@@ -200,18 +200,18 @@ class DrawerSideBar extends React.Component {
                     </ListItem>
                     {(modalToggle===false)?<Text></Text>:<ListItem>
                         <Item >
-                               <Input placeholder='請輸入群組名稱 '
+                               <Input placeholder='Enter group name '
                                    defaultValue={groupNameText}
                                    onEndEditing={this.handleSubmit}/>
-                               <Button transparent success onPress={this.handleSubmit}><Text>新增</Text></Button>
+                               <Button transparent success onPress={this.handleSubmit}><Text>Add</Text></Button>
                         </Item>
                     </ListItem>}
                     {children}
                     {/* 設定 */}
-                    <ListItem itemDivider><Left><Text style={styles.text}>設定</Text></Left><Body></Body><Right></Right></ListItem>
+                    <ListItem itemDivider><Left><Text style={styles.text}>Setting</Text></Left><Body></Body><Right></Right></ListItem>
                     <ListItem  button onPress={()=>{this.handleOnClickOtherWindow('Setting')}}>
                         <Icon name='settings-box' size={20}/>
-                        <Text style={styles.text}>個人設定</Text>
+                        <Text style={styles.text}>Perference</Text>
                     </ListItem>
                 </List>
             </Content>

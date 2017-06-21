@@ -31,7 +31,7 @@ export default class SettingScreen extends React.Component{
                     <SettingsList borderColor='#d6d5d9' defaultItemSize={50}>
                         <SettingsList.Item
                             hasNavArrow={false}
-                            title='自訂主題'
+                            title='Perference'
                             titleStyle={{color:'steelblue', marginBottom:10, fontWeight:'500'}}
                             itemWidth={50}
                             borderHide={'Both'}
@@ -45,7 +45,7 @@ export default class SettingScreen extends React.Component{
                             hasNavArrow={true}
                             itemWidth={70}
                             titleStyle={{color:'steelblue', fontSize: 16, fontWeight:'bold',backgroundColor:'transparent'}}
-                            title='換個背景吧！'
+                            title='Theme'
                             onPress={() => navigate('ChooseColor')}
                         />
                         <SettingsList.Item
@@ -73,7 +73,7 @@ export default class SettingScreen extends React.Component{
                               <Image style={{alignSelf:'center',height:22, width:22}} source={require('../images/intro.png')}/>
                             </View>
                           }
-                          title='使用說明'
+                          title='Introduction'
                           itemWidth={70}
                           titleStyle={{color:'steelblue', fontSize: 16,fontWeight:'bold'}}
                           hasNavArrow={false}
@@ -85,7 +85,7 @@ export default class SettingScreen extends React.Component{
                                 <Image style={{alignSelf:'center',height:28, width:30}} source={require('../images/contact.png')}/>
                               </View>
                             }
-                            title='開發團隊'
+                            title='Developer'
                             itemWidth={70}
                             titleStyle={{color:'steelblue', fontSize: 16,fontWeight:'bold'}}
                             hasNavArrow={false}
