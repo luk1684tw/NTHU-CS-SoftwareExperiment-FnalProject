@@ -26,10 +26,11 @@ class PostList extends React.Component {
 
     componentDidMount() {
         if (this.props.duration === 'today') {
-            this.props.dispatch(listEvents(this.props.groupScreenName,0,0));
+            this.props.dispatch(listEvents(this.props.groupScreenName ,0 ,0));
         } else if (this.props.duration === 'upcoming') {
             this.props.dispatch(listEvents(this.props.groupScreenName,1,3));
         }else {
+            console.log(this.props.groupScreenName);
             this.props.dispatch(listEvents(this.props.groupScreenName));
         }
 
@@ -133,5 +134,6 @@ export default connect((state, ownProps) => ({
     listingPosts: state.post.listingPosts,
     listingMorePosts: state.post.listingMorePosts,
     events: state.event.events,
-    hasMorePosts: state.post.hasMore
+    hasMorePosts: state.post.hasMore,
+    groupScreenName: state.group.groupScreenName
 }))(PostList);

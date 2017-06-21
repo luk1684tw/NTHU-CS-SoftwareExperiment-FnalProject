@@ -23,6 +23,7 @@ class AddEventScreen extends React.Component{
         secondClickDate: PropTypes.string,
         dispatch: PropTypes.func
     }
+
     constructor(props) {
         super(props);
           this.state = {
@@ -30,112 +31,102 @@ class AddEventScreen extends React.Component{
             end: '',
             time:"12:50",
           };
-          this.onDayPress = this.onDayPress.bind(this);
-          this.handleGoBack = this.handleGoBack.bind(this);
-          this.handleTitleChange = this.handleTitleChange.bind(this);
-          this.handleCreateEvent = this.handleCreateEvent.bind(this);
+        this.onDayPress = this.onDayPress.bind(this);
+        this.handleGoBack = this.handleGoBack.bind(this);
+        this.handleTitleChange = this.handleTitleChange.bind(this);
+        this.handleCreateEvent = this.handleCreateEvent.bind(this);
     }
-     handleTitleChange(e){
+
+    handleTitleChange(e){
          const {inputDanger: danger, eventTitle, dispatch} = this.props;
          dispatch(inputEventTitle(e.nativeEvent.text));
 
      }
-     handleCreateEvent(){
-         const{eventTitle, eventStartDate, groupScreenName, eventEndDate, firstClickDate, secondClickDate, dispatch}=this.props;
-         const {goBack, navigate} = this.props.navigation;
-         if(eventTitle && (eventStartDate||eventEndDate)&&(firstClickDate || secondClickDate)){
-             dispatch(createEvent(eventStartDate, eventEndDate, groupScreenName, eventTitle));
-             dispatch(resetForm());
-             //dispatch(listEvents());
-             if(groupScreenName)
-                navigate('Group');
-             else
-                navigate('Today');
-         }else if(!(eventStartDate&&eventEndDate&&firstClickDate && secondClickDate)){
-           Toast.show({
-             supportedOrientations: ['portrait','landscape'],
-             text: 'choose Start and End day',
-             position: 'bottom',
-             duration: 2600
-         });
-       }else{
-          Toast.show({
-            supportedOrientations: ['portrait','landscape'],
-            text: 'add Text above ',
-            position: 'bottom',
-            duration: 2600
-       })
-      }
+
+    handleCreateEvent(){
+        const{eventTitle, eventStartDate, groupScreenName, eventEndDate, firstClickDate, secondClickDate, dispatch}=this.props;
+        const {goBack, navigate} = this.props.navigation;
+        if(eventTitle && (eventStartDate||eventEndDate)&&(firstClickDate || secondClickDate)){
+            dispatch(createEvent(eventStartDate, eventEndDate, groupScreenName, eventTitle));
+            dispatch(resetForm());
+                if(groupScreenName)
+                    navigate('Group');
+                else
+                    navigate('Today');
+        } else if(!(eventStartDate&&eventEndDate&&firstClickDate && secondClickDate)){
+            Toast.show({
+                supportedOrientations: ['portrait','landscape'],
+                text: 'choose Start and End day',
+                position: 'bottom',
+                duration: 2600
+            });
+        } else {
+            Toast.show({
+                supportedOrientations: ['portrait','landscape'],
+                text: 'add Text above ',
+                position: 'bottom',
+                duration: 2600
+            })
+        }
     }
+
     render () {
-      if(this.props.mode===0){
-          var url= require('../images/bg/season1.png');
-      }
-      else if(this.props.mode===1){
-          var url=require('../images/bg/plant1.png');
-      }
-      else if(this.props.mode===2){
-          var url=require('../images/bg/bird1.png');
-      }
-      else if(this.props.mode===3){
-          var url=require('../images/bg/pet1.png');
-      }
+        if(this.props.mode===0){
+            var url= require('../images/bg/season1.png');
+        }
+        else if(this.props.mode===1){
+            var url=require('../images/bg/plant1.png');
+        }
+        else if(this.props.mode===2){
+            var url=require('../images/bg/bird1.png');
+        }
+        else if(this.props.mode===3){
+            var url=require('../images/bg/pet1.png');
+        }
 
         return (
+            <Image source={url} style = {styles.background}>
+                <Container>
+                    <Header style={styles.header}>
+                        <Left>
+                            <Button transparent onPress={this.handleGoBack}>
+                                <Icon name='chevron-left' size={30} style = {{color: 'white'}}/>
+                            </Button>
+                        </Left>
+                    </Header>
 
-          <Image source={url} style = {styles.background}>
-              <Container>
-                <Header style={styles.header}>
-                    <Left>
-                        <Button transparent onPress={this.handleGoBack}>
-                            <Icon name='chevron-left' size={30} style = {{color: 'white'}}/>
-                        </Button>
-                    </Left>
+                    <Content>
+                        <ScrollView>
+                            <Calendar
+                                onDayPress={(day)=> this.onDayPress(day)}
+                                style={styles.calendar}
+                                markedDates={
+                                    {
+                                        [this.props.firstClickDate]: [{startingDay: true},{color:'green'},{marked:true}],
+                                        [this.props.secondClickDate]: [{endingDay: true},{color:'green'},{marked:true},{textColor: 'green'}]
+                                    }}
+                                format='MM-DD'
+                            />
+                        </ScrollView>
+                        <Form>
+                            <Item floatingLabel>
+                                <Label style={{color:'white'}}>想要提醒甚麼</Label>
+                                <Input  onChange={this.handleTitleChange}/>
+                            </Item>
 
-                    {/*<Body>
-                        <Text style={{marginLeft :75, fontSize: 20, color:'white'}}>新增提醒事項</Text>
-                    </Body>*/}
-
-                    {/*<Right>
-                        <Button transparent onPress={this.handleCreateEvent}>
-                            <Icon name='chevron-right' size={30} style = {{color: 'white'}}/>
-                        </Button>
-                    </Right>*/}
-
-                </Header>
-                <Content>
-                    <ScrollView>
-                        <Calendar
-                            onDayPress={(day)=> this.onDayPress(day)}
-                            style={styles.calendar}
-                            markedDates={
-                            {
-                                [this.props.firstClickDate]: [{startingDay: true},{color:'green'},{marked:true}],
-                                [this.props.secondClickDate]: [{endingDay: true},{color:'green'},{marked:true},{textColor: 'green'}]
-                            }}
-                            format='MM-DD'
-                        />
-
-                    </ScrollView>
-                    <Form>
-                        <Item floatingLabel>
-                            <Label style={{color:'white'}}>想要提醒甚麼</Label>
-                            <Input  onChange={this.handleTitleChange}/>
-                        </Item>
-
-                        <View style={{flex:1, margin:20}}>
-                            <Right><Button info rounded onPress={this.handleCreateEvent}><Text style={{color:'white'}}>新增</Text></Button></Right>
-                        </View>
-                    </Form>
-                </Content>
-              </Container>
+                            <View style={{flex:1, margin:20}}>
+                                <Right><Button info rounded onPress={this.handleCreateEvent}><Text style={{color:'white'}}>新增</Text></Button></Right>
+                            </View>
+                        </Form>
+                    </Content>
+                </Container>
             </Image>
 
         );
     };
 
     onDayPress(day) {
-        
+
         const {eventStartDate, eventEndDate, firstClickDate, secondClickDate, dispatch} = this.props;
         if(firstClickDate==='' && secondClickDate===''){
             dispatch(changeFirstDate(day.dateString));

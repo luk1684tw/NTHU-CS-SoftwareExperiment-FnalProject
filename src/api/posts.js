@@ -22,6 +22,7 @@ export function listPosts(group = '', startDate = -1, endDate = -1) {
                 Events = JSON.parse(events);
             }
             if (startDate >= 0) {
+                console.log('In here API');
                 Events=Events.filter((item) => {
                     const up = moment().unix() + endDate*86400;
                     const down = moment().unix() + (startDate-1)*86400;

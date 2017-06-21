@@ -22,7 +22,7 @@ class GroupScreen extends React.Component{
         this.handleFabClose = this.handleFabClose.bind(this);
     }
     componentDidMount(){
-        this.props.dispatch(listEvents(this.props.groupScreenName));
+        // this.props.dispatch(listEvents(this.props.groupScreenName,-1,-1));
     }
     handleFabClose() {
         this.setState({fabActive: !this.state.fabActive});

@@ -71,7 +71,7 @@ class DrawerSideBar extends React.Component {
     handleOnClick(item){
         this.props.dispatch(setGroupScreenName(item));
         // console.log(item, this.props.groupScreenName);
-        this.props.dispatch(listEvents(this.props.groupScreenName));
+         this.props.dispatch(listEvents(this.props.groupScreenName));
         this.props.navigate('Group');
         // this.props.dispatch(setGroupScreenName(item));
     }

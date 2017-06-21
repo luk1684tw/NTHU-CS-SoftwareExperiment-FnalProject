@@ -50,7 +50,7 @@ export function doneEvent(id='',start,end){
         );
     }
 }
-export function listEvents(group, startDate='', endDate='') {
+export function listEvents(group = '', startDate=-1, endDate=-1) {
     console.log('In listEvents: group: ', group);
     return (dispatch, getState) => {
         dispatch(startListEvents());
@@ -72,7 +72,7 @@ export function createEvent(StartDate, EndDate, Group, Title) {
         return createPostFromApi(StartDate, EndDate, Group, Title).then(event => {
             console.log('event get from api', event);
             dispatch(endCreateEvent(event));
-            dispatch(listEvents(getState().group.groupScreenName));
+            dispatch(listEvents(getState().group.groupScreenName, 0, 0));
         }).catch(err => {
             dispatch(endCreateEvent());
             console.error('Error creating event', err);
