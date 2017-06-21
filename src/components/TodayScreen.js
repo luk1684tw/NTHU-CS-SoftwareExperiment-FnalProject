@@ -16,6 +16,8 @@ import {connect} from 'react-redux';
 import {selectMood} from '../states/post-actions';
 import {setToast} from '../states/toast';
 import CalendarStrip from 'react-native-calendar-strip';
+import {AsyncStorage} from 'react-native';
+import {setTheme} from '../states/ChooseTheme.js';
 
 class TodayScreen extends React.Component {
     static propTypes = {
@@ -47,8 +49,17 @@ class TodayScreen extends React.Component {
             this.props.dispatch(setToast(''));
         }
     }
+    componentWillMount() {
+        AsyncStorage.getItem('mode').then((value) => {
+            if (value) {
+                console.log('mode:::::::',value);
+                this.props.dispatch(setTheme(JSON.parse(value)));
+            }
 
-     componentDidMount(){
+        })
+    }
+
+    componentDidMount() {
         if(new Date().getDay()===1){
           this.setState({day: "MON"});
         }
