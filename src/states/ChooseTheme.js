@@ -1,3 +1,4 @@
+
 export function setTheme(mode) {
     return {
         type: '@THEME/SELECTMODE',

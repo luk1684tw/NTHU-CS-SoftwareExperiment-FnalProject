@@ -27,6 +27,8 @@ import CreateGroupScreen from './components/CreateGroupScreen.js';
 import AddEventScreen from './components/AddEventScreen.js';
 import Developer from './components/developer.js';
 import Intro from './components/AppIntro.js';
+import {persistStore, autoRehydrate} from 'redux-persist';
+
 
 
 const AppNavigator = StackNavigator({
@@ -83,10 +85,10 @@ const nav = (state = initialState, action) => {
 };
 
 // Create Redux store
-const store = createStore(combineReducers({
-    nav, search, toast,
-    post, postForm, postItem,
-    event, group, groupName, eventForm ,corgi ,theme
+const store =  createStore(combineReducers({
+        nav, search, toast,
+        post, postForm, postItem,
+        event, group, groupName, eventForm ,corgi ,theme
 }), compose(applyMiddleware(thunkMiddleware, loggerMiddleware)));
 
 export default class App extends React.Component {

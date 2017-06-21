@@ -47,28 +47,49 @@ export function listPosts(group = '', startDate = -1, endDate = -1) {
     });
 }
 
-export function doneEvent(id='' ,start ,end){
-    return new Promise((resolve, reject)=>{
-        listPosts('',start,end).then(events => {
-            console.log('finishEvent in API', events);
-            var finish = [];
-            events.map(p => {
-                if (p.Id === id) {
-                    p.isDone = true;//moment().unix();
-                    finish = [
-                        ...finish,
-                        p
+export function doneEvent(id='' ,startDate ,endDate , group){
+    return new Promise ((resolve,reject) => {
+        AsyncStorage.getItem('user').then((events) => {
+            var Events = JSON.parse(events);
+            var finished = [];
+
+            Events.map((item) => {
+                if (item.Id == id) {
+                    item.isDone = true;
+                }
+                if (item.isDone) {
+                    finished = [
+                        ...finished,
+                        item
                     ];
                 }
-            });
-            console.log('Events dealt: ',finish);
-            AsyncStorage.setItem('finish',JSON.stringify(finish));
-            resolve(events);
+            })
+            AsyncStorage.setItem('user',JSON.stringify(Events));
+            AsyncStorage.setItem('finish',JSON.stringify(finished));
+
+            if (startDate >= 0) {
+                console.log('In here API');
+                Events=Events.filter((item) => {
+                    const up = moment().unix() + endDate*86400;
+                    const down = moment().unix() + (startDate-1)*86400;
+                    const event = moment(item.StartDate,'YYYY-MM-DD').unix();
+                    console.log('from', item.StartDate, ' to ',item.EndDate);
+                    console.log(down, ' < ', event , ' < ', up);
+                    return ((down <= event) && (up >= event))
+                });
+            }
+
+            if (Events.length>0 && group) {
+                Events=Events.filter((e) => {
+                    return (e.Group.toLowerCase().indexOf(group.toLowerCase()) !== -1);
+                });
+                console.log('In listEvents API, group filter', group, Events);
+            }
+            resolve(Events);
         }).catch((err) => {
-            console.log('load events failed',err);
-            reject(err);
-        });
-    });
+            console.log(err);
+        })
+    })
 }
 
 export function createPost(StartDate, EndDate, Group, Title) {
