@@ -110,12 +110,12 @@ class AddEventScreen extends React.Component{
                         </ScrollView>
                         <Form>
                             <Item floatingLabel>
-                                <Label style={{color:'white'}}>想要提醒甚麼</Label>
+                                <Label style={{color:'white'}}>Add something</Label>
                                 <Input  onChange={this.handleTitleChange}/>
                             </Item>
 
                             <View style={{flex:1, margin:20}}>
-                                <Right><Button info rounded onPress={this.handleCreateEvent}><Text style={{color:'white'}}>新增</Text></Button></Right>
+                                <Right><Button info rounded onPress={this.handleCreateEvent}><Text style={{color:'white'}}>Add</Text></Button></Right>
                             </View>
                         </Form>
                     </Content>

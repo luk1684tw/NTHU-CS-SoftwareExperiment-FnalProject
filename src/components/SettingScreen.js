@@ -31,7 +31,7 @@ export default class SettingScreen extends React.Component{
                     <SettingsList borderColor='#d6d5d9' defaultItemSize={50}>
                         <SettingsList.Item
                             hasNavArrow={false}
-                            title='Perference'
+                            title='Preference'
                             titleStyle={{color:'steelblue', marginBottom:10, fontWeight:'500'}}
                             itemWidth={50}
                             borderHide={'Both'}
