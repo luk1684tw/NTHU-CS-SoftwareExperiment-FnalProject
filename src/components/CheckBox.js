@@ -23,7 +23,7 @@ class checkBox extends React.Component {
         if(this.props.isDone===false) {
             if (this.props.duration === 'today')
                 this.props.dispatch(doneEvent(this.props.id,0,0));
-            else if (this.props.duration === 'today')
+            else if (this.props.duration === 'upcoming')
                 this.props.dispatch(doneEvent(this.props.id,1,3));
         }
 
