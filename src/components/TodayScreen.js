@@ -185,4 +185,5 @@ export default connect((state, ownProps) => ({
     events: state.event.events,
     toast: state.toast,
     mode:state.theme.mode,
+    events: state.event.events
 }))(TodayScreen);
