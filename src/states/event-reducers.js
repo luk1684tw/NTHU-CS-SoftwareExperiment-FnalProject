@@ -178,6 +178,11 @@ export function eventForm(state = initEventFormState, action) {
                 ...state,
                 eventEndTime: action.eventEndTime
             }
+        case 'EVENT_FORM/DURATION':
+            return {
+                ...state,
+                duration: action.duration
+            }
         default:
             return state;
     }

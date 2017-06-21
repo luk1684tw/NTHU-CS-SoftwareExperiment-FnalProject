@@ -15,7 +15,7 @@ import Timeline from 'react-native-timeline-listview';
 import {connect} from 'react-redux';
 import {selectMood} from '../states/post-actions';
 import {setToast} from '../states/toast';
-import CalendarStrip from 'react-native-calendar-strip';
+import  CalendarStrip from 'react-native-calendar-strip';
 import {AsyncStorage} from 'react-native';
 import {setTheme} from '../states/ChooseTheme.js';
 

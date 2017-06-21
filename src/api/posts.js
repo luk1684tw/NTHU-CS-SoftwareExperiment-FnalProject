@@ -21,7 +21,14 @@ export function listPosts(group = '', startDate = -1, endDate = -1) {
             if(events){
                 Events = JSON.parse(events);
             }
-            if (startDate >= 0) {
+            if (Events.length>0 && group) {
+                console.log('before group filter',group,Events);
+                Events=Events.filter((e) => {
+                    return (e.Group.toLowerCase().indexOf(group.toLowerCase()) !== -1);
+                });
+                console.log('In listEvents API, group filter', group, Events);
+            }
+            else if (startDate >= 0) {
                 console.log('In here API');
                 Events=Events.filter((item) => {
                     const up = moment().unix() + endDate*86400;
@@ -31,13 +38,6 @@ export function listPosts(group = '', startDate = -1, endDate = -1) {
                     console.log(down, ' < ', event , ' < ', up);
                     return ((down <= event) && (up >= event))
                 });
-            }
-
-            if (Events.length>0 && group) {
-                Events=Events.filter((e) => {
-                    return (e.Group.toLowerCase().indexOf(group.toLowerCase()) !== -1);
-                });
-                console.log('In listEvents API, group filter', group, Events);
             }
             resolve(Events);
         }).catch((err) => {
@@ -95,7 +95,7 @@ export function doneEvent(id='' ,startDate ,endDate , group){
 export function createPost(StartDate, EndDate, Group, Title) {
     return new Promise((resolve,reject) => {
         // AsyncStorage.removeItem('user');
-
+        console.log('creatrPOst get', Group,StartDate, EndDate,Title);
         AsyncStorage.getItem('user').then(result => {
             if (moment(StartDate,'YYYY-MM-DD').unix() > moment(EndDate,'YYYY-MM-DD').unix()){
                 var startdate = EndDate;
