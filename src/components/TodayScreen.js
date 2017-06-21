@@ -156,7 +156,6 @@ const styles = {
         backgroundColor: 'transparent',
         opacity: 0.7,
         top:0,
-
     },
     todaynav:{
 
