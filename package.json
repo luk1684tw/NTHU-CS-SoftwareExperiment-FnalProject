@@ -21,6 +21,8 @@
     "react-native-elements": "^0.13.0",
     "react-native-infinite-scroll-view": "^0.4.2",
     "react-native-modal-datetime-picker": "^4.7.0",
+    "react-native-parallax": "^0.3.0",
+    "react-native-parallax-view": "^2.0.6",
     "react-native-settings-list": "^1.4.0",
     "react-native-timeline-listview": "^0.2.1",
     "react-native-vector-icons": "^4.1.1",

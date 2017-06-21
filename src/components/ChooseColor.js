@@ -13,6 +13,8 @@ import {
   Image,
 } from 'react-native';
 
+import { Col, Row, Grid } from 'react-native-easy-grid';
+
 import {Container, Content} from 'native-base';
 import {connect} from 'react-redux';
 import {setTheme} from '../states/ChooseTheme.js';
@@ -28,37 +30,43 @@ class ChooseColor extends React.Component{
     render () {
         const {navigate} = this.props.navigation;
         return (
-            <Container style={{backgroundColor:'rgb(232, 235, 188)', justifyContent:'space-around'
-                                , flexDirection:'row', flex:2}}>
-                <Content >
+            <Container>
+              <Image source={require('../images/stone.png')} style={styles.background}>
+                <Content>
+                    <Grid>
+                    <Col>
                     <TouchableOpacity onPress={() =>{this.handleThemeMode(0),navigate('Setting')}}>
                         <Image
-                        style={styles.button}
+                        style={styles.buttonul}
                         source={require('../images/bg/season1.png')}
                         />
                     </TouchableOpacity>
 
                     <TouchableOpacity onPress={() =>{this.handleThemeMode(1),navigate('Setting')}}>
                         <Image
-                            style={styles.button}
+                            style={styles.buttondl}
                             source={require('../images/bg/plant1.png')}
                         />
                     </TouchableOpacity>
-
+                  </Col>
+                  <Col>
                     <TouchableOpacity onPress={() =>{this.handleThemeMode(2),navigate('Setting')}}>
                         <Image
-                            style={styles.button}
+                            style={styles.buttonur}
                             source={require('../images/bg/bird1.png')}
                         />
                     </TouchableOpacity>
 
                     <TouchableOpacity onPress={() =>{this.handleThemeMode(3),navigate('Setting')}}>
                         <Image
-                            style={styles.button}
+                            style={styles.buttondr}
                             source={require('../images/bg/pet1.png')}
                         />
                     </TouchableOpacity>
+                  </Col>
+                  </Grid>
                 </Content>
+              </Image>
             </Container>
         );
     };
@@ -72,14 +80,12 @@ export default connect((state) => ({
 }))(ChooseColor);
 
 const styles = StyleSheet.create({
-    button: {
+    buttonul: {
       width: 120,
       height: 180,
-      marginTop:40,
+      marginTop:80,
       borderWidth: 1,
-      marginLeft:'auto',
-      marginRight:'auto',
-      marginLeft: 38,
+      marginLeft:60,
       borderColor:'gray'
     },
     buttonText: {
@@ -87,4 +93,36 @@ const styles = StyleSheet.create({
       fontSize: 20,
       fontWeight: 'bold',
     },
+    background:{
+      resizeMode: 'cover',
+      width:null,
+      height:null,
+      flex: 1,
+    },
+    buttonur: {
+      width: 120,
+      height: 180,
+      marginTop:80,
+      borderWidth: 1,
+      marginRight: 20,
+      marginLeft:10,
+      borderColor:'gray'
+    },
+    buttondl: {
+      width: 120,
+      height: 180,
+      marginTop:20,
+      borderWidth: 1,
+      marginLeft:60,
+      borderColor:'gray'
+    },
+    buttondr: {
+      width: 120,
+      height: 180,
+      marginTop:20,
+      borderWidth: 1,
+      marginRight:20,
+      marginLeft:10,
+      borderColor:'gray'
+    }
 });
