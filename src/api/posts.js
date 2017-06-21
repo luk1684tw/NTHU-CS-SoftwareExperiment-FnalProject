@@ -22,6 +22,7 @@ export function listPosts(group = '', startDate = -1, endDate = -1) {
                 Events = JSON.parse(events);
             }
             if (startDate >= 0) {
+                console.log('In here API');
                 Events=Events.filter((item) => {
                     const up = moment().unix() + endDate*86400;
                     const down = moment().unix() + (startDate-1)*86400;
@@ -50,13 +51,18 @@ export function doneEvent(id='' ,start ,end){
     return new Promise((resolve, reject)=>{
         listPosts('',start,end).then(events => {
             console.log('finishEvent in API', events);
+            var finish = [];
             events.map(p => {
                 if (p.Id === id) {
                     p.isDone = true;//moment().unix();
+                    finish = [
+                        ...finish,
+                        p
+                    ];
                 }
             });
-            console.log('Events dealt: ',events);
-            AsyncStorage.setItem('user',JSON.stringify(events));
+            console.log('Events dealt: ',finish);
+            AsyncStorage.setItem('finish',JSON.stringify(finish));
             resolve(events);
         }).catch((err) => {
             console.log('load events failed',err);
