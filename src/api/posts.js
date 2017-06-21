@@ -46,7 +46,7 @@ export function listPosts(group = '', startDate = -1, endDate = -1) {
     });
 }
 
-export function doneEvent(id='',start,end){
+export function doneEvent(id='' ,start ,end){
     return new Promise((resolve, reject)=>{
         listPosts('',start,end).then(events => {
             console.log('finishEvent in API', events);
@@ -64,6 +64,7 @@ export function doneEvent(id='',start,end){
         });
     });
 }
+
 export function createPost(StartDate, EndDate, Group, Title) {
     return new Promise((resolve,reject) => {
         // AsyncStorage.removeItem('user');

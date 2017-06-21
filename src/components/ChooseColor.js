@@ -35,14 +35,14 @@ class ChooseColor extends React.Component{
                 <Content>
                     <Grid>
                     <Col>
-                    <TouchableOpacity onPress={() =>{this.handleThemeMode(0),navigate('Setting')}}>
+                    <TouchableOpacity onPress={() =>{this.handleThemeMode(0),navigate('Today')}}>
                         <Image
                         style={styles.buttonul}
                         source={require('../images/bg/season1.png')}
                         />
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() =>{this.handleThemeMode(1),navigate('Setting')}}>
+                    <TouchableOpacity onPress={() =>{this.handleThemeMode(1),navigate('Today')}}>
                         <Image
                             style={styles.buttondl}
                             source={require('../images/bg/plant1.png')}
@@ -50,14 +50,14 @@ class ChooseColor extends React.Component{
                     </TouchableOpacity>
                   </Col>
                   <Col>
-                    <TouchableOpacity onPress={() =>{this.handleThemeMode(2),navigate('Setting')}}>
+                    <TouchableOpacity onPress={() =>{this.handleThemeMode(2),navigate('Today')}}>
                         <Image
                             style={styles.buttonur}
                             source={require('../images/bg/bird1.png')}
                         />
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() =>{this.handleThemeMode(3),navigate('Setting')}}>
+                    <TouchableOpacity onPress={() =>{this.handleThemeMode(3),navigate('Today')}}>
                         <Image
                             style={styles.buttondr}
                             source={require('../images/bg/pet1.png')}
