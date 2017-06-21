@@ -63,7 +63,10 @@ class DrawerSideBar extends React.Component {
           require('../images/corgi-57.png'),
         ];
         this.next = this.next.bind(this);
-        this.state = {index: 0};
+        this.state = {
+            index: 0,
+            firstclick:0
+        };
     }
     componentDidMount(){
         this.props.dispatch(listGroups());
@@ -94,6 +97,20 @@ class DrawerSideBar extends React.Component {
             this.props.dispatch(createGroup(e.nativeEvent.text));
             this.props.dispatch(setGroupNameText(e.nativeEvent.text));
             this.props.dispatch(toggleGroupNameModal());
+            if(this.props.groups.length==0){
+            Toast.show({
+            supportedOrientations: ['portrait','landscape'],
+            text: 'You got a new milestone',
+            position: 'bottom',
+            duration: 2600
+          })}
+          if(this.props.groups.length==4){
+          Toast.show({
+          supportedOrientations: ['portrait','landscape'],
+          text: 'You got a new milestone',
+          position: 'bottom',
+          duration: 2600
+        })}
         }
     }
 
@@ -132,7 +149,7 @@ class DrawerSideBar extends React.Component {
     render() {
 
       const {navigate, dispatch, modalToggle, groupNameText, groups , pictureNum , eventStartDate ,eventEndDate} = this.props;
-      const e = 'Welcome back Master~';
+      var e = (this.state.firstclick==0)  ? 'Welcome back Master~': 'hihi';
       //-----------------Group List Setting-----------------------
         //var items=['和學妹出去玩', '和妹妹野餐', '和女友約會'];
 
@@ -159,6 +176,7 @@ class DrawerSideBar extends React.Component {
       return (
         <Container style={styles.drawer}>
           <TouchableOpacity   onPress={() => {this.handleOnClickCorgi();
+                                              this.setState({firstclick:!this.state.firstclick});
                                               Toast.show({
                                               supportedOrientations: ['portrait','landscape'],
                                               text: e,
@@ -203,7 +221,7 @@ class DrawerSideBar extends React.Component {
                                <Input placeholder='Enter group name '
                                    defaultValue={groupNameText}
                                    onEndEditing={this.handleSubmit}/>
-                               <Button transparent success onPress={this.handleSubmit}><Text>Add</Text></Button>
+                               <Button transparent success onPress={this.handleSubmit} ><Text>Add</Text></Button>
                         </Item>
                     </ListItem>}
                     {children}
@@ -211,7 +229,7 @@ class DrawerSideBar extends React.Component {
                     <ListItem itemDivider><Left><Text style={styles.text}>Setting</Text></Left><Body></Body><Right></Right></ListItem>
                     <ListItem  button onPress={()=>{this.handleOnClickOtherWindow('Setting')}}>
                         <Icon name='settings-box' size={20}/>
-                        <Text style={styles.text}>Perference</Text>
+                        <Text style={styles.text}>Preference</Text>
                     </ListItem>
                 </List>
             </Content>
